@@ -25,7 +25,6 @@ namespace SIL.FLExTransRuleGenerator.Control
             InitializeComponent();
             wv2RuleEditor.WebMessageReceived += webView2_WebMessageReceived;
             wv2RuleEditor.Source = GetUriOfWebPage();
-            //new Uri(@"C:\Users\Andy Black\Documents\FieldWorks\FLExTrans\RuleGenerator\TreeFlex\Test123.html");
             wv2RuleEditor.Show();
         }
 

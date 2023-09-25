@@ -89,5 +89,6 @@
 		private System.Windows.Forms.ListBox lBoxRules;
 		private System.Windows.Forms.CheckedListBox checkedListBox1;
 		private Microsoft.Web.WebView2.WinForms.WebView2 wv2RuleEditor;
+
 	}
 }
