@@ -7,7 +7,7 @@
     <ProjectGuid>{1558AEBA-5E18-47F3-883E-4C90550C3C43}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>SIL.FLExTransRuleGenerator</RootNamespace>
-    <AssemblyName>SIL.FLExTransRuleGenerator</AssemblyName>
+    <AssemblyName>FLExTransRuleGenerator</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
