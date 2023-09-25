@@ -19,8 +19,15 @@ namespace SIL.FLExTransRuleGenerator.Control
 		public RuleGeneratorControl()
 		{
 			InitializeComponent();
+			wv2RuleEditor.WebMessageReceived += webView2_WebMessageReceived;
 			wv2RuleEditor.Source = new Uri(@"C:\Users\Andy Black\Documents\FieldWorks\FLExTrans\RuleGenerator\TreeFlex\Test123.html");
 			wv2RuleEditor.Show();
+		}
+
+		private void webView2_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs args)
+		{
+			string message = args.TryGetWebMessageAsString();
+			MessageBox.Show(message);
 		}
 	}
 }
