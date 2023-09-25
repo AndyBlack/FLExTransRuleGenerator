@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace FLExTransRuleGenerator
 {
-	class FLExTransRuleGenerator
-	{
-		[STAThread]
-		static void Main(string[] args)
-		{
-			var controller = new RuleGeneratorControl();
-			controller.ShowDialog();
-		}
-	}
+    class FLExTransRuleGenerator
+    {
+        [STAThread]
+        static void Main(string[] args)
+        {
+            var controller = new RuleGeneratorControl();
+            controller.ShowDialog();
+        }
+    }
 }
