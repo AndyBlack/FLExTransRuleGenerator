@@ -18,6 +18,19 @@ namespace SIL.FLExTransRuleGen.Model
 
         [XmlAttribute("type")]
         public AffixType Type { get; set; } = AffixType.suffix;
+
+        public Affix() { }
+
+        public Affix Duplicate()
+        {
+            Affix newAffix = new Affix();
+            newAffix.Type = Type;
+            foreach (Feature feature in Features)
+            {
+                newAffix.Features.Add(feature.Duplicate());
+            }
+            return newAffix;
+        }
     }
 
     public enum AffixType

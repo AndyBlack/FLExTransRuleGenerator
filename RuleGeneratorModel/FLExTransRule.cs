@@ -23,5 +23,17 @@ namespace SIL.FLExTransRuleGen.Model
         public string Name { get; set; } = "";
 
         public FLExTransRule() { }
+
+        public FLExTransRule Duplicate()
+        {
+            FLExTransRule newRule = new FLExTransRule();
+            newRule.Name = Name;
+            Phrase newSource = Source.Duplicate();
+            newRule.Source = newSource;
+            Phrase newTarget = Target.Duplicate();
+            newRule.Target = newTarget;
+            ;
+            return newRule;
+        }
     }
 }

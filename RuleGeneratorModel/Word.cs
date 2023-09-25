@@ -29,6 +29,23 @@ namespace SIL.FLExTransRuleGen.Model
         public HeadValue Head { get; set; } = HeadValue.no;
 
         public Word() { }
+
+        public Word Duplicate()
+        {
+            Word newWord = new Word();
+            newWord.Id = Id;
+            newWord.Category = Category;
+            newWord.Head = Head;
+            foreach (Affix affix in Affixes)
+            {
+                newWord.Affixes.Add(affix.Duplicate());
+            }
+            foreach (Feature feature in Features)
+            {
+                newWord.Features.Add(feature.Duplicate());
+            }
+            return newWord;
+        }
     }
 
     public enum HeadValue

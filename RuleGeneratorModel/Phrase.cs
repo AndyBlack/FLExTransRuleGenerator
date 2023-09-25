@@ -15,5 +15,15 @@ namespace SIL.FLExTransRuleGen.Model
         public List<Word> Words { get; set; } = new List<Word>();
 
         public Phrase() { }
+
+        public Phrase Duplicate()
+        {
+            Phrase newPhrase = new Phrase();
+            foreach (Word word in Words)
+            {
+                newPhrase.Words.Add(word.Duplicate());
+            }
+            return newPhrase;
+        }
     }
 }

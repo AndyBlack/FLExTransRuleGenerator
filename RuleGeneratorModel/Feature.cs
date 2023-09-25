@@ -20,5 +20,13 @@ namespace SIL.FLExTransRuleGen.Model
         public string Label { get; set; } = "";
 
         public Feature() { }
+
+        public Feature Duplicate()
+        {
+            Feature newFeature = new Feature();
+            newFeature.Match = Match;
+            newFeature.Label = Label;
+            return newFeature;
+        }
     }
 }
