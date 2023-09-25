@@ -7,18 +7,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
-namespace SIL.FLExTransRuleGenerator.Model
+namespace SIL.FLExTransRuleGen.Model
 {
-	public class FLExTransRule
-	{
-		public Phrase Source { get; set; } = new Phrase();
-		public Phrase Target { get; set; } = new Phrase();
-		public string Name { get; set; } = "";
+    public class FLExTransRule
+    {
+        [XmlElement("source")]
+        public Phrase Source { get; set; } = new Phrase();
 
-		public FLExTransRule()
-		{
+        [XmlElement("target")]
+        public Phrase Target { get; set; } = new Phrase();
 
-		}
-	}
+        [XmlAttribute("name")]
+        public string Name { get; set; } = "";
+
+        public FLExTransRule() { }
+    }
 }

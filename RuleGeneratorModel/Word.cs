@@ -7,20 +7,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
-namespace SIL.FLExTransRuleGenerator.Model
+namespace SIL.FLExTransRuleGen.Model
 {
-	public class Word
-	{
-		public List<Feature> Features { get; set; } = new List<Feature>();
-		public List<Affix> Affixes { get; set; } = new List<Affix>();
-		public string Id { get; set; } = "";
-		public string Category { get; set; } = "";
-		public bool Head { get; set; } = false;
+    public class Word
+    {
+        [XmlElement("features")]
+        public List<Feature> Features { get; set; } = new List<Feature>();
 
-		public Word()
-		{
+        [XmlElement("affixes")]
+        public List<Affix> Affixes { get; set; } = new List<Affix>();
 
-		}
-	}
+        [XmlAttribute("id")]
+        public string Id { get; set; } = "";
+
+        [XmlAttribute("category")]
+        public string Category { get; set; } = "";
+
+        [XmlAttribute("head")]
+        public HeadValue Head { get; set; } = HeadValue.no;
+
+        public Word() { }
+    }
+
+    public enum HeadValue
+    {
+        yes,
+        no
+    }
 }

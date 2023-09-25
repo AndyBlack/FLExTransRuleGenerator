@@ -8,16 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIL.FLExTransRuleGenerator.Model
+namespace SIL.FLExTransRuleGen.Model
 {
+    public class Phrase
+    {
+        public List<Word> Words { get; set; } = new List<Word>();
 
-	public class Phrase
-	{
-		public List<Word> Words { get; set; } = new List<Word>();
-
-		public Phrase()
-		{
-
-		}
-	}
+        public Phrase() { }
+    }
 }

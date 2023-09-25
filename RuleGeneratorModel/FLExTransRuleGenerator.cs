@@ -7,16 +7,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
-namespace SIL.FLExTransRuleGenerator.Model
+namespace SIL.FLExTransRuleGen.Model
 {
     public class FLExTransRuleGenerator
-	{
-		public List<FLExTransRule> Rules { get; set; } = new List<FLExTransRule>();
+    {
+        public List<FLExTransRule> Rules { get; set; } = new List<FLExTransRule>();
 
-		public FLExTransRuleGenerator()
-		{
-
-		}
+        public FLExTransRuleGenerator() { }
     }
 }

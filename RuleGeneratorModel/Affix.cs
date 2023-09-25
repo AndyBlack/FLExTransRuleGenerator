@@ -7,19 +7,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
-namespace SIL.FLExTransRuleGenerator.Model
+namespace SIL.FLExTransRuleGen.Model
 {
-	public class Affix
-	{
-		public List<Feature> Features { get; set; } = new List<Feature>();
-		public AffixType Type { get; set; } = AffixType.Suffix;
+    public class Affix
+    {
+        [XmlElement("features")]
+        public List<Feature> Features { get; set; } = new List<Feature>();
 
-	}
+        [XmlAttribute("type")]
+        public AffixType Type { get; set; } = AffixType.suffix;
+    }
 
-	public enum AffixType
-	{
-		Prefix,
-		Suffix
-	}
+    public enum AffixType
+    {
+        prefix,
+        suffix
+    }
 }

@@ -7,17 +7,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
-namespace SIL.FLExTransRuleGenerator.Model
+namespace SIL.FLExTransRuleGen.Model
 {
-	public class Feature
-	{
-		public string Match { get; set; } = "";
-		public string Label { get; set; } = "";
+    public class Feature
+    {
+        [XmlAttribute("match")]
+        public string Match { get; set; } = "";
 
-		public Feature()
-		{
+        [XmlAttribute("label")]
+        public string Label { get; set; } = "";
 
-		}
-	}
+        public Feature() { }
+    }
 }
