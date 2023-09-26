@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FLExTransRuleGenerator xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE FLExTransRuleGenerator PUBLIC " -//XMLmind//DTD FLExTransRuleGenerator//EN"
+"FLExTransRuleGenerator.dtd">
+<FLExTransRuleGenerator>
   <FLExTransRules>
     <FLExTransRule name="Indefinite - Adjective - Noun">
       <Source>

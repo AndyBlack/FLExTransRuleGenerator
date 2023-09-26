@@ -23,7 +23,7 @@
   head (yes | no) "no"
 >
 
-<!ELEMENT Features (Feature)+ >
+<!ELEMENT Features (Feature)* >
 
 <!ELEMENT Feature EMPTY >
 <!ATTLIST Feature
@@ -31,7 +31,7 @@
   label CDATA #REQUIRED
 >
 
-<!ELEMENT Affixes (Affix)+ >
+<!ELEMENT Affixes (Affix)* >
 
 <!ELEMENT Affix (Features*) >
 <!ATTLIST Affix

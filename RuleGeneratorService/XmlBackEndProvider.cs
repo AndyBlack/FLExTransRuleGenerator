@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 
 // Some code taken from https://www.codeproject.com/Articles/483055/XML-Serialization-and-Deserialization-Part-1
@@ -33,11 +34,22 @@ namespace SIL.FLExTransRuleGen.Service
         public void SaveDataToFile(string FileName)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(FLExTransRuleGenerator));
-            //serializer.Serialize()
             using (TextWriter writer = new StreamWriter(FileName))
             {
                 serializer.Serialize(writer, RuleGenerator);
             }
+            // Maybe there's a better way, but this hack inserts the DOCTYPE in the right spot.
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            sb.Append(
+                "<!DOCTYPE FLExTransRuleGenerator PUBLIC \" -//XMLmind//DTD FLExTransRuleGenerator//EN\"\n"
+            );
+            sb.Append("\"FLExTransRuleGenerator.dtd\">\n");
+            string result = File.ReadAllText(FileName);
+            //int i = result.IndexOf("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\"");
+            sb.Append("<FLExTransRuleGenerator>\n");
+            sb.Append(result.Substring(165));
+            File.WriteAllText(FileName, sb.ToString(), Encoding.UTF8);
         }
     }
 }
