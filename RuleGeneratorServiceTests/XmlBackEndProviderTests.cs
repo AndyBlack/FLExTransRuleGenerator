@@ -79,6 +79,83 @@ namespace SIL.FLExTransRuleGenServiceTests
             CheckFeatureAttributes(feature, "gender", "α");
         }
 
+        [Test]
+        public void LoadTestEx4bIndefAdjNoun()
+        {
+            RuleGenExpected = Path.Combine(TestDataDir, "Ex4b_Indef-Adj-Noun.xml");
+            provider.LoadDataFromFile(RuleGenExpected);
+            FLExTransRuleGenerator ruleGenerator = provider.RuleGenerator;
+            Assert.NotNull(ruleGenerator);
+            Assert.AreEqual(1, ruleGenerator.FLExTransRules.Count);
+            FLExTransRule ftRule = ruleGenerator.FLExTransRules[0];
+            Assert.AreEqual("Indefinite - Adjective - Noun", ftRule.Name);
+
+            Source source = ftRule.Source;
+            Assert.NotNull(source);
+            Phrase sourcePhrase = source.Phrase;
+            List<Word> words = sourcePhrase.Words;
+            Assert.AreEqual(3, words.Count);
+            Word word = words[0];
+            CheckWordAttributes(word, "1", "indef", HeadValue.no);
+            Assert.AreEqual(0, word.Affixes.Count);
+            Assert.AreEqual(0, word.Features.Count);
+            word = words[1];
+            CheckWordAttributes(word, "2", "adj", HeadValue.no);
+            Assert.AreEqual(0, word.Affixes.Count);
+            Assert.AreEqual(0, word.Features.Count);
+            word = words[2];
+            CheckWordAttributes(word, "3", "n", HeadValue.no);
+            Assert.AreEqual(0, word.Affixes.Count);
+            Assert.AreEqual(0, word.Features.Count);
+
+            Target target = ftRule.Target;
+            Assert.NotNull(target);
+            Phrase targetPhrase = target.Phrase;
+            words = targetPhrase.Words;
+            Assert.AreEqual(3, words.Count);
+            word = words[0];
+            CheckWordAttributes(word, "1", "", HeadValue.no);
+            Assert.AreEqual(2, word.Affixes.Count);
+            Assert.AreEqual(0, word.Features.Count);
+            Affix affix = word.Affixes[0];
+            Assert.AreEqual(AffixType.suffix, affix.Type);
+            Assert.AreEqual(1, affix.Features.Count);
+            Feature feature = affix.Features[0];
+            CheckFeatureAttributes(feature, "gender", "α");
+            affix = word.Affixes[1];
+            Assert.AreEqual(AffixType.suffix, affix.Type);
+            Assert.AreEqual(1, affix.Features.Count);
+            feature = affix.Features[0];
+            CheckFeatureAttributes(feature, "number", "β");
+
+            word = words[1];
+            CheckWordAttributes(word, "3", "", HeadValue.yes);
+            Assert.AreEqual(1, word.Affixes.Count);
+            Assert.AreEqual(1, word.Features.Count);
+            feature = word.Features[0];
+            CheckFeatureAttributes(feature, "gender", "α");
+            affix = word.Affixes[0];
+            Assert.AreEqual(AffixType.suffix, affix.Type);
+            Assert.AreEqual(1, affix.Features.Count);
+            feature = affix.Features[0];
+            CheckFeatureAttributes(feature, "number", "β");
+
+            word = words[2];
+            CheckWordAttributes(word, "2", "", HeadValue.no);
+            Assert.AreEqual(2, word.Affixes.Count);
+            Assert.AreEqual(0, word.Features.Count);
+            affix = word.Affixes[0];
+            Assert.AreEqual(AffixType.suffix, affix.Type);
+            Assert.AreEqual(1, affix.Features.Count);
+            feature = affix.Features[0];
+            CheckFeatureAttributes(feature, "gender", "α");
+            affix = word.Affixes[1];
+            Assert.AreEqual(AffixType.suffix, affix.Type);
+            Assert.AreEqual(1, affix.Features.Count);
+            feature = affix.Features[0];
+            CheckFeatureAttributes(feature, "number", "β");
+        }
+
         protected void CheckWordAttributes(Word word, string id, string category, HeadValue head)
         {
             Assert.NotNull(word);
