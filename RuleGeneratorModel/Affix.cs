@@ -13,7 +13,6 @@ namespace SIL.FLExTransRuleGen.Model
 {
     public class Affix
     {
-        [XmlElement("features")]
         public List<Feature> Features { get; set; } = new List<Feature>();
 
         [XmlAttribute("type")]

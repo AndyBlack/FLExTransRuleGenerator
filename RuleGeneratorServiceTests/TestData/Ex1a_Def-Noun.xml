@@ -1,0 +1,30 @@
+<FLExTransRuleGenerator>
+    <FLExTransRules>
+        <FLExTransRule name="Definite - Noun">
+            <Source>
+                <Phrase>
+                    <Words>
+                        <Word category="def" id="1"/>
+                        <Word category="n" id="2"/>
+                    </Words>
+                </Phrase>
+            </Source>
+            <Target>
+                <Phrase>
+                    <Words>
+                        <Word head="no" id="1">
+                            <Features>
+                                <Feature label="gender" match="α"/>
+                            </Features>
+                        </Word>
+                        <Word head="yes" id="2">
+                            <Features>
+                                <Feature label="gender" match="α"/>
+                            </Features>
+                        </Word>
+                    </Words>
+                </Phrase>
+            </Target>
+        </FLExTransRule>
+    </FLExTransRules>
+</FLExTransRuleGenerator>

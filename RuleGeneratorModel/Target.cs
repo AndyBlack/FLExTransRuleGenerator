@@ -7,15 +7,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 
 namespace SIL.FLExTransRuleGen.Model
 {
-    [XmlRoot("FLExTransRuleGenerator")]
-    public class FLExTransRuleGenerator
+    public class Target
     {
-        public List<FLExTransRule> FLExTransRules { get; set; } = new List<FLExTransRule>();
+        public Phrase Phrase { get; set; } = new Phrase();
 
-        public FLExTransRuleGenerator() { }
+        public Target Duplicate()
+        {
+            Target newTarget = new Target();
+            newTarget.Phrase = Phrase.Duplicate();
+            return newTarget;
+        }
     }
 }

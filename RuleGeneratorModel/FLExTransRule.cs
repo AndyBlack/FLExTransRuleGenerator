@@ -13,11 +13,9 @@ namespace SIL.FLExTransRuleGen.Model
 {
     public class FLExTransRule
     {
-        [XmlElement("source")]
-        public Phrase Source { get; set; } = new Phrase();
+        public Source Source { get; set; } = new Source();
 
-        [XmlElement("target")]
-        public Phrase Target { get; set; } = new Phrase();
+        public Target Target { get; set; } = new Target();
 
         [XmlAttribute("name")]
         public string Name { get; set; } = "";
@@ -28,11 +26,10 @@ namespace SIL.FLExTransRuleGen.Model
         {
             FLExTransRule newRule = new FLExTransRule();
             newRule.Name = Name;
-            Phrase newSource = Source.Duplicate();
+            Source newSource = Source.Duplicate();
             newRule.Source = newSource;
-            Phrase newTarget = Target.Duplicate();
+            Target newTarget = Target.Duplicate();
             newRule.Target = newTarget;
-            ;
             return newRule;
         }
     }

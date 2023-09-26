@@ -13,10 +13,8 @@ namespace SIL.FLExTransRuleGen.Model
 {
     public class Word
     {
-        [XmlElement("features")]
         public List<Feature> Features { get; set; } = new List<Feature>();
 
-        [XmlElement("affixes")]
         public List<Affix> Affixes { get; set; } = new List<Affix>();
 
         [XmlAttribute("id")]
