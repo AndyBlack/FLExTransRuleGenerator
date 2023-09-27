@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RuleGeneratorControl));
 			this.lBoxRules = new System.Windows.Forms.ListBox();
 			this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
 			this.wv2RuleEditor = new Microsoft.Web.WebView2.WinForms.WebView2();
@@ -77,6 +78,7 @@
 			this.Controls.Add(this.wv2RuleEditor);
 			this.Controls.Add(this.checkedListBox1);
 			this.Controls.Add(this.lBoxRules);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "RuleGeneratorControl";
 			this.Text = "FLExTrans Rule Generator";
 			((System.ComponentModel.ISupportInitialize)(this.wv2RuleEditor)).EndInit();
