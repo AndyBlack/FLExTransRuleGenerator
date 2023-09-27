@@ -60,7 +60,7 @@
                     <Feature match="α" label="gender" />
                   </Features>
                 </Affix>
-                <Affix type="suffix">
+                <Affix type="prefix">
                   <Features>
                     <Feature match="β" label="number" />
                   </Features>

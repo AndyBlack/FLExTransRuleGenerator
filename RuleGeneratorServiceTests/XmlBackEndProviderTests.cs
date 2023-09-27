@@ -150,7 +150,7 @@ namespace SIL.FLExTransRuleGenServiceTests
             feature = affix.Features[0];
             CheckFeatureAttributes(feature, "gender", "α");
             affix = word.Affixes[1];
-            Assert.AreEqual(AffixType.suffix, affix.Type);
+            Assert.AreEqual(AffixType.prefix, affix.Type);
             Assert.AreEqual(1, affix.Features.Count);
             feature = affix.Features[0];
             CheckFeatureAttributes(feature, "number", "β");
