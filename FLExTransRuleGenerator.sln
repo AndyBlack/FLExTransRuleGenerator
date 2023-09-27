@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleGeneratorService", "Rul
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleGeneratorServiceTests", "RuleGeneratorServiceTests\RuleGeneratorServiceTests.csproj", "{708FB305-0A27-4B45-BFE6-AECFB5578840}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleGeneratorController", "RuleGeneratorController\RuleGeneratorController.csproj", "{A914117B-0EF8-4B89-BD80-CA6C999288C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,14 @@ Global
 		{708FB305-0A27-4B45-BFE6-AECFB5578840}.Release|Any CPU.Build.0 = Release|Any CPU
 		{708FB305-0A27-4B45-BFE6-AECFB5578840}.Release|x64.ActiveCfg = Release|x64
 		{708FB305-0A27-4B45-BFE6-AECFB5578840}.Release|x64.Build.0 = Release|x64
+		{A914117B-0EF8-4B89-BD80-CA6C999288C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A914117B-0EF8-4B89-BD80-CA6C999288C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A914117B-0EF8-4B89-BD80-CA6C999288C9}.Debug|x64.ActiveCfg = Debug|x64
+		{A914117B-0EF8-4B89-BD80-CA6C999288C9}.Debug|x64.Build.0 = Debug|x64
+		{A914117B-0EF8-4B89-BD80-CA6C999288C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A914117B-0EF8-4B89-BD80-CA6C999288C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A914117B-0EF8-4B89-BD80-CA6C999288C9}.Release|x64.ActiveCfg = Release|x64
+		{A914117B-0EF8-4B89-BD80-CA6C999288C9}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
