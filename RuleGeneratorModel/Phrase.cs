@@ -16,6 +16,25 @@ namespace SIL.FLExTransRuleGen.Model
 
         public Phrase() { }
 
+        public string ProduceHtml()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<li>");
+            sb.Append("<span class=\"tf-nc\">phrase");
+            sb.Append("<span class=\"language\">");
+            // need way to know if it's src or tgt
+            sb.Append("src");
+            sb.Append("</span></span>\n");
+            sb.Append("<ul>");
+            foreach (Word word in Words)
+            {
+                sb.Append(word.ProduceHtml());
+            }
+            sb.Append("</ul>");
+            sb.Append("</li>");
+            return sb.ToString();
+        }
+
         public Phrase Duplicate()
         {
             Phrase newPhrase = new Phrase();

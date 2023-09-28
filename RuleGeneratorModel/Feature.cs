@@ -21,6 +21,21 @@ namespace SIL.FLExTransRuleGen.Model
 
         public Feature() { }
 
+        public string ProduceHtml()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (Label.Length > 0 || Match.Length > 0)
+            {
+                sb.Append("<li>");
+                sb.Append("<span class=\"tf-nc feature\">");
+                sb.Append((Label.Length > 0) ? Label : "FeatureX");
+                sb.Append(":");
+                sb.Append((Match.Length > 0) ? Match : "?");
+                sb.Append("</span></li>\n");
+            }
+            return sb.ToString();
+        }
+
         public Feature Duplicate()
         {
             Feature newFeature = new Feature();

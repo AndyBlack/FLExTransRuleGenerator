@@ -13,30 +13,12 @@ using System.Text;
 
 namespace SIL.FLExTransRuleGenServiceTests
 {
-    public class XmlBackEndProviderTests
+    public class XmlBackEndProviderTests : ServiceTestBase
     {
         string RuleGenProduced { get; set; }
 
-        protected XmlBackEndProvider provider = new XmlBackEndProvider();
-        protected string TestDataDir { get; set; }
-        protected string RuleGenFile { get; set; }
-        protected string RuleGenExpected { get; set; }
-        protected string ExpectedFileName = "RuleGenExpected.xml";
-        protected const string kTestDir = "RuleGeneratorServiceTests";
-
-        [SetUp]
-        public void Setup()
-        {
-            Uri uriBase = new Uri(Assembly.GetExecutingAssembly().CodeBase);
-            var rootdir = Path.GetDirectoryName(Uri.UnescapeDataString(uriBase.AbsolutePath));
-            int i = rootdir.LastIndexOf(kTestDir);
-            string basedir = rootdir.Substring(0, i);
-            TestDataDir = Path.Combine(basedir, kTestDir, "TestData");
-            RuleGenExpected = Path.Combine(TestDataDir, ExpectedFileName);
-        }
-
         [Test]
-        public void LoadTestEx1aDefNoun()
+        public void LoadEx1aDefNounTest()
         {
             RuleGenExpected = Path.Combine(TestDataDir, "Ex1a_Def-Noun.xml");
             provider.LoadDataFromFile(RuleGenExpected);
@@ -80,7 +62,7 @@ namespace SIL.FLExTransRuleGenServiceTests
         }
 
         [Test]
-        public void LoadTestEx4bIndefAdjNoun()
+        public void LoadEx4bIndefAdjNounTest()
         {
             RuleGenExpected = Path.Combine(TestDataDir, "Ex4b_Indef-Adj-Noun.xml");
             provider.LoadDataFromFile(RuleGenExpected);

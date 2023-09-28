@@ -62,6 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ServiceTestBase.cs" />
+    <Compile Include="WebPageProducerTests.cs" />
     <Compile Include="XmlBackEndProviderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

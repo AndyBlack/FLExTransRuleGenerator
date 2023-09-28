@@ -20,6 +20,26 @@ namespace SIL.FLExTransRuleGen.Model
 
         public Affix() { }
 
+        public string ProduceHtml()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<li>");
+            sb.Append("<span class=\"tf-nc affix\">");
+            sb.Append((Type == AffixType.prefix) ? "prefix" : "suffix");
+            sb.Append("</span>");
+            if (Features.Count > 0)
+            {
+                sb.Append("<ul>");
+                foreach (Feature feature in Features)
+                {
+                    sb.Append(feature.ProduceHtml());
+                }
+                sb.Append("</ul>");
+            }
+            sb.Append("</li>\n");
+            return sb.ToString();
+        }
+
         public Affix Duplicate()
         {
             Affix newAffix = new Affix();
