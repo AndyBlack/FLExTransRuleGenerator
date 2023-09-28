@@ -28,9 +28,9 @@ namespace SIL.FLExTransRuleGen.Model
             {
                 sb.Append("<li>");
                 sb.Append("<span class=\"tf-nc feature\">");
-                sb.Append((Label.Length > 0) ? Label : "FeatureX");
+                sb.Append((Label.Length > 0) ? Label : Properties.RuleGenModelStrings.FeatureX);
                 sb.Append(":");
-                sb.Append((Match.Length > 0) ? Match : "?");
+                sb.Append((Match.Length > 0) ? Match : Properties.RuleGenModelStrings.MatchX);
                 sb.Append("</span></li>\n");
             }
             return sb.ToString();

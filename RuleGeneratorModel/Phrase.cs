@@ -20,10 +20,11 @@ namespace SIL.FLExTransRuleGen.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("<li>");
-            sb.Append("<span class=\"tf-nc\">phrase");
+            sb.Append("<span class=\"tf-nc\">");
+            sb.Append(Properties.RuleGenModelStrings.phrase);
             sb.Append("<span class=\"language\">");
             // need way to know if it's src or tgt
-            sb.Append("src");
+            sb.Append(Properties.RuleGenModelStrings.src);
             sb.Append("</span></span>\n");
             sb.Append("<ul>");
             foreach (Word word in Words)

@@ -80,7 +80,7 @@
 			this.Controls.Add(this.lBoxRules);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "RuleGeneratorControl";
-			this.Text = "FLExTrans Rule Generator";
+			this.Text = FLExTransRuleGen.Controller.Properties.RuleGenStrings.FormTitle;
 			((System.ComponentModel.ISupportInitialize)(this.wv2RuleEditor)).EndInit();
 			this.ResumeLayout(false);
 

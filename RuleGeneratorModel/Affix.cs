@@ -25,7 +25,11 @@ namespace SIL.FLExTransRuleGen.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("<li>");
             sb.Append("<span class=\"tf-nc affix\">");
-            sb.Append((Type == AffixType.prefix) ? "prefix" : "suffix");
+            sb.Append(
+                (Type == AffixType.prefix)
+                    ? Properties.RuleGenModelStrings.prefix
+                    : Properties.RuleGenModelStrings.suffix
+            );
             sb.Append("</span>");
             if (Features.Count > 0)
             {

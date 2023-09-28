@@ -32,7 +32,8 @@ namespace SIL.FLExTransRuleGen.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("<li>");
-            sb.Append("<span class=\"tf-nc\">word");
+            sb.Append("<span class=\"tf-nc\">");
+            sb.Append(Properties.RuleGenModelStrings.word);
             if (Id.Length > 0)
             {
                 sb.Append("<span class=\"index\">");
@@ -44,7 +45,9 @@ namespace SIL.FLExTransRuleGen.Model
                 sb.Append("<ul>\n");
                 if (Category.Length > 0)
                 {
-                    sb.Append("<li><span class=\"tf-nc category\">cat:");
+                    sb.Append("<li><span class=\"tf-nc category\">");
+                    sb.Append(Properties.RuleGenModelStrings.cat);
+                    sb.Append(":");
                     sb.Append(Category);
                     sb.Append("</span></li>\n");
                 }
