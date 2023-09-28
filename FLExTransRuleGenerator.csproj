@@ -55,13 +55,16 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="RuleGeneratorController">
-      <HintPath>RuleGeneratorController\bin\Debug\RuleGeneratorController.dll</HintPath>
+    <Reference Include="RuleGeneratorController, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>RuleGeneratorController\bin\x64\Debug\RuleGeneratorController.dll</HintPath>
     </Reference>
-    <Reference Include="RuleGeneratorService">
+    <Reference Include="RuleGeneratorService, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>RuleGeneratorService\bin\x64\Debug\RuleGeneratorService.dll</HintPath>
     </Reference>
-    <Reference Include="RuleGenModel">
+    <Reference Include="RuleGenModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>RuleGeneratorModel\bin\x64\Debug\RuleGenModel.dll</HintPath>
     </Reference>
     <Reference Include="System" />

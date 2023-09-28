@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.33423.255
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FLExTransRuleGenerator", "FLExTransRuleGenerator.csproj", "{1558AEBA-5E18-47F3-883E-4C90550C3C43}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F805782C-E05C-422E-A895-32BB6A5E05EC} = {F805782C-E05C-422E-A895-32BB6A5E05EC}
+		{A914117B-0EF8-4B89-BD80-CA6C999288C9} = {A914117B-0EF8-4B89-BD80-CA6C999288C9}
+		{F02436A4-FB00-4903-AD32-5990A3650542} = {F02436A4-FB00-4903-AD32-5990A3650542}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleGeneratorModel", "RuleGeneratorModel\RuleGeneratorModel.csproj", "{F02436A4-FB00-4903-AD32-5990A3650542}"
 EndProject
