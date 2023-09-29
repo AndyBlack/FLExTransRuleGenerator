@@ -88,6 +88,15 @@ namespace SIL.FLExTransRuleGen.Model.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This rule needs a name.
+        /// </summary>
+        internal static string NameMissing {
+            get {
+                return ResourceManager.GetString("NameMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to phrase.
         /// </summary>
         internal static string phrase {

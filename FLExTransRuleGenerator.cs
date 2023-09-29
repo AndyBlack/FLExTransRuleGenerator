@@ -2,6 +2,7 @@
 // This software is licensed under the LGPL, version 2.1 or later
 // (http://www.gnu.org/licenses/lgpl-2.1.html)
 
+using SIL.FLExTransRuleGen.Service;
 using SIL.FLExTransRuleGenerator.Control;
 using System;
 using System.Collections.Generic;
@@ -40,8 +41,11 @@ namespace SIL.FLExTransRuleGenerator
                 Console.WriteLine(Properties.GeneratorStrings.TargetFLExProjectNotFound);
                 return 1;
             }
-
+            XmlBackEndProvider provider = new XmlBackEndProvider();
+            provider.LoadDataFromFile(args[0]);
             var controller = new RuleGeneratorControl();
+            controller.FLExTransRuleGen = provider.RuleGenerator;
+            controller.FillRulesListBox();
             controller.ShowDialog();
             return 0;
         }

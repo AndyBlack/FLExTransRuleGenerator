@@ -32,5 +32,15 @@ namespace SIL.FLExTransRuleGen.Model
             newRule.Target = newTarget;
             return newRule;
         }
+
+        public override string ToString()
+        {
+            string result = Name;
+            if (Name.Length == 0)
+            {
+                result = Properties.RuleGenModelStrings.NameMissing;
+            }
+            return result;
+        }
     }
 }

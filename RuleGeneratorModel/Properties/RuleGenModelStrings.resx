@@ -153,4 +153,8 @@
     <value>word</value>
     <comment>word node label</comment>
   </data>
+  <data name="NameMissing" xml:space="preserve">
+    <value>This rule needs a name</value>
+    <comment>Message for when a rule has no name</comment>
+  </data>
 </root>

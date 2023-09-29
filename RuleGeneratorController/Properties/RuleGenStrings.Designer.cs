@@ -61,6 +61,60 @@ namespace SIL.FLExTransRuleGen.Controller.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string cmDelete {
+            get {
+                return ResourceManager.GetString("cmDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duplicate.
+        /// </summary>
+        internal static string cmDuplicate {
+            get {
+                return ResourceManager.GetString("cmDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert new after.
+        /// </summary>
+        internal static string cmInsertAfter {
+            get {
+                return ResourceManager.GetString("cmInsertAfter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert new before.
+        /// </summary>
+        internal static string cmInsertBefore {
+            get {
+                return ResourceManager.GetString("cmInsertBefore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move down.
+        /// </summary>
+        internal static string cmMoveDown {
+            get {
+                return ResourceManager.GetString("cmMoveDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move up.
+        /// </summary>
+        internal static string cmMoveUp {
+            get {
+                return ResourceManager.GetString("cmMoveUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FLExTrans Rule Generator.
         /// </summary>
         internal static string FormTitle {
@@ -70,47 +124,11 @@ namespace SIL.FLExTransRuleGen.Controller.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to prefix.
+        ///   Looks up a localized string similar to Rule Name:.
         /// </summary>
-        internal static string prefix {
+        internal static string RuleName {
             get {
-                return ResourceManager.GetString("prefix", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to src.
-        /// </summary>
-        internal static string src {
-            get {
-                return ResourceManager.GetString("src", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to suffix.
-        /// </summary>
-        internal static string suffix {
-            get {
-                return ResourceManager.GetString("suffix", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to tgt.
-        /// </summary>
-        internal static string tgt {
-            get {
-                return ResourceManager.GetString("tgt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to word.
-        /// </summary>
-        internal static string word {
-            get {
-                return ResourceManager.GetString("word", resourceCulture);
+                return ResourceManager.GetString("RuleName", resourceCulture);
             }
         }
     }

@@ -117,28 +117,36 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="cmDelete" xml:space="preserve">
+    <value>Delete</value>
+    <comment>List box context menu: Delete selected rule</comment>
+  </data>
+  <data name="cmDuplicate" xml:space="preserve">
+    <value>Duplicate</value>
+    <comment>List box context menu: Duplicate selected rule</comment>
+  </data>
+  <data name="cmInsertAfter" xml:space="preserve">
+    <value>Insert new after</value>
+    <comment>List box context menu: Insert new rule after the selected rule</comment>
+  </data>
+  <data name="cmInsertBefore" xml:space="preserve">
+    <value>Insert new before</value>
+    <comment>List box context menu: Insert new rule before the selected rule</comment>
+  </data>
+  <data name="cmMoveDown" xml:space="preserve">
+    <value>Move down</value>
+    <comment>List box context menu: Move selected rule down</comment>
+  </data>
+  <data name="cmMoveUp" xml:space="preserve">
+    <value>Move up</value>
+    <comment>List box context menu: Move selected rule up</comment>
+  </data>
   <data name="FormTitle" xml:space="preserve">
     <value>FLExTrans Rule Generator</value>
     <comment>title of the dialog form</comment>
   </data>
-  <data name="prefix" xml:space="preserve">
-    <value>prefix</value>
-    <comment>Affix type for prefix</comment>
-  </data>
-  <data name="src" xml:space="preserve">
-    <value>src</value>
-    <comment>Abbreviation for source phrase</comment>
-  </data>
-  <data name="suffix" xml:space="preserve">
-    <value>suffix</value>
-    <comment>Affix type for suffix</comment>
-  </data>
-  <data name="tgt" xml:space="preserve">
-    <value>tgt</value>
-    <comment>Abbreviation for target phrase</comment>
-  </data>
-  <data name="word" xml:space="preserve">
-    <value>word</value>
-    <comment>word node label</comment>
+  <data name="RuleName" xml:space="preserve">
+    <value>Rule Name:</value>
+    <comment>Name of the chosen rule</comment>
   </data>
 </root>
