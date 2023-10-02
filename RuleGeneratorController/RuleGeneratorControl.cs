@@ -2,6 +2,7 @@
 // This software is licensed under the LGPL, version 2.1 or later
 // (http://www.gnu.org/licenses/lgpl-2.1.html)
 
+using Microsoft.Win32;
 using SIL.FLExTransRuleGen.Model;
 using SIL.FLExTransRuleGen.Service;
 using System;
@@ -37,15 +38,97 @@ namespace SIL.FLExTransRuleGenerator.Control
         protected string cmDelete = "Delete";
         protected string cmDuplicate = "Duplicate";
 
+        protected RegistryKey regkey;
+        const string RegKey = "Software\\SIL\\FLExTransRuleGenerator";
+        protected const string m_strLastRule = "LastRule";
+        protected const string m_strLocationX = "LocationX";
+        protected const string m_strLocationY = "LocationY";
+        protected const string m_strSizeHeight = "SizeHeight";
+        protected const string m_strSizeWidth = "SizeWidth";
+        protected const string m_strWindowState = "WindowState";
+        public Rectangle RectNormal { get; set; }
+
         public RuleGeneratorControl()
         {
             InitializeComponent();
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(
+                this.OnFormClosing
+            );
             BuildContextMenu();
             CheckForPresenceInProgramData();
             SetLocalizationStrings();
+            regkey = Registry.CurrentUser.OpenSubKey(RegKey);
+            RetrieveRegistryInfo();
             producer = WebPageProducer.Instance;
             wv2RuleEditor.WebMessageReceived += webView2_WebMessageReceived;
             ShowWebPage();
+        }
+
+        protected void RememberFormState(string sRegKey)
+        {
+            regkey = Registry.CurrentUser.OpenSubKey(sRegKey);
+            if (regkey != null)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                Application.DoEvents();
+                RetrieveRegistryInfo();
+                regkey.Close();
+                DesktopBounds = RectNormal;
+                WindowState = WindowState;
+                StartPosition = FormStartPosition.Manual;
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+        protected void RetrieveRegistryInfo()
+        {
+            if (regkey != null)
+            {
+                // Window location
+                int iX = (int)regkey.GetValue(m_strLocationX, 100);
+                int iY = (int)regkey.GetValue(m_strLocationY, 100);
+                int iWidth = (int)regkey.GetValue(m_strSizeWidth, 863); // 1228);
+                int iHeight = (int)regkey.GetValue(m_strSizeHeight, 670); // 947);
+                RectNormal = new Rectangle(iX, iY, iWidth, iHeight);
+                // Set form properties
+                WindowState = (FormWindowState)regkey.GetValue(m_strWindowState, 0);
+
+                LastSelectedRule = (int)regkey.GetValue(m_strLastRule, 0);
+            }
+        }
+
+        public void SaveRegistryInfo(string sRegKey)
+        {
+            regkey = Registry.CurrentUser.OpenSubKey(sRegKey, true);
+            if (regkey == null)
+            {
+                regkey = Registry.CurrentUser.CreateSubKey(sRegKey);
+            }
+
+            regkey.SetValue(m_strLastRule, LastSelectedRule);
+            // Window position and location
+            regkey.SetValue(m_strWindowState, (int)WindowState);
+            regkey.SetValue(m_strLocationX, RectNormal.X);
+            regkey.SetValue(m_strLocationY, RectNormal.Y);
+            regkey.SetValue(m_strSizeWidth, RectNormal.Width);
+            regkey.SetValue(m_strSizeHeight, RectNormal.Height);
+            regkey.Close();
+        }
+
+        protected override void OnMove(EventArgs ea)
+        {
+            base.OnMove(ea);
+
+            if (WindowState == FormWindowState.Normal)
+                RectNormal = DesktopBounds;
+        }
+
+        protected override void OnResize(EventArgs ea)
+        {
+            base.OnResize(ea);
+
+            if (WindowState == FormWindowState.Normal)
+                RectNormal = DesktopBounds;
         }
 
         public void ShowWebPage()
@@ -363,5 +446,10 @@ namespace SIL.FLExTransRuleGenerator.Control
         }
 
         // **************
+        protected void OnFormClosing(object sender, EventArgs e)
+        {
+            //SaveAnyChanges();
+            SaveRegistryInfo(RegKey);
+        }
     }
 }
