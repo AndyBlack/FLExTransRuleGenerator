@@ -58,6 +58,9 @@ namespace SIL.FLExTransRuleGenerator.Control
                 if (File.Exists(wv2RuleEditor.Source.AbsolutePath))
                 {
                     File.WriteAllText(path, html, Encoding.UTF8);
+                    // Apparently we need to set the Source to something else or it just uses the same as last time
+                    wv2RuleEditor.Source = new Uri("local://abc");
+                    wv2RuleEditor.Source = GetUriOfWebPage();
                     wv2RuleEditor.Show();
                 }
             }
