@@ -80,7 +80,7 @@ namespace SIL.FLExTransRuleGen.Service
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("<td valign=\"top\">\n");
-            sb.Append("<div class=\"tf-tree\">\n");
+            sb.Append("<div class=\"tf-tree tf-gap-sm\">\n");
             sb.Append("<ul>\n");
             sb.Append(phrase.ProduceHtml());
             sb.Append("</ul>\n");
