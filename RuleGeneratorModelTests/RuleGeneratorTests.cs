@@ -37,6 +37,8 @@ namespace SIL.FLExTransRuleGenModelTests
             Phrase targetPhrase = target.Phrase;
             Assert.IsNotNull(target);
             Assert.AreEqual(0, sourcePhrase.Words.Count);
+            Assert.AreEqual(PhraseType.source, sourcePhrase.Type);
+            Assert.AreEqual(PhraseType.target, targetPhrase.Type);
 
             Word sourceWord = new Word();
             source.Phrase.Words.Add(sourceWord);

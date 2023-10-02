@@ -31,6 +31,7 @@ namespace SIL.FLExTransRuleGenServiceTests
             Source source = ftRule.Source;
             Assert.NotNull(source);
             Phrase sourcePhrase = source.Phrase;
+            Assert.AreEqual(PhraseType.source, sourcePhrase.Type);
             List<Word> words = sourcePhrase.Words;
             Assert.AreEqual(2, words.Count);
             Word word = words[0];
@@ -45,6 +46,7 @@ namespace SIL.FLExTransRuleGenServiceTests
             Target target = ftRule.Target;
             Assert.NotNull(target);
             Phrase targetPhrase = target.Phrase;
+            Assert.AreEqual(PhraseType.target, targetPhrase.Type);
             words = targetPhrase.Words;
             Assert.AreEqual(2, words.Count);
             word = words[0];

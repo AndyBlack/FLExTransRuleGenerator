@@ -14,6 +14,11 @@ namespace SIL.FLExTransRuleGen.Model
     {
         public Phrase Phrase { get; set; } = new Phrase();
 
+        public Source()
+        {
+            Phrase.Type = PhraseType.source;
+        }
+
         public Source Duplicate()
         {
             Source newSource = new Source();

@@ -7,12 +7,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace SIL.FLExTransRuleGen.Model
 {
     public class Phrase
     {
         public List<Word> Words { get; set; } = new List<Word>();
+
+        [XmlIgnore]
+        public PhraseType Type { get; set; } = PhraseType.source;
 
         public Phrase() { }
 
@@ -23,8 +27,14 @@ namespace SIL.FLExTransRuleGen.Model
             sb.Append("<span class=\"tf-nc\">");
             sb.Append(Properties.RuleGenModelStrings.phrase);
             sb.Append("<span class=\"language\">");
-            // need way to know if it's src or tgt
-            sb.Append(Properties.RuleGenModelStrings.src);
+            if (Type == PhraseType.source)
+            {
+                sb.Append(Properties.RuleGenModelStrings.src);
+            }
+            else
+            {
+                sb.Append(Properties.RuleGenModelStrings.tgt);
+            }
             sb.Append("</span></span>\n");
             sb.Append("<ul>");
             foreach (Word word in Words)
@@ -45,5 +55,11 @@ namespace SIL.FLExTransRuleGen.Model
             }
             return newPhrase;
         }
+    }
+
+    public enum PhraseType
+    {
+        source,
+        target
     }
 }

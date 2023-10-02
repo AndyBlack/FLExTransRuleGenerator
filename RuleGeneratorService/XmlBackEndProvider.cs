@@ -28,6 +28,11 @@ namespace SIL.FLExTransRuleGen.Service
             TextReader reader = new StreamReader(FileName);
             object obj = deserializer.Deserialize(reader);
             RuleGenerator = (FLExTransRuleGenerator)obj;
+            // Not sure we need this, but otherwise the target phrase type is set to source
+            foreach (FLExTransRule rule in RuleGenerator.FLExTransRules)
+            {
+                rule.Target.Phrase.Type = PhraseType.target;
+            }
             reader.Close();
         }
 
