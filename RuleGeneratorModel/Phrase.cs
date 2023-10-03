@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 
 namespace SIL.FLExTransRuleGen.Model
 {
-    public class Phrase
+    public class Phrase : RuleConstituentBase
     {
         public List<Word> Words { get; set; } = new List<Word>();
 
@@ -24,7 +24,7 @@ namespace SIL.FLExTransRuleGen.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("<li>");
-            sb.Append("<span class=\"tf-nc\">");
+            sb.Append(ProduceSpan("tf-nc", "p"));
             sb.Append(Properties.RuleGenModelStrings.phrase);
             sb.Append("<span class=\"language\">");
             if (Type == PhraseType.source)

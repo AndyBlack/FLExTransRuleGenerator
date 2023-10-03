@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 
 namespace SIL.FLExTransRuleGen.Model
 {
-    public class Word
+    public class Word : RuleConstituentBase
     {
         public List<Feature> Features { get; set; } = new List<Feature>();
 
@@ -26,13 +26,19 @@ namespace SIL.FLExTransRuleGen.Model
         [XmlAttribute("head")]
         public HeadValue Head { get; set; } = HeadValue.no;
 
-        public Word() { }
+        [XmlIgnore]
+        public Category CategoryConstituent { get; set; }
+
+        public Word()
+        {
+            CategoryConstituent = new Category(Category);
+        }
 
         public string ProduceHtml()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("<li>");
-            sb.Append("<span class=\"tf-nc\">");
+            sb.Append(ProduceSpan("tf-nc", "w"));
             sb.Append(Properties.RuleGenModelStrings.word);
             if (Id.Length > 0)
             {
@@ -45,11 +51,8 @@ namespace SIL.FLExTransRuleGen.Model
                 sb.Append("<ul>\n");
                 if (Category.Length > 0)
                 {
-                    sb.Append("<li><span class=\"tf-nc category\">");
-                    sb.Append(Properties.RuleGenModelStrings.cat);
-                    sb.Append(":");
-                    sb.Append(Category);
-                    sb.Append("</span></li>\n");
+                    CategoryConstituent.Name = Category;
+                    sb.Append(CategoryConstituent.ProduceHtml());
                 }
                 foreach (Feature feature in Features)
                 {

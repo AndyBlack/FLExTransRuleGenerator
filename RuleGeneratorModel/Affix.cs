@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 
 namespace SIL.FLExTransRuleGen.Model
 {
-    public class Affix
+    public class Affix : RuleConstituentBase
     {
         public List<Feature> Features { get; set; } = new List<Feature>();
 
@@ -24,7 +24,7 @@ namespace SIL.FLExTransRuleGen.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("<li>");
-            sb.Append("<span class=\"tf-nc affix\">");
+            sb.Append(ProduceSpan("tf-nc affix", "a"));
             sb.Append(
                 (Type == AffixType.prefix)
                     ? Properties.RuleGenModelStrings.prefix

@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 
 namespace SIL.FLExTransRuleGen.Model
 {
-    public class Feature
+    public class Feature : RuleConstituentBase
     {
         [XmlAttribute("match")]
         public string Match { get; set; } = "";
@@ -27,7 +27,7 @@ namespace SIL.FLExTransRuleGen.Model
             if (Label.Length > 0 || Match.Length > 0)
             {
                 sb.Append("<li>");
-                sb.Append("<span class=\"tf-nc feature\">");
+                sb.Append(ProduceSpan("tf-nc feature", "f"));
                 sb.Append((Label.Length > 0) ? Label : Properties.RuleGenModelStrings.FeatureX);
                 sb.Append(":");
                 sb.Append((Match.Length > 0) ? Match : Properties.RuleGenModelStrings.MatchX);

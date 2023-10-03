@@ -15,6 +15,8 @@ namespace SIL.FLExTransRuleGen.Service
     {
         private static readonly WebPageProducer instance = new WebPageProducer();
 
+        RuleIdentifierSetter ruleIdSetter;
+
         private FLExTransRule rule;
         public static WebPageProducer Instance
         {
@@ -24,6 +26,8 @@ namespace SIL.FLExTransRuleGen.Service
         public string ProduceWebPage(FLExTransRule rule)
         {
             this.rule = rule;
+            ruleIdSetter = RuleIdentifierSetter.Instance;
+            ruleIdSetter.SetIdentifiers(rule);
             StringBuilder sb = new StringBuilder();
             sb.Append(HtmlBeginning());
             sb.Append(HtmlBody());
@@ -57,7 +61,9 @@ namespace SIL.FLExTransRuleGen.Service
         private string JavaScriptContents()
         {
             StringBuilder sb = new StringBuilder();
-            // basedon what's in ruleGenerator
+            sb.Append("function toApp(msg) {\n");
+            sb.Append("window.chrome.webview.postMessage(msg);\n");
+            sb.Append("}\n");
             return sb.ToString();
         }
 
