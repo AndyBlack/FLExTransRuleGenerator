@@ -16,6 +16,9 @@ namespace SIL.FLExTransRuleGen.Model
         [XmlIgnore]
         public int Identifier { get; set; }
 
+        [XmlIgnore]
+        public RuleConstituent Parent { get; set; }
+
         public RuleConstituent() { }
 
         protected string ProduceSpan(string sClass, string sType)

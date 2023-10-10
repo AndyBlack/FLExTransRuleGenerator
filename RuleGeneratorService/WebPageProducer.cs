@@ -15,7 +15,7 @@ namespace SIL.FLExTransRuleGen.Service
     {
         private static readonly WebPageProducer instance = new WebPageProducer();
 
-        RuleIdentifierSetter ruleIdSetter;
+        RuleIdentifierAndParentSetter ruleIdSetter;
 
         private FLExTransRule rule;
         public static WebPageProducer Instance
@@ -26,8 +26,8 @@ namespace SIL.FLExTransRuleGen.Service
         public string ProduceWebPage(FLExTransRule rule)
         {
             this.rule = rule;
-            ruleIdSetter = RuleIdentifierSetter.Instance;
-            ruleIdSetter.SetIdentifiers(rule);
+            ruleIdSetter = RuleIdentifierAndParentSetter.Instance;
+            ruleIdSetter.SetIdentifiersAndParents(rule);
             StringBuilder sb = new StringBuilder();
             sb.Append(HtmlBeginning());
             sb.Append(HtmlBody());

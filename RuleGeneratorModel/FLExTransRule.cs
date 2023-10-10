@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 
 namespace SIL.FLExTransRuleGen.Model
 {
-    public class FLExTransRule
+    public class FLExTransRule : RuleConstituent
     {
         public Source Source { get; set; } = new Source();
 

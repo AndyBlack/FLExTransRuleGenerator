@@ -16,7 +16,7 @@ namespace SIL.FLExTransRuleGenServiceTests
 {
     public class ConstituentFinderTests : ServiceTestBase
     {
-        RuleIdentifierSetter idSetter;
+        RuleIdentifierAndParentSetter idSetter;
         FLExTransRuleGenerator ruleGenerator;
         ConstituentFinder finder;
         FLExTransRule rule;
@@ -31,7 +31,7 @@ namespace SIL.FLExTransRuleGenServiceTests
         override public void Setup()
         {
             base.Setup();
-            idSetter = RuleIdentifierSetter.Instance;
+            idSetter = RuleIdentifierAndParentSetter.Instance;
             finder = ConstituentFinder.Instance;
         }
 
@@ -43,7 +43,7 @@ namespace SIL.FLExTransRuleGenServiceTests
             provider.LoadDataFromFile(RuleGenExpected);
             ruleGenerator = provider.RuleGenerator;
             rule = ruleGenerator.FLExTransRules[0];
-            idSetter.SetIdentifiers(rule);
+            idSetter.SetIdentifiersAndParents(rule);
 
             constituent = finder.FindConstituent(rule, 0);
             Assert.IsNull(constituent);
@@ -107,9 +107,9 @@ namespace SIL.FLExTransRuleGenServiceTests
             provider.LoadDataFromFile(RuleGenExpected);
             ruleGenerator = provider.RuleGenerator;
             rule = ruleGenerator.FLExTransRules[0];
-            idSetter.SetIdentifiers(rule);
+            idSetter.SetIdentifiersAndParents(rule);
 
-            idSetter.SetIdentifiers(rule);
+            idSetter.SetIdentifiersAndParents(rule);
 
             constituent = finder.FindConstituent(rule, 0);
             Assert.IsNull(constituent);

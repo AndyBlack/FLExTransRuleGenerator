@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConstituentFinderTests.cs" />
-    <Compile Include="RuleIdentifierSetterTests.cs" />
+    <Compile Include="RuleIdentifierAndParentSetterTests.cs" />
     <Compile Include="ServiceTestBase.cs" />
     <Compile Include="WebPageProducerTests.cs" />
     <Compile Include="XmlBackEndProviderTests.cs" />

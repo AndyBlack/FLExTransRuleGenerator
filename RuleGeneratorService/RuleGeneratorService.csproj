@@ -60,7 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConstituentFinder.cs" />
-    <Compile Include="RuleIdentifierSetter.cs" />
+    <Compile Include="RuleIdentifierAndParentSetter.cs" />
     <Compile Include="WebPageProducer.cs" />
     <Compile Include="XmlBackEndProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
