@@ -34,6 +34,37 @@ namespace SIL.FLExTransRuleGen.Model
             CategoryConstituent = new Category(Category);
         }
 
+        public RuleConstituentBase FindConstituent(int identifier)
+        {
+            RuleConstituentBase constituent = null;
+            if (Identifier == identifier)
+            {
+                return this;
+            }
+            constituent = CategoryConstituent.FindConstituent(identifier);
+            if (constituent != null)
+            {
+                return constituent;
+            }
+            foreach (Feature feature in Features)
+            {
+                constituent = feature.FindConstituent(identifier);
+                if (constituent != null)
+                {
+                    return constituent;
+                }
+            }
+            foreach (Affix affix in Affixes)
+            {
+                constituent = affix.FindConstituent(identifier);
+                if (constituent != null)
+                {
+                    return constituent;
+                }
+            }
+            return constituent;
+        }
+
         public string ProduceHtml()
         {
             StringBuilder sb = new StringBuilder();
@@ -51,7 +82,6 @@ namespace SIL.FLExTransRuleGen.Model
                 sb.Append("<ul>\n");
                 if (Category.Length > 0)
                 {
-                    CategoryConstituent.Name = Category;
                     sb.Append(CategoryConstituent.ProduceHtml());
                 }
                 foreach (Feature feature in Features)

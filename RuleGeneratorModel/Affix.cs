@@ -20,6 +20,24 @@ namespace SIL.FLExTransRuleGen.Model
 
         public Affix() { }
 
+        public RuleConstituentBase FindConstituent(int identifier)
+        {
+            RuleConstituentBase constituent = null;
+            if (Identifier == identifier)
+            {
+                return this;
+            }
+            foreach (Feature feature in Features)
+            {
+                constituent = feature.FindConstituent(identifier);
+                if (constituent != null)
+                {
+                    return constituent;
+                }
+            }
+            return constituent;
+        }
+
         public string ProduceHtml()
         {
             StringBuilder sb = new StringBuilder();

@@ -32,8 +32,18 @@ namespace SIL.FLExTransRuleGen.Service
             foreach (FLExTransRule rule in RuleGenerator.FLExTransRules)
             {
                 rule.Target.Phrase.Type = PhraseType.target;
+                SetCategoryConstituentInWords(rule.Source.Phrase.Words);
+                SetCategoryConstituentInWords(rule.Target.Phrase.Words);
             }
             reader.Close();
+        }
+
+        private static void SetCategoryConstituentInWords(List<Word> words)
+        {
+            foreach (Word word in words)
+            {
+                word.CategoryConstituent.Name = word.Category;
+            }
         }
 
         public void SaveDataToFile(string FileName)

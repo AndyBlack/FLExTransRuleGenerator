@@ -46,6 +46,24 @@ namespace SIL.FLExTransRuleGen.Model
             return sb.ToString();
         }
 
+        public RuleConstituentBase FindConstituent(int identifier)
+        {
+            RuleConstituentBase constituent = null;
+            if (Identifier == identifier)
+            {
+                return this;
+            }
+            foreach (Word word in Words)
+            {
+                constituent = word.FindConstituent(identifier);
+                if (constituent != null)
+                {
+                    return constituent;
+                }
+            }
+            return constituent;
+        }
+
         public Phrase Duplicate()
         {
             Phrase newPhrase = new Phrase();

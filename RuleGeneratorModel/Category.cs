@@ -21,6 +21,16 @@ namespace SIL.FLExTransRuleGen.Model
             Name = name;
         }
 
+        public RuleConstituentBase FindConstituent(int identifier)
+        {
+            RuleConstituentBase constituent = null;
+            if (Identifier == identifier)
+            {
+                return this;
+            }
+            return constituent;
+        }
+
         public string ProduceHtml()
         {
             StringBuilder sb = new StringBuilder();
