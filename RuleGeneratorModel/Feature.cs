@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 
 namespace SIL.FLExTransRuleGen.Model
 {
-    public class Feature : RuleConstituentBase
+    public class Feature : RuleConstituent
     {
         [XmlAttribute("match")]
         public string Match { get; set; } = "";
@@ -21,9 +21,9 @@ namespace SIL.FLExTransRuleGen.Model
 
         public Feature() { }
 
-        public RuleConstituentBase FindConstituent(int identifier)
+        public RuleConstituent FindConstituent(int identifier)
         {
-            RuleConstituentBase constituent = null;
+            RuleConstituent constituent = null;
             if (Identifier == identifier)
             {
                 return this;

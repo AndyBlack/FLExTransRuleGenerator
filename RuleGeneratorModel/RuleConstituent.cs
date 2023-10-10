@@ -11,12 +11,12 @@ using System.Xml.Serialization;
 
 namespace SIL.FLExTransRuleGen.Model
 {
-    public class RuleConstituentBase
+    public class RuleConstituent
     {
         [XmlIgnore]
         public int Identifier { get; set; }
 
-        public RuleConstituentBase() { }
+        public RuleConstituent() { }
 
         protected string ProduceSpan(string sClass, string sType)
         {

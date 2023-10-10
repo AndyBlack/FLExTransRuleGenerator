@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 
 namespace SIL.FLExTransRuleGen.Model
 {
-    public class Phrase : RuleConstituentBase
+    public class Phrase : RuleConstituent
     {
         public List<Word> Words { get; set; } = new List<Word>();
 
@@ -46,9 +46,9 @@ namespace SIL.FLExTransRuleGen.Model
             return sb.ToString();
         }
 
-        public RuleConstituentBase FindConstituent(int identifier)
+        public RuleConstituent FindConstituent(int identifier)
         {
-            RuleConstituentBase constituent = null;
+            RuleConstituent constituent = null;
             if (Identifier == identifier)
             {
                 return this;

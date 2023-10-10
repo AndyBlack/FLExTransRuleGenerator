@@ -20,9 +20,9 @@ namespace SIL.FLExTransRuleGen.Service
             get { return instance; }
         }
 
-        public RuleConstituentBase FindConstituent(FLExTransRule rule, int identifier)
+        public RuleConstituent FindConstituent(FLExTransRule rule, int identifier)
         {
-            RuleConstituentBase constituent = null;
+            RuleConstituent constituent = null;
             if (identifier < rule.Target.Phrase.Identifier)
             {
                 constituent = rule.Source.Phrase.FindConstituent(identifier);

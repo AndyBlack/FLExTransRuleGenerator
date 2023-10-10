@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 
 namespace SIL.FLExTransRuleGen.Model
 {
-    public class Affix : RuleConstituentBase
+    public class Affix : RuleConstituent
     {
         public List<Feature> Features { get; set; } = new List<Feature>();
 
@@ -20,9 +20,9 @@ namespace SIL.FLExTransRuleGen.Model
 
         public Affix() { }
 
-        public RuleConstituentBase FindConstituent(int identifier)
+        public RuleConstituent FindConstituent(int identifier)
         {
-            RuleConstituentBase constituent = null;
+            RuleConstituent constituent = null;
             if (Identifier == identifier)
             {
                 return this;

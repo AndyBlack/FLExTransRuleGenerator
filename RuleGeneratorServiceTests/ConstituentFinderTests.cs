@@ -25,7 +25,7 @@ namespace SIL.FLExTransRuleGenServiceTests
         Category category;
         Feature feature;
         Affix affix;
-        RuleConstituentBase constituent;
+        RuleConstituent constituent;
 
         [SetUp]
         override public void Setup()
