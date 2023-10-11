@@ -28,8 +28,14 @@ namespace SIL.FLExTransRuleGenerator.Control
         protected FLExTransRule SelectedRule { get; set; }
         public int LastSelectedRule { get; set; }
         protected WebPageProducer producer;
+        protected ConstituentFinder finder;
+        protected Affix affix;
+        protected Category category;
+        protected Feature feature;
+        protected Phrase phrase;
+        protected Word word;
 
-        protected ContextMenuStrip editContextMenu;
+        protected ContextMenuStrip ruleEditContextMenu;
         protected string cmAdd = "Add";
         protected string cmInsertBefore = "Insert new before";
         protected string cmInsertAfter = "Insert new after";
@@ -37,6 +43,8 @@ namespace SIL.FLExTransRuleGenerator.Control
         protected string cmMoveDown = "Move down";
         protected string cmDelete = "Delete";
         protected string cmDuplicate = "Duplicate";
+
+        protected ContextMenuStrip wordEditContextMenu;
 
         protected RegistryKey regkey;
         const string RegKey = "Software\\SIL\\FLExTransRuleGenerator";
@@ -54,12 +62,14 @@ namespace SIL.FLExTransRuleGenerator.Control
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(
                 this.OnFormClosing
             );
-            BuildContextMenu();
+            BuildRuleContextMenu();
+            BuildWordContextMenu();
             CheckForPresenceInProgramData();
             SetLocalizationStrings();
             regkey = Registry.CurrentUser.OpenSubKey(RegKey);
             RetrieveRegistryInfo();
             producer = WebPageProducer.Instance;
+            finder = ConstituentFinder.Instance;
             wv2RuleEditor.WebMessageReceived += webView2_WebMessageReceived;
             ShowWebPage();
         }
@@ -184,7 +194,28 @@ namespace SIL.FLExTransRuleGenerator.Control
         )
         {
             string message = args.TryGetWebMessageAsString();
-            MessageBox.Show(message);
+            int identifier = Int32.Parse(message.Substring(2));
+            RuleConstituent constituent = finder.FindConstituent(SelectedRule, identifier);
+            switch (constituent.ToString())
+            {
+                case "SIL.FLExTransRuleGen.Model.Affix":
+                    affix = constituent as Affix;
+                    break;
+                case "SIL.FLExTransRuleGen.Model.Category":
+                    category = constituent as Category;
+                    break;
+                case "SIL.FLExTransRuleGen.Model.Feature":
+                    feature = constituent as Feature;
+                    break;
+                case "SIL.FLExTransRuleGen.Model.Phrase":
+                    phrase = constituent as Phrase;
+
+                    break;
+                case "SIL.FLExTransRuleGen.Model.Word":
+                    word = constituent as Word;
+                    wordEditContextMenu.Show(Cursor.Position);
+                    break;
+            }
         }
 
         private Uri GetUriOfWebPage()
@@ -255,36 +286,59 @@ namespace SIL.FLExTransRuleGenerator.Control
             }
         }
 
-        protected void BuildContextMenu()
+        protected void BuildRuleContextMenu()
         {
-            editContextMenu = new ContextMenuStrip();
-            editContextMenu.Name = "Rules";
-            ToolStripMenuItem insertBefore = new ToolStripMenuItem(cmInsertBefore);
-            insertBefore.Click += new EventHandler(InsertBeforeContextMenu_Click);
-            insertBefore.Name = cmInsertBefore;
-            ToolStripMenuItem insertAfter = new ToolStripMenuItem(cmInsertAfter);
-            insertAfter.Click += new EventHandler(InsertAfterContextMenu_Click);
-            insertAfter.Name = cmInsertAfter;
-            ToolStripMenuItem moveUp = new ToolStripMenuItem(cmMoveUp);
-            moveUp.Click += new EventHandler(MoveUpContextMenu_Click);
-            moveUp.Name = cmMoveUp;
-            ToolStripMenuItem moveDown = new ToolStripMenuItem(cmMoveDown);
-            moveDown.Click += new EventHandler(MoveDownContextMenu_Click);
-            moveDown.Name = cmMoveDown;
-            ToolStripMenuItem deleteItem = new ToolStripMenuItem(cmDelete);
-            deleteItem.Click += new EventHandler(DeleteContextMenu_Click);
-            deleteItem.Name = cmDelete;
-            ToolStripMenuItem duplicateItem = new ToolStripMenuItem(cmDuplicate);
-            duplicateItem.Click += new EventHandler(DuplicateContextMenu_Click);
-            duplicateItem.Name = cmDuplicate;
-            editContextMenu.Items.Add(duplicateItem);
-            editContextMenu.Items.Add(insertBefore);
-            editContextMenu.Items.Add(insertAfter);
-            editContextMenu.Items.Add("-");
-            editContextMenu.Items.Add(moveUp);
-            editContextMenu.Items.Add(moveDown);
-            editContextMenu.Items.Add("-");
-            editContextMenu.Items.Add(deleteItem);
+            ruleEditContextMenu = new ContextMenuStrip();
+            ruleEditContextMenu.Name = "Rules";
+            ToolStripMenuItem ruleInsertBefore = new ToolStripMenuItem(cmInsertBefore);
+            ruleInsertBefore.Click += new EventHandler(RuleInsertBeforeContextMenu_Click);
+            ruleInsertBefore.Name = cmInsertBefore;
+            ToolStripMenuItem ruleInsertAfter = new ToolStripMenuItem(cmInsertAfter);
+            ruleInsertAfter.Click += new EventHandler(RuleInsertAfterContextMenu_Click);
+            ruleInsertAfter.Name = cmInsertAfter;
+            ToolStripMenuItem ruleMoveUp = new ToolStripMenuItem(cmMoveUp);
+            ruleMoveUp.Click += new EventHandler(RuleMoveUpContextMenu_Click);
+            ruleMoveUp.Name = cmMoveUp;
+            ToolStripMenuItem ruleMoveDown = new ToolStripMenuItem(cmMoveDown);
+            ruleMoveDown.Click += new EventHandler(RuleMoveDownContextMenu_Click);
+            ruleMoveDown.Name = cmMoveDown;
+            ToolStripMenuItem ruleDeleteItem = new ToolStripMenuItem(cmDelete);
+            ruleDeleteItem.Click += new EventHandler(RuleDeleteContextMenu_Click);
+            ruleDeleteItem.Name = cmDelete;
+            ToolStripMenuItem ruleDuplicateItem = new ToolStripMenuItem(cmDuplicate);
+            ruleDuplicateItem.Click += new EventHandler(RuleDuplicateContextMenu_Click);
+            ruleDuplicateItem.Name = cmDuplicate;
+            ruleEditContextMenu.Items.Add(ruleDuplicateItem);
+            ruleEditContextMenu.Items.Add(ruleInsertBefore);
+            ruleEditContextMenu.Items.Add(ruleInsertAfter);
+            ruleEditContextMenu.Items.Add("-");
+            ruleEditContextMenu.Items.Add(ruleMoveUp);
+            ruleEditContextMenu.Items.Add(ruleMoveDown);
+            ruleEditContextMenu.Items.Add("-");
+            ruleEditContextMenu.Items.Add(ruleDeleteItem);
+        }
+
+        protected void BuildWordContextMenu()
+        {
+            wordEditContextMenu = new ContextMenuStrip();
+            wordEditContextMenu.Name = "Words";
+            ToolStripMenuItem wordInsertBefore = new ToolStripMenuItem(cmInsertBefore);
+            wordInsertBefore.Click += new EventHandler(WordInsertBeforeContextMenu_Click);
+            wordInsertBefore.Name = cmInsertBefore;
+            ToolStripMenuItem wordInsertAfter = new ToolStripMenuItem(cmInsertAfter);
+            wordInsertAfter.Click += new EventHandler(WordInsertAfterContextMenu_Click);
+            wordInsertAfter.Name = cmInsertAfter;
+            ToolStripMenuItem wordDeleteItem = new ToolStripMenuItem(cmDelete);
+            wordDeleteItem.Click += new EventHandler(WordDeleteContextMenu_Click);
+            wordDeleteItem.Name = cmDelete;
+            ToolStripMenuItem wordDuplicateItem = new ToolStripMenuItem(cmDuplicate);
+            wordDuplicateItem.Click += new EventHandler(WordDuplicateContextMenu_Click);
+            wordDuplicateItem.Name = cmDuplicate;
+            wordEditContextMenu.Items.Add(wordDuplicateItem);
+            wordEditContextMenu.Items.Add(wordInsertBefore);
+            wordEditContextMenu.Items.Add(wordInsertAfter);
+            wordEditContextMenu.Items.Add("-");
+            wordEditContextMenu.Items.Add(wordDeleteItem);
         }
 
         protected void AdjustContextMenuContent(ListBox lBoxSender, int indexAtMouse)
@@ -292,40 +346,40 @@ namespace SIL.FLExTransRuleGenerator.Control
             int indexLast = lBoxSender.Items.Count - 1;
             if (indexAtMouse == 0)
                 // move up does not work
-                editContextMenu.Items[4].Enabled = false;
+                ruleEditContextMenu.Items[4].Enabled = false;
             else
-                editContextMenu.Items[4].Enabled = true;
+                ruleEditContextMenu.Items[4].Enabled = true;
             if (indexAtMouse == 0 && indexLast == 0)
                 // delete does not work
-                editContextMenu.Items[7].Enabled = false;
+                ruleEditContextMenu.Items[7].Enabled = false;
             else
-                editContextMenu.Items[7].Enabled = true;
+                ruleEditContextMenu.Items[7].Enabled = true;
             if (indexAtMouse == indexLast)
                 // move down does not work
-                editContextMenu.Items[5].Enabled = false;
+                ruleEditContextMenu.Items[5].Enabled = false;
             else
-                editContextMenu.Items[5].Enabled = true;
+                ruleEditContextMenu.Items[5].Enabled = true;
         }
 
-        protected void InsertBeforeContextMenu_Click(object sender, EventArgs e)
+        protected void RuleInsertBeforeContextMenu_Click(object sender, EventArgs e)
         {
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmInsertBefore)
             {
-                DoContextMenuInsert(lBoxRules.SelectedIndex);
+                DoRuleContextMenuInsert(lBoxRules.SelectedIndex);
             }
         }
 
-        protected void InsertAfterContextMenu_Click(object sender, EventArgs e)
+        protected void RuleInsertAfterContextMenu_Click(object sender, EventArgs e)
         {
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmInsertAfter)
             {
-                DoContextMenuInsert(lBoxRules.SelectedIndex + 1);
+                DoRuleContextMenuInsert(lBoxRules.SelectedIndex + 1);
             }
         }
 
-        protected void DoContextMenuInsert(int index)
+        protected void DoRuleContextMenuInsert(int index)
         {
             FLExTransRule ftRule = new FLExTransRule();
             FLExTransRuleGen.FLExTransRules.Insert(index, ftRule);
@@ -334,7 +388,7 @@ namespace SIL.FLExTransRuleGenerator.Control
             MarkAsChanged(true);
         }
 
-        protected void MoveUpContextMenu_Click(object sender, EventArgs e)
+        protected void RuleMoveUpContextMenu_Click(object sender, EventArgs e)
         {
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmMoveUp)
@@ -344,7 +398,7 @@ namespace SIL.FLExTransRuleGenerator.Control
             }
         }
 
-        protected void MoveDownContextMenu_Click(object sender, EventArgs e)
+        protected void RuleMoveDownContextMenu_Click(object sender, EventArgs e)
         {
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmMoveDown)
@@ -366,7 +420,7 @@ namespace SIL.FLExTransRuleGenerator.Control
             MarkAsChanged(true);
         }
 
-        protected void DeleteContextMenu_Click(object sender, EventArgs e)
+        protected void RuleDeleteContextMenu_Click(object sender, EventArgs e)
         {
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmDelete)
@@ -382,7 +436,7 @@ namespace SIL.FLExTransRuleGenerator.Control
             MarkAsChanged(true);
         }
 
-        protected void DuplicateContextMenu_Click(object sender, EventArgs e)
+        protected void RuleDuplicateContextMenu_Click(object sender, EventArgs e)
         {
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmDuplicate)
@@ -393,6 +447,74 @@ namespace SIL.FLExTransRuleGenerator.Control
                     FLExTransRuleGen.FLExTransRules.Insert(index, ftRule);
                     lBoxRules.Items.Insert(index, ftRule);
                 }
+            }
+            MarkAsChanged(true);
+        }
+
+        protected void WordInsertBeforeContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmInsertBefore)
+            {
+                DoWordContextMenuInsert( /* lBoxWords.SelectedIndex*/
+                    0
+                );
+                MessageBox.Show("word insert before found");
+            }
+        }
+
+        protected void WordInsertAfterContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmInsertAfter)
+            {
+                DoWordContextMenuInsert( /*lBoxWords.SelectedIndex +*/
+                    1
+                );
+                MessageBox.Show("word insert after found");
+            }
+        }
+
+        protected void DoWordContextMenuInsert(int index)
+        {
+            //FLExTransWord ftWord = new FLExTransWord();
+            //FLExTransWordGen.FLExTransWords.Insert(index, ftWord);
+            //lBoxWords.Items.Insert(index, ftWord);
+            //lBoxWords.SetSelected(index, true);
+            MarkAsChanged(true);
+        }
+
+        protected void WordDeleteContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmDelete)
+            {
+                MessageBox.Show("word delete found");
+
+                //int index = lBoxWords.SelectedIndex;
+                //FLExTransWord op = FLExTransWordGen.FLExTransWords.ElementAt(index);
+                //FLExTransWordGen.FLExTransWords.RemoveAt(index);
+                //lBoxWords.Items.RemoveAt(index);
+                //int newIndex = index < lBoxWords.Items.Count ? index : lBoxWords.Items.Count - 1;
+                //if (newIndex > -1)
+                //	lBoxWords.SelectedIndex = newIndex;
+            }
+            MarkAsChanged(true);
+        }
+
+        protected void WordDuplicateContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmDuplicate)
+            {
+                MessageBox.Show("word duplicate found");
+
+                //int index = lBoxWords.SelectedIndex + 1;
+                //{
+                //	FLExTransWord ftWord = SelectedWord.Duplicate();
+                //	FLExTransWordGen.FLExTransWords.Insert(index, ftWord);
+                //	lBoxWords.Items.Insert(index, ftWord);
+                //}
             }
             MarkAsChanged(true);
         }
@@ -414,7 +536,7 @@ namespace SIL.FLExTransRuleGenerator.Control
                     lBoxSender.SelectedIndex = indexAtMouse;
                     Point ptClickedAt = e.Location;
                     ptClickedAt = lBoxSender.PointToScreen(ptClickedAt);
-                    editContextMenu.Show(ptClickedAt);
+                    ruleEditContextMenu.Show(ptClickedAt);
                 }
             }
         }
