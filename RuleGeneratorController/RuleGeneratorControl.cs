@@ -680,10 +680,7 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmInsertBefore)
             {
-                DoWordContextMenuInsert( /* lBoxWords.SelectedIndex*/
-                    0
-                );
-                MessageBox.Show("word insert before found");
+                DoWordContextMenuInsert(true);
             }
         }
 
@@ -692,19 +689,31 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmInsertAfter)
             {
-                DoWordContextMenuInsert( /*lBoxWords.SelectedIndex +*/
-                    1
-                );
-                MessageBox.Show("word insert after found");
+                DoWordContextMenuInsert(false);
             }
         }
 
-        protected void DoWordContextMenuInsert(int index)
+        protected void DoWordContextMenuInsert(bool before)
         {
-            //FLExTransWord ftWord = new FLExTransWord();
-            //FLExTransWordGen.FLExTransWords.Insert(index, ftWord);
-            //lBoxWords.Items.Insert(index, ftWord);
-            //lBoxWords.SetSelected(index, true);
+            if (word == null)
+                return; // should not happen
+            phrase = word.Parent as Phrase;
+            if (phrase == null)
+                return; // should not happen
+            int index = phrase.Words.IndexOf(word);
+            if (index < 0)
+                return; // did not find it
+            var newWord = new Word();
+            newWord.Id = (phrase.Words.Count + 1).ToString();
+            if (before)
+            {
+                phrase.Words.Insert(index, newWord);
+            }
+            else
+            {
+                phrase.Words.Insert(index + 1, newWord);
+            }
+            ShowWebPage();
             MarkAsChanged(true);
         }
 
