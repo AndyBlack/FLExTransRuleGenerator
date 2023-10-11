@@ -2,6 +2,7 @@
 // This software is licensed under the LGPL, version 2.1 or later
 // (http://www.gnu.org/licenses/lgpl-2.1.html)
 
+using Microsoft.Web.WebView2.Core;
 using Microsoft.Win32;
 using SIL.FLExTransRuleGen.Model;
 using SIL.FLExTransRuleGen.Service;
@@ -46,6 +47,7 @@ namespace SIL.FLExTransRuleGenerator.Control
         protected string cmEdit = "Edit";
         protected string cmInsertAfter = "Insert new after";
         protected string cmInsertBefore = "Insert new before";
+        protected string cmInsertCategory = "Insert category";
         protected string cmInsertFeature = "Insert feature";
         protected string cmMoveDown = "Move down";
         protected string cmMoveUp = "Move up";
@@ -78,6 +80,8 @@ namespace SIL.FLExTransRuleGenerator.Control
             producer = WebPageProducer.Instance;
             finder = ConstituentFinder.Instance;
             wv2RuleEditor.WebMessageReceived += webView2_WebMessageReceived;
+            wv2RuleEditor.CoreWebView2InitializationCompleted +=
+                webview2_CoreWebView2InitializationCompleted;
             ShowWebPage();
         }
 
@@ -190,6 +194,11 @@ namespace SIL.FLExTransRuleGenerator.Control
                 .Properties
                 .RuleGenStrings
                 .cmInsertBefore;
+            cmInsertCategory = SIL.FLExTransRuleGen
+                .Controller
+                .Properties
+                .RuleGenStrings
+                .cmInsertCategory;
             cmInsertFeature = SIL.FLExTransRuleGen
                 .Controller
                 .Properties
@@ -199,6 +208,14 @@ namespace SIL.FLExTransRuleGenerator.Control
             cmMoveUp = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveUp;
             lblName.Text = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.RuleName;
             this.Text = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.FormTitle;
+        }
+
+        private async void webview2_CoreWebView2InitializationCompleted(
+            object sender,
+            CoreWebView2InitializationCompletedEventArgs e
+        )
+        {
+            wv2RuleEditor.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
         }
 
         private void webView2_WebMessageReceived(
@@ -402,6 +419,9 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripMenuItem wordInsertAfter = new ToolStripMenuItem(cmInsertAfter);
             wordInsertAfter.Click += new EventHandler(WordInsertAfterContextMenu_Click);
             wordInsertAfter.Name = cmInsertAfter;
+            ToolStripMenuItem wordInsertCategory = new ToolStripMenuItem(cmInsertCategory);
+            wordInsertCategory.Click += new EventHandler(WordInsertCategoryContextMenu_Click);
+            wordInsertCategory.Name = cmInsertCategory;
             ToolStripMenuItem wordDeleteItem = new ToolStripMenuItem(cmDelete);
             wordDeleteItem.Click += new EventHandler(WordDeleteContextMenu_Click);
             wordDeleteItem.Name = cmDelete;
@@ -413,6 +433,8 @@ namespace SIL.FLExTransRuleGenerator.Control
             wordEditContextMenu.Items.Add(wordInsertAfter);
             wordEditContextMenu.Items.Add("-");
             wordEditContextMenu.Items.Add(wordDeleteItem);
+            wordEditContextMenu.Items.Add("-");
+            wordEditContextMenu.Items.Add(wordInsertCategory);
         }
 
         protected void AdjustContextMenuContent(ListBox lBoxSender, int indexAtMouse)
@@ -715,6 +737,16 @@ namespace SIL.FLExTransRuleGenerator.Control
             }
             ShowWebPage();
             MarkAsChanged(true);
+        }
+
+        protected void WordInsertCategoryContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmInsertCategory)
+            {
+                MessageBox.Show("show categories available dialog");
+                //word.CategoryConstituent
+            }
         }
 
         protected void WordDeleteContextMenu_Click(object sender, EventArgs e)

@@ -106,6 +106,15 @@ namespace SIL.FLExTransRuleGen.Controller.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insert category.
+        /// </summary>
+        internal static string cmInsertCategory {
+            get {
+                return ResourceManager.GetString("cmInsertCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert feature.
         /// </summary>
         internal static string cmInsertFeature {

@@ -153,6 +153,10 @@
     <value>Edit</value>
     <comment>Context menu: Edit selected item</comment>
   </data>
+  <data name="cmInsertCategory" xml:space="preserve">
+    <value>Insert category</value>
+    <comment>Context menu: Insert a category for a word</comment>
+  </data>
   <data name="cmInsertFeature" xml:space="preserve">
     <value>Insert feature</value>
     <comment>Context menu: Insert a new feature</comment>
