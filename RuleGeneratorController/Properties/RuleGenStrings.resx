@@ -119,19 +119,19 @@
   </resheader>
   <data name="cmDelete" xml:space="preserve">
     <value>Delete</value>
-    <comment>List box context menu: Delete selected rule</comment>
+    <comment>Context menu: Delete selected item</comment>
   </data>
   <data name="cmDuplicate" xml:space="preserve">
     <value>Duplicate</value>
-    <comment>List box context menu: Duplicate selected rule</comment>
+    <comment>Context menu: Duplicate selected item</comment>
   </data>
   <data name="cmInsertAfter" xml:space="preserve">
     <value>Insert new after</value>
-    <comment>List box context menu: Insert new rule after the selected rule</comment>
+    <comment>Context menu: Insert new item after the selected item</comment>
   </data>
   <data name="cmInsertBefore" xml:space="preserve">
     <value>Insert new before</value>
-    <comment>List box context menu: Insert new rule before the selected rule</comment>
+    <comment>Context menu: Insert new item before the selected item</comment>
   </data>
   <data name="cmMoveDown" xml:space="preserve">
     <value>Move down</value>
@@ -143,10 +143,18 @@
   </data>
   <data name="FormTitle" xml:space="preserve">
     <value>FLExTrans Rule Generator</value>
-    <comment>title of the dialog form</comment>
+    <comment>Title of the dialog form</comment>
   </data>
   <data name="RuleName" xml:space="preserve">
     <value>Rule Name:</value>
     <comment>Name of the chosen rule</comment>
+  </data>
+  <data name="cmEdit" xml:space="preserve">
+    <value>Edit</value>
+    <comment>Context menu: Edit selected item</comment>
+  </data>
+  <data name="cmInsertFeature" xml:space="preserve">
+    <value>Insert feature</value>
+    <comment>Context menu: Insert a new feature</comment>
   </data>
 </root>

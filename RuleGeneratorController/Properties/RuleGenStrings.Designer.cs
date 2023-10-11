@@ -79,6 +79,15 @@ namespace SIL.FLExTransRuleGen.Controller.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        internal static string cmEdit {
+            get {
+                return ResourceManager.GetString("cmEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert new after.
         /// </summary>
         internal static string cmInsertAfter {
@@ -93,6 +102,15 @@ namespace SIL.FLExTransRuleGen.Controller.Properties {
         internal static string cmInsertBefore {
             get {
                 return ResourceManager.GetString("cmInsertBefore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert feature.
+        /// </summary>
+        internal static string cmInsertFeature {
+            get {
+                return ResourceManager.GetString("cmInsertFeature", resourceCulture);
             }
         }
         

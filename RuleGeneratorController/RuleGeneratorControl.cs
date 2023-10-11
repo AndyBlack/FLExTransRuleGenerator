@@ -36,15 +36,19 @@ namespace SIL.FLExTransRuleGenerator.Control
         protected Word word;
 
         protected ContextMenuStrip ruleEditContextMenu;
-        protected string cmAdd = "Add";
-        protected string cmInsertBefore = "Insert new before";
-        protected string cmInsertAfter = "Insert new after";
-        protected string cmMoveUp = "Move up";
-        protected string cmMoveDown = "Move down";
+        protected ContextMenuStrip affixEditContextMenu;
+        protected ContextMenuStrip categoryEditContextMenu;
+        protected ContextMenuStrip featureEditContextMenu;
+        protected ContextMenuStrip wordEditContextMenu;
+
         protected string cmDelete = "Delete";
         protected string cmDuplicate = "Duplicate";
-
-        protected ContextMenuStrip wordEditContextMenu;
+        protected string cmEdit = "Edit";
+        protected string cmInsertAfter = "Insert new after";
+        protected string cmInsertBefore = "Insert new before";
+        protected string cmInsertFeature = "Insert feature";
+        protected string cmMoveDown = "Move down";
+        protected string cmMoveUp = "Move up";
 
         protected RegistryKey regkey;
         const string RegKey = "Software\\SIL\\FLExTransRuleGenerator";
@@ -63,6 +67,9 @@ namespace SIL.FLExTransRuleGenerator.Control
                 this.OnFormClosing
             );
             BuildRuleContextMenu();
+            BuildAffixContextMenu();
+            BuildCategoryContextMenu();
+            BuildFeatureContextMenu();
             BuildWordContextMenu();
             CheckForPresenceInProgramData();
             SetLocalizationStrings();
@@ -175,6 +182,7 @@ namespace SIL.FLExTransRuleGenerator.Control
         private void SetLocalizationStrings()
         {
             cmDelete = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmDelete;
+            cmEdit = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmEdit;
             cmDuplicate = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmDuplicate;
             cmInsertAfter = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmInsertAfter;
             cmInsertBefore = SIL.FLExTransRuleGen
@@ -182,6 +190,11 @@ namespace SIL.FLExTransRuleGenerator.Control
                 .Properties
                 .RuleGenStrings
                 .cmInsertBefore;
+            cmInsertFeature = SIL.FLExTransRuleGen
+                .Controller
+                .Properties
+                .RuleGenStrings
+                .cmInsertFeature;
             cmMoveDown = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveDown;
             cmMoveUp = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveUp;
             lblName.Text = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.RuleName;
@@ -200,16 +213,19 @@ namespace SIL.FLExTransRuleGenerator.Control
             {
                 case "SIL.FLExTransRuleGen.Model.Affix":
                     affix = constituent as Affix;
+                    affixEditContextMenu.Show(Cursor.Position);
                     break;
                 case "SIL.FLExTransRuleGen.Model.Category":
                     category = constituent as Category;
+                    categoryEditContextMenu.Show(Cursor.Position);
                     break;
                 case "SIL.FLExTransRuleGen.Model.Feature":
                     feature = constituent as Feature;
+                    featureEditContextMenu.Show(Cursor.Position);
                     break;
                 case "SIL.FLExTransRuleGen.Model.Phrase":
                     phrase = constituent as Phrase;
-
+                    // do we need anything here?  I think not
                     break;
                 case "SIL.FLExTransRuleGen.Model.Word":
                     word = constituent as Word;
@@ -318,10 +334,68 @@ namespace SIL.FLExTransRuleGenerator.Control
             ruleEditContextMenu.Items.Add(ruleDeleteItem);
         }
 
+        protected void BuildAffixContextMenu()
+        {
+            affixEditContextMenu = new ContextMenuStrip();
+            affixEditContextMenu.Name = "Affix";
+            ToolStripMenuItem affixInsertBefore = new ToolStripMenuItem(cmInsertBefore);
+            affixInsertBefore.Click += new EventHandler(AffixInsertBeforeContextMenu_Click);
+            affixInsertBefore.Name = cmInsertBefore;
+            ToolStripMenuItem affixInsertAfter = new ToolStripMenuItem(cmInsertAfter);
+            affixInsertAfter.Click += new EventHandler(AffixInsertAfterContextMenu_Click);
+            affixInsertAfter.Name = cmInsertAfter;
+            ToolStripMenuItem affixInsertFeature = new ToolStripMenuItem(cmInsertFeature);
+            affixInsertFeature.Click += new EventHandler(AffixInsertFeatureContextMenu_Click);
+            affixInsertFeature.Name = cmInsertFeature;
+            ToolStripMenuItem affixDeleteItem = new ToolStripMenuItem(cmDelete);
+            affixDeleteItem.Click += new EventHandler(AffixDeleteContextMenu_Click);
+            affixDeleteItem.Name = cmDelete;
+            ToolStripMenuItem affixDuplicateItem = new ToolStripMenuItem(cmDuplicate);
+            affixDuplicateItem.Click += new EventHandler(AffixDuplicateContextMenu_Click);
+            affixDuplicateItem.Name = cmDuplicate;
+            affixEditContextMenu.Items.Add(affixDuplicateItem);
+            affixEditContextMenu.Items.Add(affixInsertBefore);
+            affixEditContextMenu.Items.Add(affixInsertAfter);
+            affixEditContextMenu.Items.Add("-");
+            affixEditContextMenu.Items.Add(affixDeleteItem);
+            affixEditContextMenu.Items.Add("-");
+            affixEditContextMenu.Items.Add(affixInsertFeature);
+        }
+
+        protected void BuildCategoryContextMenu()
+        {
+            categoryEditContextMenu = new ContextMenuStrip();
+            categoryEditContextMenu.Name = "Category";
+            ToolStripMenuItem categoryDeleteItem = new ToolStripMenuItem(cmDelete);
+            categoryDeleteItem.Click += new EventHandler(CategoryDeleteContextMenu_Click);
+            categoryDeleteItem.Name = cmDelete;
+            ToolStripMenuItem categoryEditItem = new ToolStripMenuItem(cmEdit);
+            categoryEditItem.Click += new EventHandler(CategoryEditContextMenu_Click);
+            categoryEditItem.Name = cmEdit;
+            categoryEditContextMenu.Items.Add(categoryEditItem);
+            categoryEditContextMenu.Items.Add("-");
+            categoryEditContextMenu.Items.Add(categoryDeleteItem);
+        }
+
+        protected void BuildFeatureContextMenu()
+        {
+            featureEditContextMenu = new ContextMenuStrip();
+            featureEditContextMenu.Name = "Feature";
+            ToolStripMenuItem featureDeleteItem = new ToolStripMenuItem(cmDelete);
+            featureDeleteItem.Click += new EventHandler(FeatureDeleteContextMenu_Click);
+            featureDeleteItem.Name = cmDelete;
+            ToolStripMenuItem featureEditItem = new ToolStripMenuItem(cmEdit);
+            featureEditItem.Click += new EventHandler(FeatureEditContextMenu_Click);
+            featureEditItem.Name = cmEdit;
+            featureEditContextMenu.Items.Add(featureEditItem);
+            featureEditContextMenu.Items.Add("-");
+            featureEditContextMenu.Items.Add(featureDeleteItem);
+        }
+
         protected void BuildWordContextMenu()
         {
             wordEditContextMenu = new ContextMenuStrip();
-            wordEditContextMenu.Name = "Words";
+            wordEditContextMenu.Name = "Word";
             ToolStripMenuItem wordInsertBefore = new ToolStripMenuItem(cmInsertBefore);
             wordInsertBefore.Click += new EventHandler(WordInsertBeforeContextMenu_Click);
             wordInsertBefore.Name = cmInsertBefore;
@@ -447,6 +521,156 @@ namespace SIL.FLExTransRuleGenerator.Control
                     FLExTransRuleGen.FLExTransRules.Insert(index, ftRule);
                     lBoxRules.Items.Insert(index, ftRule);
                 }
+            }
+            MarkAsChanged(true);
+        }
+
+        protected void AffixInsertBeforeContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmInsertBefore)
+            {
+                DoAffixContextMenuInsert( /* lBoxAffixs.SelectedIndex*/
+                    0
+                );
+                MessageBox.Show("affix insert before found");
+            }
+        }
+
+        protected void AffixInsertAfterContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmInsertAfter)
+            {
+                DoAffixContextMenuInsert( /*lBoxAffixs.SelectedIndex +*/
+                    1
+                );
+                MessageBox.Show("affix insert after found");
+            }
+        }
+
+        protected void AffixInsertFeatureContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmInsertFeature)
+            {
+                DoAffixContextMenuInsert( /*lBoxAffixs.SelectedIndex +*/
+                    1
+                );
+                MessageBox.Show("affix insert feature found");
+            }
+        }
+
+        protected void DoAffixContextMenuInsert(int index)
+        {
+            //FLExTransAffix ftAffix = new FLExTransAffix();
+            //FLExTransAffixGen.FLExTransAffixs.Insert(index, ftAffix);
+            //lBoxAffixs.Items.Insert(index, ftAffix);
+            //lBoxAffixs.SetSelected(index, true);
+            MarkAsChanged(true);
+        }
+
+        protected void AffixDeleteContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmDelete)
+            {
+                MessageBox.Show("affix delete found");
+
+                //int index = lBoxAffixs.SelectedIndex;
+                //FLExTransAffix op = FLExTransAffixGen.FLExTransAffixs.ElementAt(index);
+                //FLExTransAffixGen.FLExTransAffixs.RemoveAt(index);
+                //lBoxAffixs.Items.RemoveAt(index);
+                //int newIndex = index < lBoxAffixs.Items.Count ? index : lBoxAffixs.Items.Count - 1;
+                //if (newIndex > -1)
+                //	lBoxAffixs.SelectedIndex = newIndex;
+            }
+            MarkAsChanged(true);
+        }
+
+        protected void AffixDuplicateContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmDuplicate)
+            {
+                MessageBox.Show("affix duplicate found");
+
+                //int index = lBoxAffixs.SelectedIndex + 1;
+                //{
+                //	FLExTransAffix ftAffix = SelectedAffix.Duplicate();
+                //	FLExTransAffixGen.FLExTransAffixs.Insert(index, ftAffix);
+                //	lBoxAffixs.Items.Insert(index, ftAffix);
+                //}
+            }
+            MarkAsChanged(true);
+        }
+
+        protected void CategoryDeleteContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmDelete)
+            {
+                MessageBox.Show("category delete found");
+
+                //int index = lBoxCategorys.SelectedIndex;
+                //FLExTransCategory op = FLExTransCategoryGen.FLExTransCategorys.ElementAt(index);
+                //FLExTransCategoryGen.FLExTransCategorys.RemoveAt(index);
+                //lBoxCategorys.Items.RemoveAt(index);
+                //int newIndex = index < lBoxCategorys.Items.Count ? index : lBoxCategorys.Items.Count - 1;
+                //if (newIndex > -1)
+                //	lBoxCategorys.SelectedIndex = newIndex;
+            }
+            MarkAsChanged(true);
+        }
+
+        protected void CategoryEditContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmEdit)
+            {
+                MessageBox.Show("category edit found");
+
+                //int index = lBoxCategorys.SelectedIndex + 1;
+                //{
+                //	FLExTransCategory ftCategory = SelectedCategory.Duplicate();
+                //	FLExTransCategoryGen.FLExTransCategorys.Insert(index, ftCategory);
+                //	lBoxCategorys.Items.Insert(index, ftCategory);
+                //}
+            }
+            MarkAsChanged(true);
+        }
+
+        protected void FeatureDeleteContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmDelete)
+            {
+                MessageBox.Show("feature delete found");
+
+                //int index = lBoxFeatures.SelectedIndex;
+                //FLExTransFeature op = FLExTransFeatureGen.FLExTransFeatures.ElementAt(index);
+                //FLExTransFeatureGen.FLExTransFeatures.RemoveAt(index);
+                //lBoxFeatures.Items.RemoveAt(index);
+                //int newIndex = index < lBoxFeatures.Items.Count ? index : lBoxFeatures.Items.Count - 1;
+                //if (newIndex > -1)
+                //	lBoxFeatures.SelectedIndex = newIndex;
+            }
+            MarkAsChanged(true);
+        }
+
+        protected void FeatureEditContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmEdit)
+            {
+                MessageBox.Show("feature edit found");
+
+                //int index = lBoxFeatures.SelectedIndex + 1;
+                //{
+                //	FLExTransFeature ftFeature = SelectedFeature.Duplicate();
+                //	FLExTransFeatureGen.FLExTransFeatures.Insert(index, ftFeature);
+                //	lBoxFeatures.Items.Insert(index, ftFeature);
+                //}
             }
             MarkAsChanged(true);
         }
