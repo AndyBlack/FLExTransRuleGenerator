@@ -29,6 +29,18 @@ namespace SIL.FLExTransRuleGen.Model
             Words.Insert(index, newWord);
         }
 
+        public void SwapPositionOfWords(int index, int otherIndex)
+        {
+            if (index < 0 | index >= Words.Count)
+                return;
+            if (otherIndex < 0 | otherIndex >= Words.Count)
+                return;
+            Word word = Words[index];
+            Word otherWord = Words[otherIndex];
+            Words[index] = otherWord;
+            Words[otherIndex] = word;
+        }
+
         public string ProduceHtml()
         {
             StringBuilder sb = new StringBuilder();

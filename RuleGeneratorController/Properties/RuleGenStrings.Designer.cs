@@ -133,6 +133,24 @@ namespace SIL.FLExTransRuleGen.Controller.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move left.
+        /// </summary>
+        internal static string cmMoveLeft {
+            get {
+                return ResourceManager.GetString("cmMoveLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move right.
+        /// </summary>
+        internal static string cmMoveRight {
+            get {
+                return ResourceManager.GetString("cmMoveRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move up.
         /// </summary>
         internal static string cmMoveUp {

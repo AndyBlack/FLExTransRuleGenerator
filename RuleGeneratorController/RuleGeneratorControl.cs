@@ -50,6 +50,8 @@ namespace SIL.FLExTransRuleGenerator.Control
         protected string cmInsertCategory = "Insert category";
         protected string cmInsertFeature = "Insert feature";
         protected string cmMoveDown = "Move down";
+        protected string cmMoveLeft = "Move left";
+        protected string cmMoveRight = "Move right";
         protected string cmMoveUp = "Move up";
 
         protected RegistryKey regkey;
@@ -205,6 +207,8 @@ namespace SIL.FLExTransRuleGenerator.Control
                 .RuleGenStrings
                 .cmInsertFeature;
             cmMoveDown = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveDown;
+            cmMoveLeft = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveLeft;
+            cmMoveRight = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveRight;
             cmMoveUp = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveUp;
             lblName.Text = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.RuleName;
             this.Text = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.FormTitle;
@@ -428,9 +432,18 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripMenuItem wordDuplicateItem = new ToolStripMenuItem(cmDuplicate);
             wordDuplicateItem.Click += new EventHandler(WordDuplicateContextMenu_Click);
             wordDuplicateItem.Name = cmDuplicate;
+            ToolStripMenuItem wordMoveLeft = new ToolStripMenuItem(cmMoveLeft);
+            wordMoveLeft.Click += new EventHandler(WordMoveLeftContextMenu_Click);
+            wordMoveLeft.Name = cmMoveLeft;
+            ToolStripMenuItem wordMoveRight = new ToolStripMenuItem(cmMoveRight);
+            wordMoveRight.Click += new EventHandler(WordMoveRightContextMenu_Click);
+            wordMoveRight.Name = cmMoveRight;
             wordEditContextMenu.Items.Add(wordDuplicateItem);
             wordEditContextMenu.Items.Add(wordInsertBefore);
             wordEditContextMenu.Items.Add(wordInsertAfter);
+            wordEditContextMenu.Items.Add("-");
+            wordEditContextMenu.Items.Add(wordMoveLeft);
+            wordEditContextMenu.Items.Add(wordMoveRight);
             wordEditContextMenu.Items.Add("-");
             wordEditContextMenu.Items.Add(wordDeleteItem);
             wordEditContextMenu.Items.Add("-");
@@ -490,7 +503,7 @@ namespace SIL.FLExTransRuleGenerator.Control
             if (menuItem.Name == cmMoveUp)
             {
                 int index = lBoxRules.SelectedIndex;
-                DoContextMenuMove(index, index - 1);
+                DoRuleContextMenuMove(index, index - 1);
             }
         }
 
@@ -500,11 +513,11 @@ namespace SIL.FLExTransRuleGenerator.Control
             if (menuItem.Name == cmMoveDown)
             {
                 int index = lBoxRules.SelectedIndex;
-                DoContextMenuMove(index, index + 1);
+                DoRuleContextMenuMove(index, index + 1);
             }
         }
 
-        protected void DoContextMenuMove(int index, int otherIndex)
+        protected void DoRuleContextMenuMove(int index, int otherIndex)
         {
             Object selectedItem = lBoxRules.SelectedItem;
             Object otherItem = lBoxRules.Items[otherIndex];
@@ -717,12 +730,7 @@ namespace SIL.FLExTransRuleGenerator.Control
 
         protected void DoWordContextMenuInsert(bool before)
         {
-            if (word == null)
-                return; // should not happen
-            phrase = word.Parent as Phrase;
-            if (phrase == null)
-                return; // should not happen
-            int index = phrase.Words.IndexOf(word);
+            int index = GetIndexOfWordInPhrase();
             if (index < 0)
                 return; // did not find it
             if (before)
@@ -735,6 +743,50 @@ namespace SIL.FLExTransRuleGenerator.Control
             }
             ShowWebPage();
             MarkAsChanged(true);
+        }
+
+        protected int GetIndexOfWordInPhrase()
+        {
+            int index = -1;
+            if (word != null)
+            {
+                phrase = word.Parent as Phrase;
+                if (phrase != null)
+                {
+                    index = phrase.Words.IndexOf(word);
+                }
+            }
+            return index;
+        }
+
+        protected void WordMoveLeftContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmMoveLeft)
+            {
+                int index = GetIndexOfWordInPhrase();
+                if (index > -1)
+                {
+                    phrase.SwapPositionOfWords(index, index - 1);
+                    ShowWebPage();
+                    MarkAsChanged(true);
+                }
+            }
+        }
+
+        protected void WordMoveRightContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmMoveRight)
+            {
+                int index = GetIndexOfWordInPhrase();
+                if (index > -1)
+                {
+                    phrase.SwapPositionOfWords(index, index + 1);
+                    ShowWebPage();
+                    MarkAsChanged(true);
+                }
+            }
         }
 
         protected void WordInsertCategoryContextMenu_Click(object sender, EventArgs e)

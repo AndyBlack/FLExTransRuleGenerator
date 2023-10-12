@@ -65,5 +65,26 @@ namespace SIL.FLExTransRuleGenModelTests
             Assert.AreEqual(4, sourcePhrase.Words.Count);
             Assert.AreEqual("4", sourcePhrase.Words[0].Id);
         }
+
+        [Test]
+        public void SwapPositionOfWordsTest()
+        {
+            Assert.AreEqual(2, sourcePhrase.Words.Count);
+            sourcePhrase.SwapPositionOfWords(-1, 0); // is a no-op
+            Assert.AreEqual(2, sourcePhrase.Words.Count);
+            sourcePhrase.SwapPositionOfWords(2, 0); // is a no-op
+            Assert.AreEqual(2, sourcePhrase.Words.Count);
+            sourcePhrase.SwapPositionOfWords(0, -1); // is a no-op
+            Assert.AreEqual(2, sourcePhrase.Words.Count);
+            sourcePhrase.SwapPositionOfWords(0, 2); // is a no-op
+            Assert.AreEqual(2, sourcePhrase.Words.Count);
+
+            sourcePhrase.SwapPositionOfWords(0, 1);
+            Assert.AreEqual("Source 2", sourcePhrase.Words[0].Id);
+            Assert.AreEqual("Source 1", sourcePhrase.Words[1].Id);
+            sourcePhrase.SwapPositionOfWords(1, 0);
+            Assert.AreEqual("Source 1", sourcePhrase.Words[0].Id);
+            Assert.AreEqual("Source 2", sourcePhrase.Words[1].Id);
+        }
     }
 }
