@@ -20,6 +20,15 @@ namespace SIL.FLExTransRuleGen.Model
 
         public Phrase() { }
 
+        public void InsertNewWordAt(int index)
+        {
+            if (index < 0 || index >= Words.Count)
+                return;
+            var newWord = new Word();
+            newWord.Id = (Words.Count + 1).ToString();
+            Words.Insert(index, newWord);
+        }
+
         public string ProduceHtml()
         {
             StringBuilder sb = new StringBuilder();

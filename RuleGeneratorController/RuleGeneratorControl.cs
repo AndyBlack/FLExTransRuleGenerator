@@ -725,15 +725,13 @@ namespace SIL.FLExTransRuleGenerator.Control
             int index = phrase.Words.IndexOf(word);
             if (index < 0)
                 return; // did not find it
-            var newWord = new Word();
-            newWord.Id = (phrase.Words.Count + 1).ToString();
             if (before)
             {
-                phrase.Words.Insert(index, newWord);
+                phrase.InsertNewWordAt(index);
             }
             else
             {
-                phrase.Words.Insert(index + 1, newWord);
+                phrase.InsertNewWordAt(index + 1);
             }
             ShowWebPage();
             MarkAsChanged(true);
