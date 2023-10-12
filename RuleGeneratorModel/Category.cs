@@ -42,5 +42,11 @@ namespace SIL.FLExTransRuleGen.Model
             sb.Append("</span></li>\n");
             return sb.ToString();
         }
+
+        public Category Duplicate()
+        {
+            Category newCat = new Category(Name);
+            return newCat;
+        }
     }
 }

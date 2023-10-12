@@ -819,16 +819,16 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmDuplicate)
             {
-                MessageBox.Show("word duplicate found");
-
-                //int index = lBoxWords.SelectedIndex + 1;
-                //{
-                //	FLExTransWord ftWord = SelectedWord.Duplicate();
-                //	FLExTransWordGen.FLExTransWords.Insert(index, ftWord);
-                //	lBoxWords.Items.Insert(index, ftWord);
-                //}
+                int index = GetIndexOfWordInPhrase();
+                if (index > -1)
+                {
+                    Word newWord = word.Duplicate();
+                    newWord.Id = (phrase.Words.Count + 1).ToString();
+                    phrase.InsertWordAt(newWord, index + 1);
+                    ShowWebPage();
+                    MarkAsChanged(true);
+                }
             }
-            MarkAsChanged(true);
         }
 
         protected void lBoxRules_MouseUp(object sender, MouseEventArgs e)

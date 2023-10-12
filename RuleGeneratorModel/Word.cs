@@ -103,6 +103,7 @@ namespace SIL.FLExTransRuleGen.Model
             Word newWord = new Word();
             newWord.Id = Id;
             newWord.Category = Category;
+            newWord.CategoryConstituent = CategoryConstituent.Duplicate();
             newWord.Head = Head;
             foreach (Affix affix in Affixes)
             {

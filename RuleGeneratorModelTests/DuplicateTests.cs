@@ -15,6 +15,8 @@ namespace SIL.FLExTransRuleGenModelTests
     public class DuplicateTests
     {
         FLExTransRuleGenerator ruleGenerator;
+        Word sourceWord;
+        Word sourceWord2;
 
         [SetUp]
         public void Setup()
@@ -25,14 +27,16 @@ namespace SIL.FLExTransRuleGenModelTests
             ruleGenerator.FLExTransRules.Add(rule);
             Source source = rule.Source;
             Phrase sourcePhrase = source.Phrase;
-            Word sourceWord = new Word();
+            sourceWord = new Word();
             sourceWord.Id = "Source 1";
             sourceWord.Category = "Noun";
+            sourceWord.CategoryConstituent = new Category(sourceWord.Category);
             sourceWord.Head = HeadValue.yes;
             sourcePhrase.Words.Add(sourceWord);
-            Word sourceWord2 = new Word();
+            sourceWord2 = new Word();
             sourceWord2.Id = "Source 2";
             sourceWord2.Category = "Det";
+            sourceWord2.CategoryConstituent = new Category(sourceWord2.Category);
             sourceWord2.Head = HeadValue.no;
             sourcePhrase.Words.Add(sourceWord2);
             Target target = rule.Target;
@@ -50,7 +54,7 @@ namespace SIL.FLExTransRuleGenModelTests
         }
 
         [Test]
-        public void DuplicateTest()
+        public void RuleDuplicateTest()
         {
             Assert.AreEqual(1, ruleGenerator.FLExTransRules.Count);
             FLExTransRule rule = ruleGenerator.FLExTransRules.ElementAt(0);
@@ -58,6 +62,24 @@ namespace SIL.FLExTransRuleGenModelTests
             Assert.AreEqual(rule.Name, rule2.Name);
             Assert.AreEqual(rule.Source.Phrase.Words.Count, rule2.Source.Phrase.Words.Count);
             Assert.AreEqual(rule.Target.Phrase.Words.Count, rule2.Target.Phrase.Words.Count);
+        }
+
+        [Test]
+        public void WordDuplicateTest()
+        {
+            Word newWord = sourceWord.Duplicate();
+            Assert.AreEqual("Source 1", sourceWord.Id);
+            Assert.AreEqual("Source 1", newWord.Id);
+            Assert.AreEqual("Noun", sourceWord.Category);
+            Assert.AreEqual("Noun", newWord.Category);
+            Category sourceCat = sourceWord.CategoryConstituent;
+            Category newCat = newWord.CategoryConstituent;
+            Assert.AreEqual("Noun", sourceCat.Name);
+            Assert.AreEqual("Noun", newCat.Name);
+            Assert.AreEqual(0, sourceWord.Affixes.Count);
+            Assert.AreEqual(0, newWord.Affixes.Count);
+            Assert.AreEqual(0, sourceWord.Features.Count);
+            Assert.AreEqual(0, newWord.Features.Count);
         }
     }
 }

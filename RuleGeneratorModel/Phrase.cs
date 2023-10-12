@@ -36,6 +36,13 @@ namespace SIL.FLExTransRuleGen.Model
             Words.Insert(index, newWord);
         }
 
+        public void InsertWordAt(Word word, int index)
+        {
+            if (index < 0 || index >= Words.Count)
+                return;
+            Words.Insert(index, word);
+        }
+
         public void SwapPositionOfWords(int index, int otherIndex)
         {
             if (index < 0 | index >= Words.Count)
