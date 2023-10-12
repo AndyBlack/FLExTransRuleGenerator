@@ -161,6 +161,14 @@
     <value>Insert feature</value>
     <comment>Context menu: Insert a new feature</comment>
   </data>
+  <data name="cmInsertPrefix" xml:space="preserve">
+    <value>Insert prefix</value>
+    <comment>Context menu: insert a new prefix</comment>
+  </data>
+  <data name="cmInsertSuffix" xml:space="preserve">
+    <value>insert suffix</value>
+    <comment>Context menu: insert a new suffix</comment>
+  </data>
   <data name="cmMoveLeft" xml:space="preserve">
     <value>Move left</value>
     <comment>Move item to the left</comment>

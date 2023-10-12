@@ -124,6 +124,24 @@ namespace SIL.FLExTransRuleGen.Controller.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insert prefix.
+        /// </summary>
+        internal static string cmInsertPrefix {
+            get {
+                return ResourceManager.GetString("cmInsertPrefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to insert suffix.
+        /// </summary>
+        internal static string cmInsertSuffix {
+            get {
+                return ResourceManager.GetString("cmInsertSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move down.
         /// </summary>
         internal static string cmMoveDown {

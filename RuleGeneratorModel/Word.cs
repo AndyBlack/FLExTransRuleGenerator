@@ -53,6 +53,15 @@ namespace SIL.FLExTransRuleGen.Model
             }
         }
 
+        public void InsertNewAffixAt(AffixType type, int index)
+        {
+            if (index < 0 || (index >= Affixes.Count && Affixes.Count > 0))
+                return;
+            Affix newAffix = new Affix();
+            newAffix.Type = type;
+            Affixes.Insert(index, newAffix);
+        }
+
         public RuleConstituent FindConstituent(int identifier)
         {
             RuleConstituent constituent = null;

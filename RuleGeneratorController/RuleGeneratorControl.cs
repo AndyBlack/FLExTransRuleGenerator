@@ -49,6 +49,8 @@ namespace SIL.FLExTransRuleGenerator.Control
         protected string cmInsertBefore = "Insert new before";
         protected string cmInsertCategory = "Insert category";
         protected string cmInsertFeature = "Insert feature";
+        protected string cmInsertPrefix = "Insert prefix";
+        protected string cmInsertSuffix = "Insert suffix";
         protected string cmMoveDown = "Move down";
         protected string cmMoveLeft = "Move left";
         protected string cmMoveRight = "Move right";
@@ -70,11 +72,7 @@ namespace SIL.FLExTransRuleGenerator.Control
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(
                 this.OnFormClosing
             );
-            BuildRuleContextMenu();
-            BuildAffixContextMenu();
-            BuildCategoryContextMenu();
-            BuildFeatureContextMenu();
-            BuildWordContextMenu();
+            BuildContextMenus();
             CheckForPresenceInProgramData();
             SetLocalizationStrings();
             regkey = Registry.CurrentUser.OpenSubKey(RegKey);
@@ -85,6 +83,15 @@ namespace SIL.FLExTransRuleGenerator.Control
             wv2RuleEditor.CoreWebView2InitializationCompleted +=
                 webview2_CoreWebView2InitializationCompleted;
             ShowWebPage();
+        }
+
+        private void BuildContextMenus()
+        {
+            BuildRuleContextMenu();
+            BuildAffixContextMenu();
+            BuildCategoryContextMenu();
+            BuildFeatureContextMenu();
+            BuildWordContextMenu();
         }
 
         protected void RememberFormState(string sRegKey)
@@ -206,12 +213,23 @@ namespace SIL.FLExTransRuleGenerator.Control
                 .Properties
                 .RuleGenStrings
                 .cmInsertFeature;
+            cmInsertPrefix = SIL.FLExTransRuleGen
+                .Controller
+                .Properties
+                .RuleGenStrings
+                .cmInsertPrefix;
+            cmInsertSuffix = SIL.FLExTransRuleGen
+                .Controller
+                .Properties
+                .RuleGenStrings
+                .cmInsertSuffix;
             cmMoveDown = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveDown;
             cmMoveLeft = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveLeft;
             cmMoveRight = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveRight;
             cmMoveUp = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveUp;
             lblName.Text = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.RuleName;
             this.Text = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.FormTitle;
+            BuildContextMenus();
         }
 
         private async void webview2_CoreWebView2InitializationCompleted(
@@ -439,6 +457,15 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripMenuItem wordMoveRight = new ToolStripMenuItem(cmMoveRight);
             wordMoveRight.Click += new EventHandler(WordMoveRightContextMenu_Click);
             wordMoveRight.Name = cmMoveRight;
+            ToolStripMenuItem wordInsertPrefix = new ToolStripMenuItem(cmInsertPrefix);
+            wordInsertPrefix.Click += new EventHandler(WordInsertPrefixContextMenu_Click);
+            wordInsertPrefix.Name = cmInsertPrefix;
+            ToolStripMenuItem wordInsertSuffix = new ToolStripMenuItem(cmInsertSuffix);
+            wordInsertSuffix.Click += new EventHandler(WordInsertSuffixContextMenu_Click);
+            wordInsertSuffix.Name = cmInsertSuffix;
+            ToolStripMenuItem wordInsertFeature = new ToolStripMenuItem(cmInsertFeature);
+            wordInsertFeature.Click += new EventHandler(WordInsertFeatureContextMenu_Click);
+            wordInsertFeature.Name = cmInsertFeature;
             wordEditContextMenu.Items.Add(wordDuplicateItem);
             wordEditContextMenu.Items.Add(wordInsertBefore);
             wordEditContextMenu.Items.Add(wordInsertAfter);
@@ -448,7 +475,10 @@ namespace SIL.FLExTransRuleGenerator.Control
             wordEditContextMenu.Items.Add("-");
             wordEditContextMenu.Items.Add(wordDeleteItem);
             wordEditContextMenu.Items.Add("-");
+            wordEditContextMenu.Items.Add(wordInsertPrefix);
+            wordEditContextMenu.Items.Add(wordInsertSuffix);
             wordEditContextMenu.Items.Add(wordInsertCategory);
+            wordEditContextMenu.Items.Add(wordInsertFeature);
         }
 
         protected void AdjustRuleContextMenuContent(ListBox lBoxSender, int indexAtMouse)
@@ -479,6 +509,10 @@ namespace SIL.FLExTransRuleGenerator.Control
                 int moveLeftIndex = wordEditContextMenu.Items.IndexOfKey(cmMoveLeft);
                 int moveRightIndex = wordEditContextMenu.Items.IndexOfKey(cmMoveRight);
                 int deleteIndex = wordEditContextMenu.Items.IndexOfKey(cmDelete);
+                int insertPrefixIndex = wordEditContextMenu.Items.IndexOfKey(cmInsertPrefix);
+                int insertSuffixIndex = wordEditContextMenu.Items.IndexOfKey(cmInsertSuffix);
+                int insertCategoryIndex = wordEditContextMenu.Items.IndexOfKey(cmInsertCategory);
+                int insertFeatureIndex = wordEditContextMenu.Items.IndexOfKey(cmInsertFeature);
                 int indexLast = phrase.Words.Count - 1;
                 if (index == 0)
                     wordEditContextMenu.Items[moveLeftIndex].Enabled = false;
@@ -494,6 +528,24 @@ namespace SIL.FLExTransRuleGenerator.Control
                     wordEditContextMenu.Items[moveRightIndex].Enabled = false;
                 else
                     wordEditContextMenu.Items[moveRightIndex].Enabled = true;
+                if (word.Affixes.Count == 0)
+                {
+                    wordEditContextMenu.Items[insertPrefixIndex].Enabled = true;
+                    wordEditContextMenu.Items[insertSuffixIndex].Enabled = true;
+                }
+                else
+                {
+                    wordEditContextMenu.Items[insertPrefixIndex].Enabled = false;
+                    wordEditContextMenu.Items[insertSuffixIndex].Enabled = false;
+                }
+                if (String.IsNullOrEmpty(word.Category))
+                    wordEditContextMenu.Items[insertCategoryIndex].Enabled = true;
+                else
+                    wordEditContextMenu.Items[insertCategoryIndex].Enabled = false;
+                if (word.Features.Count == 0)
+                    wordEditContextMenu.Items[insertFeatureIndex].Enabled = true;
+                else
+                    wordEditContextMenu.Items[insertFeatureIndex].Enabled = false;
             }
         }
 
@@ -814,12 +866,44 @@ namespace SIL.FLExTransRuleGenerator.Control
             }
         }
 
+        protected void WordInsertPrefixContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmInsertPrefix)
+            {
+                word.InsertNewAffixAt(AffixType.prefix, 0);
+                ShowWebPage();
+                MarkAsChanged(true);
+            }
+        }
+
+        protected void WordInsertSuffixContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmInsertSuffix)
+            {
+                word.InsertNewAffixAt(AffixType.suffix, 0);
+                ShowWebPage();
+                MarkAsChanged(true);
+            }
+        }
+
         protected void WordInsertCategoryContextMenu_Click(object sender, EventArgs e)
         {
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmInsertCategory)
             {
                 MessageBox.Show("show categories available dialog");
+                //word.CategoryConstituent
+            }
+        }
+
+        protected void WordInsertFeatureContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmInsertFeature)
+            {
+                MessageBox.Show("show features available dialog");
                 //word.CategoryConstituent
             }
         }

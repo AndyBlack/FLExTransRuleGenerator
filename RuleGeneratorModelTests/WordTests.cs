@@ -50,5 +50,17 @@ namespace SIL.FLExTransRuleGenModelTests
             Assert.NotNull(word.CategoryConstituent);
             Assert.AreEqual("verb", word.CategoryConstituent.Name);
         }
+
+        [Test]
+        public void InsertNewAffixAtTest()
+        {
+            Assert.AreEqual(0, word.Affixes.Count);
+            word.InsertNewAffixAt(AffixType.prefix, 0);
+            Assert.AreEqual(1, word.Affixes.Count);
+            Assert.AreEqual(AffixType.prefix, word.Affixes[0].Type);
+            word.InsertNewAffixAt(AffixType.suffix, 0);
+            Assert.AreEqual(2, word.Affixes.Count);
+            Assert.AreEqual(AffixType.suffix, word.Affixes[0].Type);
+        }
     }
 }
