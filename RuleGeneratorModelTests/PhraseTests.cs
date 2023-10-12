@@ -51,6 +51,22 @@ namespace SIL.FLExTransRuleGenModelTests
         }
 
         [Test]
+        public void DeleteWordAtTest()
+        {
+            Assert.AreEqual(2, sourcePhrase.Words.Count);
+            sourcePhrase.DeleteWordAt(-1); // is a no-op
+            Assert.AreEqual(2, sourcePhrase.Words.Count);
+            sourcePhrase.DeleteWordAt(2); // is a no-op
+            Assert.AreEqual(2, sourcePhrase.Words.Count);
+
+            sourcePhrase.DeleteWordAt(1);
+            Assert.AreEqual(1, sourcePhrase.Words.Count);
+            Assert.AreEqual("Source 1", sourcePhrase.Words[0].Id);
+            sourcePhrase.DeleteWordAt(0);
+            Assert.AreEqual(0, sourcePhrase.Words.Count);
+        }
+
+        [Test]
         public void InsertNewWordAtTest()
         {
             Assert.AreEqual(2, sourcePhrase.Words.Count);

@@ -804,17 +804,14 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmDelete)
             {
-                MessageBox.Show("word delete found");
-
-                //int index = lBoxWords.SelectedIndex;
-                //FLExTransWord op = FLExTransWordGen.FLExTransWords.ElementAt(index);
-                //FLExTransWordGen.FLExTransWords.RemoveAt(index);
-                //lBoxWords.Items.RemoveAt(index);
-                //int newIndex = index < lBoxWords.Items.Count ? index : lBoxWords.Items.Count - 1;
-                //if (newIndex > -1)
-                //	lBoxWords.SelectedIndex = newIndex;
+                int index = GetIndexOfWordInPhrase();
+                if (index > -1)
+                {
+                    phrase.DeleteWordAt(index);
+                    ShowWebPage();
+                    MarkAsChanged(true);
+                }
             }
-            MarkAsChanged(true);
         }
 
         protected void WordDuplicateContextMenu_Click(object sender, EventArgs e)

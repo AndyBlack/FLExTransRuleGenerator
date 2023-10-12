@@ -20,6 +20,13 @@ namespace SIL.FLExTransRuleGen.Model
 
         public Phrase() { }
 
+        public void DeleteWordAt(int index)
+        {
+            if (index < 0 || index >= Words.Count)
+                return;
+            Words.RemoveAt(index);
+        }
+
         public void InsertNewWordAt(int index)
         {
             if (index < 0 || index >= Words.Count)
