@@ -249,8 +249,9 @@ namespace SIL.FLExTransRuleGenerator.Control
                     // do we need anything here?  I think not
                     break;
                 case "SIL.FLExTransRuleGen.Model.Word":
-                    word = constituent as Word;
                     wordEditContextMenu.Show(Cursor.Position);
+                    word = constituent as Word;
+                    AdjustWordContextMenuContent();
                     break;
             }
         }
@@ -450,7 +451,7 @@ namespace SIL.FLExTransRuleGenerator.Control
             wordEditContextMenu.Items.Add(wordInsertCategory);
         }
 
-        protected void AdjustContextMenuContent(ListBox lBoxSender, int indexAtMouse)
+        protected void AdjustRuleContextMenuContent(ListBox lBoxSender, int indexAtMouse)
         {
             int indexLast = lBoxSender.Items.Count - 1;
             if (indexAtMouse == 0)
@@ -468,6 +469,32 @@ namespace SIL.FLExTransRuleGenerator.Control
                 ruleEditContextMenu.Items[5].Enabled = false;
             else
                 ruleEditContextMenu.Items[5].Enabled = true;
+        }
+
+        protected void AdjustWordContextMenuContent()
+        {
+            int index = GetIndexOfWordInPhrase();
+            if (index > -1)
+            {
+                int moveLeftIndex = wordEditContextMenu.Items.IndexOfKey(cmMoveLeft);
+                int moveRightIndex = wordEditContextMenu.Items.IndexOfKey(cmMoveRight);
+                int deleteIndex = wordEditContextMenu.Items.IndexOfKey(cmDelete);
+                int indexLast = phrase.Words.Count - 1;
+                if (index == 0)
+                    wordEditContextMenu.Items[moveLeftIndex].Enabled = false;
+                else
+                    wordEditContextMenu.Items[moveLeftIndex].Enabled = true;
+                moveLeftIndex = wordEditContextMenu.Items.IndexOfKey(cmDelete);
+                if (index == 0 && indexLast == 0)
+                    wordEditContextMenu.Items[moveLeftIndex].Enabled = false;
+                else
+                    wordEditContextMenu.Items[moveLeftIndex].Enabled = true;
+                if (index == indexLast)
+                    // move down does not work
+                    wordEditContextMenu.Items[moveRightIndex].Enabled = false;
+                else
+                    wordEditContextMenu.Items[moveRightIndex].Enabled = true;
+            }
         }
 
         protected void RuleInsertBeforeContextMenu_Click(object sender, EventArgs e)
@@ -844,7 +871,7 @@ namespace SIL.FLExTransRuleGenerator.Control
                 int indexAtMouse = lBoxSender.IndexFromPoint(e.X, e.Y);
                 if (indexAtMouse > -1)
                 {
-                    AdjustContextMenuContent(lBoxSender, indexAtMouse);
+                    AdjustRuleContextMenuContent(lBoxSender, indexAtMouse);
                     lBoxSender.SelectedIndex = indexAtMouse;
                     Point ptClickedAt = e.Location;
                     ptClickedAt = lBoxSender.PointToScreen(ptClickedAt);
