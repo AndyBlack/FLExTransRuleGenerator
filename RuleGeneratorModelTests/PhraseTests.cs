@@ -16,6 +16,8 @@ namespace SIL.FLExTransRuleGenModelTests
     {
         FLExTransRuleGenerator ruleGenerator;
         Phrase sourcePhrase;
+        Word sourceWord;
+        Word sourceWord2;
 
         [SetUp]
         public void Setup()
@@ -26,12 +28,12 @@ namespace SIL.FLExTransRuleGenModelTests
             ruleGenerator.FLExTransRules.Add(rule);
             Source source = rule.Source;
             sourcePhrase = source.Phrase;
-            Word sourceWord = new Word();
+            sourceWord = new Word();
             sourceWord.Id = "Source 1";
             sourceWord.Category = "Noun";
             sourceWord.Head = HeadValue.yes;
             sourcePhrase.Words.Add(sourceWord);
-            Word sourceWord2 = new Word();
+            sourceWord2 = new Word();
             sourceWord2.Id = "Source 2";
             sourceWord2.Category = "Det";
             sourceWord2.Head = HeadValue.no;
@@ -101,6 +103,16 @@ namespace SIL.FLExTransRuleGenModelTests
             sourcePhrase.SwapPositionOfWords(1, 0);
             Assert.AreEqual("Source 1", sourcePhrase.Words[0].Id);
             Assert.AreEqual("Source 2", sourcePhrase.Words[1].Id);
+        }
+
+        [Test]
+        public void MarkWordAsHeadTest()
+        {
+            Assert.AreEqual(HeadValue.yes, sourcePhrase.Words[0].Head);
+            Assert.AreEqual(HeadValue.no, sourcePhrase.Words[1].Head);
+            sourcePhrase.MarkWordAsHead(sourceWord2);
+            Assert.AreEqual(HeadValue.no, sourcePhrase.Words[0].Head);
+            Assert.AreEqual(HeadValue.yes, sourcePhrase.Words[1].Head);
         }
     }
 }

@@ -142,6 +142,15 @@ namespace SIL.FLExTransRuleGen.Controller.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mark as head.
+        /// </summary>
+        internal static string cmMarkAsHead {
+            get {
+                return ResourceManager.GetString("cmMarkAsHead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move down.
         /// </summary>
         internal static string cmMoveDown {
@@ -174,6 +183,15 @@ namespace SIL.FLExTransRuleGen.Controller.Properties {
         internal static string cmMoveUp {
             get {
                 return ResourceManager.GetString("cmMoveUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove head marking.
+        /// </summary>
+        internal static string cmRemoveHeadMarking {
+            get {
+                return ResourceManager.GetString("cmRemoveHeadMarking", resourceCulture);
             }
         }
         

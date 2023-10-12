@@ -169,6 +169,10 @@
     <value>insert suffix</value>
     <comment>Context menu: insert a new suffix</comment>
   </data>
+  <data name="cmMarkAsHead" xml:space="preserve">
+    <value>Mark as head</value>
+    <comment>Mark selected word as the head of the phrase</comment>
+  </data>
   <data name="cmMoveLeft" xml:space="preserve">
     <value>Move left</value>
     <comment>Move item to the left</comment>
@@ -176,5 +180,9 @@
   <data name="cmMoveRight" xml:space="preserve">
     <value>Move right</value>
     <comment>Move item to the right</comment>
+  </data>
+  <data name="cmRemoveHeadMarking" xml:space="preserve">
+    <value>Remove head marking</value>
+    <comment>Remove head marking of the selected word</comment>
   </data>
 </root>

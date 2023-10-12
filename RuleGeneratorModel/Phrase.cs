@@ -55,6 +55,24 @@ namespace SIL.FLExTransRuleGen.Model
             Words[otherIndex] = word;
         }
 
+        public void MarkWordAsHead(Word word)
+        {
+            int index = Words.IndexOf(word);
+            if (index < 0 || index >= Words.Count)
+                return;
+            foreach (Word w in Words)
+            {
+                if (w == word)
+                {
+                    w.Head = HeadValue.yes;
+                }
+                else
+                {
+                    w.Head = HeadValue.no;
+                }
+            }
+        }
+
         public string ProduceHtml()
         {
             StringBuilder sb = new StringBuilder();

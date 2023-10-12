@@ -51,10 +51,12 @@ namespace SIL.FLExTransRuleGenerator.Control
         protected string cmInsertFeature = "Insert feature";
         protected string cmInsertPrefix = "Insert prefix";
         protected string cmInsertSuffix = "Insert suffix";
+        protected string cmMarkAsHead = "Mark as head";
         protected string cmMoveDown = "Move down";
         protected string cmMoveLeft = "Move left";
         protected string cmMoveRight = "Move right";
         protected string cmMoveUp = "Move up";
+        protected string cmRemoveHeadMarking = "Remove head marking";
 
         protected RegistryKey regkey;
         const string RegKey = "Software\\SIL\\FLExTransRuleGenerator";
@@ -448,6 +450,12 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripMenuItem wordDeleteItem = new ToolStripMenuItem(cmDelete);
             wordDeleteItem.Click += new EventHandler(WordDeleteContextMenu_Click);
             wordDeleteItem.Name = cmDelete;
+            ToolStripMenuItem wordMarkAsHead = new ToolStripMenuItem(cmMarkAsHead);
+            wordMarkAsHead.Click += new EventHandler(WordMarkAsHeadContextMenu_Click);
+            wordMarkAsHead.Name = cmMarkAsHead;
+            ToolStripMenuItem wordRemoveHeadMarking = new ToolStripMenuItem(cmRemoveHeadMarking);
+            wordRemoveHeadMarking.Click += new EventHandler(WordRemoveHeadMarkingContextMenu_Click);
+            wordRemoveHeadMarking.Name = cmRemoveHeadMarking;
             ToolStripMenuItem wordDuplicateItem = new ToolStripMenuItem(cmDuplicate);
             wordDuplicateItem.Click += new EventHandler(WordDuplicateContextMenu_Click);
             wordDuplicateItem.Name = cmDuplicate;
@@ -479,6 +487,8 @@ namespace SIL.FLExTransRuleGenerator.Control
             wordEditContextMenu.Items.Add(wordInsertSuffix);
             wordEditContextMenu.Items.Add(wordInsertCategory);
             wordEditContextMenu.Items.Add(wordInsertFeature);
+            wordEditContextMenu.Items.Add(wordMarkAsHead);
+            wordEditContextMenu.Items.Add(wordRemoveHeadMarking);
         }
 
         protected void AdjustRuleContextMenuContent(ListBox lBoxSender, int indexAtMouse)
@@ -513,6 +523,10 @@ namespace SIL.FLExTransRuleGenerator.Control
                 int insertSuffixIndex = wordEditContextMenu.Items.IndexOfKey(cmInsertSuffix);
                 int insertCategoryIndex = wordEditContextMenu.Items.IndexOfKey(cmInsertCategory);
                 int insertFeatureIndex = wordEditContextMenu.Items.IndexOfKey(cmInsertFeature);
+                int markAsHeadIndex = wordEditContextMenu.Items.IndexOfKey(cmMarkAsHead);
+                int removeHeadMarkingIndex = wordEditContextMenu.Items.IndexOfKey(
+                    cmRemoveHeadMarking
+                );
                 int indexLast = phrase.Words.Count - 1;
                 if (index == 0)
                     wordEditContextMenu.Items[moveLeftIndex].Enabled = false;
@@ -546,6 +560,14 @@ namespace SIL.FLExTransRuleGenerator.Control
                     wordEditContextMenu.Items[insertFeatureIndex].Enabled = true;
                 else
                     wordEditContextMenu.Items[insertFeatureIndex].Enabled = false;
+                if (word.Head == HeadValue.no)
+                    wordEditContextMenu.Items[markAsHeadIndex].Enabled = true;
+                else
+                    wordEditContextMenu.Items[markAsHeadIndex].Enabled = false;
+                if (word.Head == HeadValue.yes)
+                    wordEditContextMenu.Items[removeHeadMarkingIndex].Enabled = true;
+                else
+                    wordEditContextMenu.Items[removeHeadMarkingIndex].Enabled = false;
             }
         }
 
@@ -860,6 +882,36 @@ namespace SIL.FLExTransRuleGenerator.Control
                 if (index > -1)
                 {
                     phrase.SwapPositionOfWords(index, index + 1);
+                    ShowWebPage();
+                    MarkAsChanged(true);
+                }
+            }
+        }
+
+        protected void WordMarkAsHeadContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmMarkAsHead)
+            {
+                int index = GetIndexOfWordInPhrase();
+                if (index > -1)
+                {
+                    phrase.MarkWordAsHead(word);
+                    ShowWebPage();
+                    MarkAsChanged(true);
+                }
+            }
+        }
+
+        protected void WordRemoveHeadMarkingContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmRemoveHeadMarking)
+            {
+                int index = GetIndexOfWordInPhrase();
+                if (index > -1)
+                {
+                    word.Head = HeadValue.no;
                     ShowWebPage();
                     MarkAsChanged(true);
                 }
