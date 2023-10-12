@@ -79,6 +79,15 @@ namespace SIL.FLExTransRuleGen.Model.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to head.
+        /// </summary>
+        internal static string head {
+            get {
+                return ResourceManager.GetString("head", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ?.
         /// </summary>
         internal static string MatchX {

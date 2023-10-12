@@ -99,6 +99,14 @@ namespace SIL.FLExTransRuleGen.Model
             sb.Append("<li>");
             sb.Append(ProduceSpan("tf-nc", "w"));
             sb.Append(Properties.RuleGenModelStrings.word);
+            if (Head == HeadValue.yes)
+            {
+                sb.Append("(");
+                sb.Append("<span style=\"font-style:italic; font-size:smaller\">");
+                sb.Append(Properties.RuleGenModelStrings.head);
+                sb.Append("</span>");
+                sb.Append(")");
+            }
             if (Id.Length > 0)
             {
                 sb.Append("<span class=\"index\">");

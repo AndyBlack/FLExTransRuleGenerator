@@ -157,4 +157,8 @@
     <value>This rule needs a name</value>
     <comment>Message for when a rule has no name</comment>
   </data>
+  <data name="head" xml:space="preserve">
+    <value>head</value>
+    <comment>Indicates a word is the head of the phrase</comment>
+  </data>
 </root>
