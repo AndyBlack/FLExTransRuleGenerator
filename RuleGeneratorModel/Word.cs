@@ -34,6 +34,25 @@ namespace SIL.FLExTransRuleGen.Model
             CategoryConstituent = new Category(Category);
         }
 
+        public void DeleteCategory()
+        {
+            Category = "";
+            CategoryConstituent = new Category("");
+        }
+
+        public void InsertCategory(string cat)
+        {
+            Category = cat;
+            if (CategoryConstituent != null)
+            {
+                CategoryConstituent.Name = cat;
+            }
+            else
+            {
+                CategoryConstituent = new Category(cat);
+            }
+        }
+
         public RuleConstituent FindConstituent(int identifier)
         {
             RuleConstituent constituent = null;

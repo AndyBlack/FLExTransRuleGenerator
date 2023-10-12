@@ -672,15 +672,13 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmDelete)
             {
-                MessageBox.Show("category delete found");
-
-                //int index = lBoxCategorys.SelectedIndex;
-                //FLExTransCategory op = FLExTransCategoryGen.FLExTransCategorys.ElementAt(index);
-                //FLExTransCategoryGen.FLExTransCategorys.RemoveAt(index);
-                //lBoxCategorys.Items.RemoveAt(index);
-                //int newIndex = index < lBoxCategorys.Items.Count ? index : lBoxCategorys.Items.Count - 1;
-                //if (newIndex > -1)
-                //	lBoxCategorys.SelectedIndex = newIndex;
+                word = category.Parent as Word;
+                if (word != null)
+                {
+                    word.DeleteCategory();
+                    ShowWebPage();
+                    MarkAsChanged(true);
+                }
             }
             MarkAsChanged(true);
         }
