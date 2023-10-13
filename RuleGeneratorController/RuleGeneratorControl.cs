@@ -6,6 +6,7 @@ using Microsoft.Web.WebView2.Core;
 using Microsoft.Win32;
 using SIL.FLExTransRuleGen.Model;
 using SIL.FLExTransRuleGen.Service;
+using SIL.LCModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,11 +29,13 @@ namespace SIL.FLExTransRuleGenerator.Control
         public FLExTransRuleGen.Model.FLExTransRuleGenerator FLExTransRuleGen { get; set; }
         protected FLExTransRule SelectedRule { get; set; }
         public int LastSelectedRule { get; set; }
+        public LcmCache SourceCache { get; set; }
+        public LcmCache TargetCache { get; set; }
         protected WebPageProducer producer;
         protected ConstituentFinder finder;
         protected Affix affix;
         protected Category category;
-        protected Feature feature;
+        protected FLExTransRuleGen.Model.Feature feature;
         protected Phrase phrase;
         protected Word word;
 
@@ -286,7 +289,7 @@ namespace SIL.FLExTransRuleGenerator.Control
                     categoryEditContextMenu.Show(Cursor.Position);
                     break;
                 case "SIL.FLExTransRuleGen.Model.Feature":
-                    feature = constituent as Feature;
+                    feature = constituent as FLExTransRuleGen.Model.Feature;
                     featureEditContextMenu.Show(Cursor.Position);
                     break;
                 case "SIL.FLExTransRuleGen.Model.Phrase":
@@ -1080,8 +1083,69 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmInsertCategory)
             {
-                MessageBox.Show("show categories available dialog");
-                //word.CategoryConstituent
+                phrase = word.Parent as Phrase;
+                if (phrase != null)
+                {
+                    FLExTransRule rule = phrase.Parent as FLExTransRule;
+                    if (rule != null)
+                    {
+                        if (phrase == rule.Source.Phrase)
+                        {
+                            LaunchCategoryChooser(SourceCache);
+                        }
+                        else
+                        {
+                            LaunchCategoryChooser(TargetCache);
+                        }
+                    }
+                }
+            }
+        }
+
+        protected void LaunchCategoryChooser(LcmCache cache)
+        {
+            if (cache != null)
+            {
+                var allPoses =
+                    cache.LanguageProject.PartsOfSpeechOA.ReallyReallyAllPossibilities.OrderBy(
+                        pos => pos.Name.BestAnalysisAlternative.Text
+                    );
+
+                CategoryChooser chooser = new CategoryChooser();
+                foreach (ICmPossibility pos in allPoses)
+                {
+                    Category cat = new Category("");
+                    cat.Name = pos.Name.BestAnalysisAlternative.Text;
+                    chooser.Categories.Add(cat);
+                }
+                chooser.FillCategoriesListBox();
+                //Category = category;
+                if (category.Name != null)
+                {
+                    var catFound = chooser.Categories.FirstOrDefault(
+                        cat => cat.Name == category.Name
+                    );
+                    int index = chooser.Categories.IndexOf(catFound);
+                    if (index > -1)
+                        chooser.SelectCategory(index);
+                    else
+                        chooser.SelectCategory(chooser.Categories.Count);
+                }
+                chooser.ShowDialog();
+                if (chooser.DialogResult == DialogResult.OK)
+                {
+                    Category cat = chooser.SelectedCategory;
+                    if (cat == chooser.NoneChosen)
+                    {
+                        category.Name = "";
+                    }
+                    else
+                    {
+                        category.Name = cat.Name;
+                    }
+                    word.InsertCategory(category.Name);
+                    ReportChangeMade();
+                }
             }
         }
 
