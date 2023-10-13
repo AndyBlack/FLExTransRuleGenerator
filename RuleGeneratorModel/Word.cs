@@ -81,6 +81,18 @@ namespace SIL.FLExTransRuleGen.Model
             Features.Remove(feature);
         }
 
+        public void SwapPositionOfAffixes(int index, int otherIndex)
+        {
+            if (index < 0 | index >= Affixes.Count)
+                return;
+            if (otherIndex < 0 | otherIndex >= Affixes.Count)
+                return;
+            Affix affix = Affixes[index];
+            Affix otherAffix = Affixes[otherIndex];
+            Affixes[index] = otherAffix;
+            Affixes[otherIndex] = affix;
+        }
+
         public RuleConstituent FindConstituent(int identifier)
         {
             RuleConstituent constituent = null;

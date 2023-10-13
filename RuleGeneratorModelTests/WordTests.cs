@@ -54,11 +54,7 @@ namespace SIL.FLExTransRuleGenModelTests
         [Test]
         public void DeleteAffixAtTest()
         {
-            word.InsertNewAffixAt(AffixType.prefix, 0);
-            word.InsertNewAffixAt(AffixType.suffix, 1);
-            Assert.AreEqual(2, word.Affixes.Count);
-            Assert.AreEqual(AffixType.prefix, word.Affixes[0].Type);
-            Assert.AreEqual(AffixType.suffix, word.Affixes[1].Type);
+            CreateTwoAffixes();
 
             word.DeleteAffixAt(0);
             Assert.AreEqual(1, word.Affixes.Count);
@@ -75,6 +71,15 @@ namespace SIL.FLExTransRuleGenModelTests
 
             word.DeleteAffixAt(0);
             Assert.AreEqual(0, word.Affixes.Count);
+        }
+
+        private void CreateTwoAffixes()
+        {
+            word.InsertNewAffixAt(AffixType.prefix, 0);
+            word.InsertNewAffixAt(AffixType.suffix, 1);
+            Assert.AreEqual(2, word.Affixes.Count);
+            Assert.AreEqual(AffixType.prefix, word.Affixes[0].Type);
+            Assert.AreEqual(AffixType.suffix, word.Affixes[1].Type);
         }
 
         [Test]
@@ -128,6 +133,38 @@ namespace SIL.FLExTransRuleGenModelTests
             word.DeleteFeature(feature);
             Assert.AreEqual(1, word.Features.Count);
             Assert.AreEqual(feature2, word.Features[0]);
+        }
+
+        [Test]
+        public void SwapPositionOfAffixesTest()
+        {
+            CreateTwoAffixes();
+            word.SwapPositionOfAffixes(-1, 0); // is a no-op
+            Assert.AreEqual(2, word.Affixes.Count);
+            Assert.AreEqual(AffixType.prefix, word.Affixes[0].Type);
+            Assert.AreEqual(AffixType.suffix, word.Affixes[1].Type);
+            word.SwapPositionOfAffixes(2, 0); // is a no-op
+            Assert.AreEqual(2, word.Affixes.Count);
+            Assert.AreEqual(AffixType.prefix, word.Affixes[0].Type);
+            Assert.AreEqual(AffixType.suffix, word.Affixes[1].Type);
+            word.SwapPositionOfAffixes(0, -1); // is a no-op
+            Assert.AreEqual(2, word.Affixes.Count);
+            Assert.AreEqual(AffixType.prefix, word.Affixes[0].Type);
+            Assert.AreEqual(AffixType.suffix, word.Affixes[1].Type);
+            word.SwapPositionOfAffixes(0, 2); // is a no-op
+            Assert.AreEqual(2, word.Affixes.Count);
+            Assert.AreEqual(AffixType.prefix, word.Affixes[0].Type);
+            Assert.AreEqual(AffixType.suffix, word.Affixes[1].Type);
+
+            word.SwapPositionOfAffixes(0, 1);
+            Assert.AreEqual(2, word.Affixes.Count);
+            Assert.AreEqual(AffixType.suffix, word.Affixes[0].Type);
+            Assert.AreEqual(AffixType.prefix, word.Affixes[1].Type);
+
+            word.SwapPositionOfAffixes(1, 0);
+            Assert.AreEqual(2, word.Affixes.Count);
+            Assert.AreEqual(AffixType.prefix, word.Affixes[0].Type);
+            Assert.AreEqual(AffixType.suffix, word.Affixes[1].Type);
         }
     }
 }

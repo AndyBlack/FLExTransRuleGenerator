@@ -279,6 +279,7 @@ namespace SIL.FLExTransRuleGenerator.Control
                 case "SIL.FLExTransRuleGen.Model.Affix":
                     affix = constituent as Affix;
                     affixEditContextMenu.Show(Cursor.Position);
+                    AdjustAffixContextMenuContent();
                     break;
                 case "SIL.FLExTransRuleGen.Model.Category":
                     category = constituent as Category;
@@ -433,11 +434,20 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripMenuItem affixDuplicateItem = new ToolStripMenuItem(cmDuplicate);
             affixDuplicateItem.Click += new EventHandler(AffixDuplicateContextMenu_Click);
             affixDuplicateItem.Name = cmDuplicate;
+            ToolStripMenuItem affixMoveLeft = new ToolStripMenuItem(cmMoveLeft);
+            affixMoveLeft.Click += new EventHandler(AffixMoveLeftContextMenu_Click);
+            affixMoveLeft.Name = cmMoveLeft;
+            ToolStripMenuItem affixMoveRight = new ToolStripMenuItem(cmMoveRight);
+            affixMoveRight.Click += new EventHandler(AffixMoveRightContextMenu_Click);
+            affixMoveRight.Name = cmMoveRight;
             affixEditContextMenu.Items.Add(affixDuplicateItem);
             affixEditContextMenu.Items.Add(affixInsertPrefixBefore);
             affixEditContextMenu.Items.Add(affixInsertPrefixAfter);
             affixEditContextMenu.Items.Add(affixInsertSuffixBefore);
             affixEditContextMenu.Items.Add(affixInsertSuffixAfter);
+            affixEditContextMenu.Items.Add("-");
+            affixEditContextMenu.Items.Add(affixMoveLeft);
+            affixEditContextMenu.Items.Add(affixMoveRight);
             affixEditContextMenu.Items.Add("-");
             affixEditContextMenu.Items.Add(affixDeleteItem);
             affixEditContextMenu.Items.Add("-");
@@ -572,13 +582,7 @@ namespace SIL.FLExTransRuleGenerator.Control
                     wordEditContextMenu.Items[moveLeftIndex].Enabled = false;
                 else
                     wordEditContextMenu.Items[moveLeftIndex].Enabled = true;
-                moveLeftIndex = wordEditContextMenu.Items.IndexOfKey(cmDelete);
-                if (index == 0 && indexLast == 0)
-                    wordEditContextMenu.Items[moveLeftIndex].Enabled = false;
-                else
-                    wordEditContextMenu.Items[moveLeftIndex].Enabled = true;
                 if (index == indexLast)
-                    // move down does not work
                     wordEditContextMenu.Items[moveRightIndex].Enabled = false;
                 else
                     wordEditContextMenu.Items[moveRightIndex].Enabled = true;
@@ -608,6 +612,25 @@ namespace SIL.FLExTransRuleGenerator.Control
                     wordEditContextMenu.Items[removeHeadMarkingIndex].Enabled = true;
                 else
                     wordEditContextMenu.Items[removeHeadMarkingIndex].Enabled = false;
+            }
+        }
+
+        protected void AdjustAffixContextMenuContent()
+        {
+            int index = GetIndexOfAffixInWord();
+            if (index > -1)
+            {
+                int moveLeftIndex = affixEditContextMenu.Items.IndexOfKey(cmMoveLeft);
+                int moveRightIndex = affixEditContextMenu.Items.IndexOfKey(cmMoveRight);
+                int indexLast = word.Affixes.Count - 1;
+                if (index == 0)
+                    affixEditContextMenu.Items[moveLeftIndex].Enabled = false;
+                else
+                    affixEditContextMenu.Items[moveLeftIndex].Enabled = true;
+                if (index == indexLast)
+                    affixEditContextMenu.Items[moveRightIndex].Enabled = false;
+                else
+                    affixEditContextMenu.Items[moveRightIndex].Enabled = true;
             }
         }
 
@@ -752,6 +775,36 @@ namespace SIL.FLExTransRuleGenerator.Control
                 if (index > -1)
                 {
                     word.InsertNewAffixAt(AffixType.suffix, index + 1);
+                    ReportChangeMade();
+                }
+            }
+        }
+
+        protected void AffixMoveLeftContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmMoveLeft)
+            {
+                int index = GetIndexOfAffixInWord();
+                word = affix.Parent as Word;
+                if (index > -1 && word != null)
+                {
+                    word.SwapPositionOfAffixes(index, index - 1);
+                    ReportChangeMade();
+                }
+            }
+        }
+
+        protected void AffixMoveRightContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmMoveRight)
+            {
+                int index = GetIndexOfAffixInWord();
+                word = affix.Parent as Word;
+                if (index > -1 && word != null)
+                {
+                    word.SwapPositionOfAffixes(index, index + 1);
                     ReportChangeMade();
                 }
             }
