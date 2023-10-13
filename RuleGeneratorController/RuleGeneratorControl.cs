@@ -47,6 +47,10 @@ namespace SIL.FLExTransRuleGenerator.Control
         protected string cmEdit = "Edit";
         protected string cmInsertAfter = "Insert new after";
         protected string cmInsertBefore = "Insert new before";
+        protected string cmInsertPrefixAfter = "Insert new prefix after";
+        protected string cmInsertPrefixBefore = "Insert new prefix before";
+        protected string cmInsertSuffixAfter = "Insert new suffix after";
+        protected string cmInsertSuffixBefore = "Insert new Suffix before";
         protected string cmInsertCategory = "Insert category";
         protected string cmInsertFeature = "Insert feature";
         protected string cmInsertPrefix = "Insert prefix";
@@ -220,11 +224,31 @@ namespace SIL.FLExTransRuleGenerator.Control
                 .Properties
                 .RuleGenStrings
                 .cmInsertPrefix;
+            cmInsertPrefixAfter = SIL.FLExTransRuleGen
+                .Controller
+                .Properties
+                .RuleGenStrings
+                .cmInsertPrefixAfter;
+            cmInsertPrefixBefore = SIL.FLExTransRuleGen
+                .Controller
+                .Properties
+                .RuleGenStrings
+                .cmInsertPrefixBefore;
             cmInsertSuffix = SIL.FLExTransRuleGen
                 .Controller
                 .Properties
                 .RuleGenStrings
                 .cmInsertSuffix;
+            cmInsertSuffixAfter = SIL.FLExTransRuleGen
+                .Controller
+                .Properties
+                .RuleGenStrings
+                .cmInsertSuffixAfter;
+            cmInsertSuffixBefore = SIL.FLExTransRuleGen
+                .Controller
+                .Properties
+                .RuleGenStrings
+                .cmInsertSuffixBefore;
             cmMoveDown = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveDown;
             cmMoveLeft = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveLeft;
             cmMoveRight = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveRight;
@@ -380,12 +404,26 @@ namespace SIL.FLExTransRuleGenerator.Control
         {
             affixEditContextMenu = new ContextMenuStrip();
             affixEditContextMenu.Name = "Affix";
-            ToolStripMenuItem affixInsertBefore = new ToolStripMenuItem(cmInsertBefore);
-            affixInsertBefore.Click += new EventHandler(AffixInsertBeforeContextMenu_Click);
-            affixInsertBefore.Name = cmInsertBefore;
-            ToolStripMenuItem affixInsertAfter = new ToolStripMenuItem(cmInsertAfter);
-            affixInsertAfter.Click += new EventHandler(AffixInsertAfterContextMenu_Click);
-            affixInsertAfter.Name = cmInsertAfter;
+            ToolStripMenuItem affixInsertPrefixAfter = new ToolStripMenuItem(cmInsertPrefixAfter);
+            affixInsertPrefixAfter.Click += new EventHandler(
+                AffixInsertPrefixAfterContextMenu_Click
+            );
+            affixInsertPrefixAfter.Name = cmInsertPrefixAfter;
+            ToolStripMenuItem affixInsertPrefixBefore = new ToolStripMenuItem(cmInsertPrefixBefore);
+            affixInsertPrefixBefore.Click += new EventHandler(
+                AffixInsertPrefixBeforeContextMenu_Click
+            );
+            affixInsertPrefixBefore.Name = cmInsertPrefixBefore;
+            ToolStripMenuItem affixInsertSuffixAfter = new ToolStripMenuItem(cmInsertSuffixAfter);
+            affixInsertSuffixAfter.Click += new EventHandler(
+                AffixInsertSuffixAfterContextMenu_Click
+            );
+            affixInsertSuffixAfter.Name = cmInsertSuffixAfter;
+            ToolStripMenuItem affixInsertSuffixBefore = new ToolStripMenuItem(cmInsertSuffixBefore);
+            affixInsertSuffixBefore.Click += new EventHandler(
+                AffixInsertSuffixBeforeContextMenu_Click
+            );
+            affixInsertSuffixBefore.Name = cmInsertSuffixBefore;
             ToolStripMenuItem affixInsertFeature = new ToolStripMenuItem(cmInsertFeature);
             affixInsertFeature.Click += new EventHandler(AffixInsertFeatureContextMenu_Click);
             affixInsertFeature.Name = cmInsertFeature;
@@ -396,8 +434,10 @@ namespace SIL.FLExTransRuleGenerator.Control
             affixDuplicateItem.Click += new EventHandler(AffixDuplicateContextMenu_Click);
             affixDuplicateItem.Name = cmDuplicate;
             affixEditContextMenu.Items.Add(affixDuplicateItem);
-            affixEditContextMenu.Items.Add(affixInsertBefore);
-            affixEditContextMenu.Items.Add(affixInsertAfter);
+            affixEditContextMenu.Items.Add(affixInsertPrefixBefore);
+            affixEditContextMenu.Items.Add(affixInsertPrefixAfter);
+            affixEditContextMenu.Items.Add(affixInsertSuffixBefore);
+            affixEditContextMenu.Items.Add(affixInsertSuffixAfter);
             affixEditContextMenu.Items.Add("-");
             affixEditContextMenu.Items.Add(affixDeleteItem);
             affixEditContextMenu.Items.Add("-");
@@ -661,27 +701,63 @@ namespace SIL.FLExTransRuleGenerator.Control
             MarkAsChanged(true);
         }
 
-        protected void AffixInsertBeforeContextMenu_Click(object sender, EventArgs e)
+        protected void AffixInsertPrefixBeforeContextMenu_Click(object sender, EventArgs e)
         {
             ToolStripItem menuItem = (ToolStripItem)sender;
-            if (menuItem.Name == cmInsertBefore)
+            if (menuItem.Name == cmInsertPrefixBefore)
             {
-                DoAffixContextMenuInsert( /* lBoxAffixs.SelectedIndex*/
-                    0
-                );
-                MessageBox.Show("affix insert before found");
+                int index = GetIndexOfAffixInWord();
+                if (index > -1)
+                {
+                    word.InsertNewAffixAt(AffixType.prefix, index);
+                    ShowWebPage();
+                    MarkAsChanged(true);
+                }
             }
         }
 
-        protected void AffixInsertAfterContextMenu_Click(object sender, EventArgs e)
+        protected void AffixInsertPrefixAfterContextMenu_Click(object sender, EventArgs e)
         {
             ToolStripItem menuItem = (ToolStripItem)sender;
-            if (menuItem.Name == cmInsertAfter)
+            if (menuItem.Name == cmInsertPrefixAfter)
             {
-                DoAffixContextMenuInsert( /*lBoxAffixs.SelectedIndex +*/
-                    1
-                );
-                MessageBox.Show("affix insert after found");
+                int index = GetIndexOfAffixInWord();
+                if (index > -1)
+                {
+                    word.InsertNewAffixAt(AffixType.prefix, index + 1);
+                    ShowWebPage();
+                    MarkAsChanged(true);
+                }
+            }
+        }
+
+        protected void AffixInsertSuffixBeforeContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmInsertSuffixBefore)
+            {
+                int index = GetIndexOfAffixInWord();
+                if (index > -1)
+                {
+                    word.InsertNewAffixAt(AffixType.suffix, index);
+                    ShowWebPage();
+                    MarkAsChanged(true);
+                }
+            }
+        }
+
+        protected void AffixInsertSuffixAfterContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmInsertSuffixAfter)
+            {
+                int index = GetIndexOfAffixInWord();
+                if (index > -1)
+                {
+                    word.InsertNewAffixAt(AffixType.suffix, index + 1);
+                    ShowWebPage();
+                    MarkAsChanged(true);
+                }
             }
         }
 
@@ -690,14 +766,14 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmInsertFeature)
             {
-                DoAffixContextMenuInsert( /*lBoxAffixs.SelectedIndex +*/
+                DoAffixContextMenuInsertFeature( /*lBoxAffixs.SelectedIndex +*/
                     1
                 );
                 MessageBox.Show("affix insert feature found");
             }
         }
 
-        protected void DoAffixContextMenuInsert(int index)
+        protected void DoAffixContextMenuInsertFeature(int index)
         {
             //FLExTransAffix ftAffix = new FLExTransAffix();
             //FLExTransAffixGen.FLExTransAffixs.Insert(index, ftAffix);
@@ -711,17 +787,14 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmDelete)
             {
-                MessageBox.Show("affix delete found");
-
-                //int index = lBoxAffixs.SelectedIndex;
-                //FLExTransAffix op = FLExTransAffixGen.FLExTransAffixs.ElementAt(index);
-                //FLExTransAffixGen.FLExTransAffixs.RemoveAt(index);
-                //lBoxAffixs.Items.RemoveAt(index);
-                //int newIndex = index < lBoxAffixs.Items.Count ? index : lBoxAffixs.Items.Count - 1;
-                //if (newIndex > -1)
-                //	lBoxAffixs.SelectedIndex = newIndex;
+                int index = GetIndexOfAffixInWord();
+                if (index > -1)
+                {
+                    word.DeleteAffixAt(index);
+                    ShowWebPage();
+                    MarkAsChanged(true);
+                }
             }
-            MarkAsChanged(true);
         }
 
         protected void AffixDuplicateContextMenu_Click(object sender, EventArgs e)
@@ -842,6 +915,20 @@ namespace SIL.FLExTransRuleGenerator.Control
             }
             ShowWebPage();
             MarkAsChanged(true);
+        }
+
+        protected int GetIndexOfAffixInWord()
+        {
+            int index = -1;
+            if (affix != null)
+            {
+                word = affix.Parent as Word;
+                if (word != null)
+                {
+                    index = word.Affixes.IndexOf(affix);
+                }
+            }
+            return index;
         }
 
         protected int GetIndexOfWordInPhrase()

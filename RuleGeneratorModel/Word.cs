@@ -53,9 +53,16 @@ namespace SIL.FLExTransRuleGen.Model
             }
         }
 
+        public void DeleteAffixAt(int index)
+        {
+            if (index < 0 || index >= Affixes.Count)
+                return;
+            Affixes.RemoveAt(index);
+        }
+
         public void InsertNewAffixAt(AffixType type, int index)
         {
-            if (index < 0 || (index >= Affixes.Count && Affixes.Count > 0))
+            if (index < 0 || (index > Affixes.Count && Affixes.Count > 0))
                 return;
             Affix newAffix = new Affix();
             newAffix.Type = type;

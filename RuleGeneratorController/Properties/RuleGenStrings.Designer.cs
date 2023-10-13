@@ -133,11 +133,47 @@ namespace SIL.FLExTransRuleGen.Controller.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insert new prefix after.
+        /// </summary>
+        internal static string cmInsertPrefixAfter {
+            get {
+                return ResourceManager.GetString("cmInsertPrefixAfter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert new prefix before.
+        /// </summary>
+        internal static string cmInsertPrefixBefore {
+            get {
+                return ResourceManager.GetString("cmInsertPrefixBefore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to insert suffix.
         /// </summary>
         internal static string cmInsertSuffix {
             get {
                 return ResourceManager.GetString("cmInsertSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert new suffix after.
+        /// </summary>
+        internal static string cmInsertSuffixAfter {
+            get {
+                return ResourceManager.GetString("cmInsertSuffixAfter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert new suffix before.
+        /// </summary>
+        internal static string cmInsertSuffixBefore {
+            get {
+                return ResourceManager.GetString("cmInsertSuffixBefore", resourceCulture);
             }
         }
         
