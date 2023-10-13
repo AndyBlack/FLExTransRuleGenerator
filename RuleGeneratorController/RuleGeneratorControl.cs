@@ -710,8 +710,7 @@ namespace SIL.FLExTransRuleGenerator.Control
                 if (index > -1)
                 {
                     word.InsertNewAffixAt(AffixType.prefix, index);
-                    ShowWebPage();
-                    MarkAsChanged(true);
+                    ReportChangeMade();
                 }
             }
         }
@@ -725,8 +724,7 @@ namespace SIL.FLExTransRuleGenerator.Control
                 if (index > -1)
                 {
                     word.InsertNewAffixAt(AffixType.prefix, index + 1);
-                    ShowWebPage();
-                    MarkAsChanged(true);
+                    ReportChangeMade();
                 }
             }
         }
@@ -740,8 +738,7 @@ namespace SIL.FLExTransRuleGenerator.Control
                 if (index > -1)
                 {
                     word.InsertNewAffixAt(AffixType.suffix, index);
-                    ShowWebPage();
-                    MarkAsChanged(true);
+                    ReportChangeMade();
                 }
             }
         }
@@ -755,8 +752,7 @@ namespace SIL.FLExTransRuleGenerator.Control
                 if (index > -1)
                 {
                     word.InsertNewAffixAt(AffixType.suffix, index + 1);
-                    ShowWebPage();
-                    MarkAsChanged(true);
+                    ReportChangeMade();
                 }
             }
         }
@@ -791,10 +787,15 @@ namespace SIL.FLExTransRuleGenerator.Control
                 if (index > -1)
                 {
                     word.DeleteAffixAt(index);
-                    ShowWebPage();
-                    MarkAsChanged(true);
+                    ReportChangeMade();
                 }
             }
+        }
+
+        private void ReportChangeMade()
+        {
+            ShowWebPage();
+            MarkAsChanged(true);
         }
 
         protected void AffixDuplicateContextMenu_Click(object sender, EventArgs e)
@@ -823,8 +824,7 @@ namespace SIL.FLExTransRuleGenerator.Control
                 if (word != null)
                 {
                     word.DeleteCategory();
-                    ShowWebPage();
-                    MarkAsChanged(true);
+                    ReportChangeMade();
                 }
             }
             MarkAsChanged(true);
@@ -913,8 +913,7 @@ namespace SIL.FLExTransRuleGenerator.Control
             {
                 phrase.InsertNewWordAt(index + 1);
             }
-            ShowWebPage();
-            MarkAsChanged(true);
+            ReportChangeMade();
         }
 
         protected int GetIndexOfAffixInWord()
@@ -954,8 +953,7 @@ namespace SIL.FLExTransRuleGenerator.Control
                 if (index > -1)
                 {
                     phrase.SwapPositionOfWords(index, index - 1);
-                    ShowWebPage();
-                    MarkAsChanged(true);
+                    ReportChangeMade();
                 }
             }
         }
@@ -969,8 +967,7 @@ namespace SIL.FLExTransRuleGenerator.Control
                 if (index > -1)
                 {
                     phrase.SwapPositionOfWords(index, index + 1);
-                    ShowWebPage();
-                    MarkAsChanged(true);
+                    ReportChangeMade();
                 }
             }
         }
@@ -984,8 +981,7 @@ namespace SIL.FLExTransRuleGenerator.Control
                 if (index > -1)
                 {
                     phrase.MarkWordAsHead(word);
-                    ShowWebPage();
-                    MarkAsChanged(true);
+                    ReportChangeMade();
                 }
             }
         }
@@ -999,8 +995,7 @@ namespace SIL.FLExTransRuleGenerator.Control
                 if (index > -1)
                 {
                     word.Head = HeadValue.no;
-                    ShowWebPage();
-                    MarkAsChanged(true);
+                    ReportChangeMade();
                 }
             }
         }
@@ -1011,8 +1006,7 @@ namespace SIL.FLExTransRuleGenerator.Control
             if (menuItem.Name == cmInsertPrefix)
             {
                 word.InsertNewAffixAt(AffixType.prefix, 0);
-                ShowWebPage();
-                MarkAsChanged(true);
+                ReportChangeMade();
             }
         }
 
@@ -1022,8 +1016,7 @@ namespace SIL.FLExTransRuleGenerator.Control
             if (menuItem.Name == cmInsertSuffix)
             {
                 word.InsertNewAffixAt(AffixType.suffix, 0);
-                ShowWebPage();
-                MarkAsChanged(true);
+                ReportChangeMade();
             }
         }
 
@@ -1056,8 +1049,7 @@ namespace SIL.FLExTransRuleGenerator.Control
                 if (index > -1)
                 {
                     phrase.DeleteWordAt(index);
-                    ShowWebPage();
-                    MarkAsChanged(true);
+                    ReportChangeMade();
                 }
             }
         }
@@ -1073,8 +1065,7 @@ namespace SIL.FLExTransRuleGenerator.Control
                     Word newWord = word.Duplicate();
                     newWord.Id = (phrase.Words.Count + 1).ToString();
                     phrase.InsertWordAt(newWord, index + 1);
-                    ShowWebPage();
-                    MarkAsChanged(true);
+                    ReportChangeMade();
                 }
             }
         }
