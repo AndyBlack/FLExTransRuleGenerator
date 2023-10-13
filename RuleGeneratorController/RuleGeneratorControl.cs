@@ -825,7 +825,6 @@ namespace SIL.FLExTransRuleGenerator.Control
                     ReportChangeMade();
                 }
             }
-            MarkAsChanged(true);
         }
 
         protected void CategoryEditContextMenu_Click(object sender, EventArgs e)
@@ -850,17 +849,22 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmDelete)
             {
-                MessageBox.Show("feature delete found");
-
-                //int index = lBoxFeatures.SelectedIndex;
-                //FLExTransFeature op = FLExTransFeatureGen.FLExTransFeatures.ElementAt(index);
-                //FLExTransFeatureGen.FLExTransFeatures.RemoveAt(index);
-                //lBoxFeatures.Items.RemoveAt(index);
-                //int newIndex = index < lBoxFeatures.Items.Count ? index : lBoxFeatures.Items.Count - 1;
-                //if (newIndex > -1)
-                //	lBoxFeatures.SelectedIndex = newIndex;
+                word = feature.Parent as Word;
+                if (word != null)
+                {
+                    word.DeleteFeature(feature);
+                    ReportChangeMade();
+                }
+                else
+                {
+                    affix = feature.Parent as Affix;
+                    if (affix != null)
+                    {
+                        affix.DeleteFeature(feature);
+                        ReportChangeMade();
+                    }
+                }
             }
-            MarkAsChanged(true);
         }
 
         protected void FeatureEditContextMenu_Click(object sender, EventArgs e)

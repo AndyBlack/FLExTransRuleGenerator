@@ -76,6 +76,11 @@ namespace SIL.FLExTransRuleGen.Model
             Affixes.Insert(index, newAffix);
         }
 
+        public void DeleteFeature(Feature feature)
+        {
+            Features.Remove(feature);
+        }
+
         public RuleConstituent FindConstituent(int identifier)
         {
             RuleConstituent constituent = null;

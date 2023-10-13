@@ -108,5 +108,26 @@ namespace SIL.FLExTransRuleGenModelTests
             Assert.AreEqual(2, word.Affixes.Count);
             Assert.AreEqual(AffixType.suffix, word.Affixes[1].Type);
         }
+
+        [Test]
+        public void DeleteFeatureTest()
+        {
+            Feature feature = new Feature();
+            feature.Label = "gender";
+            feature.Match = "alpha";
+            word.Features.Add(feature);
+            Feature feature2 = new Feature();
+            feature2.Label = "number";
+            feature2.Match = "singular";
+            word.Features.Add(feature2);
+            Assert.AreEqual(2, word.Features.Count);
+            word.DeleteFeature(feature);
+            Assert.AreEqual(1, word.Features.Count);
+            Assert.AreEqual(feature2, word.Features[0]);
+            // trying to delete it again does not crash
+            word.DeleteFeature(feature);
+            Assert.AreEqual(1, word.Features.Count);
+            Assert.AreEqual(feature2, word.Features[0]);
+        }
     }
 }
