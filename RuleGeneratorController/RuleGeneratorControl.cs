@@ -803,16 +803,14 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmDuplicate)
             {
-                MessageBox.Show("affix duplicate found");
-
-                //int index = lBoxAffixs.SelectedIndex + 1;
-                //{
-                //	FLExTransAffix ftAffix = SelectedAffix.Duplicate();
-                //	FLExTransAffixGen.FLExTransAffixs.Insert(index, ftAffix);
-                //	lBoxAffixs.Items.Insert(index, ftAffix);
-                //}
+                int index = GetIndexOfAffixInWord();
+                if (index > -1)
+                {
+                    Affix newAffix = affix.Duplicate();
+                    word.InsertAffixAt(newAffix, index);
+                    ReportChangeMade();
+                }
             }
-            MarkAsChanged(true);
         }
 
         protected void CategoryDeleteContextMenu_Click(object sender, EventArgs e)

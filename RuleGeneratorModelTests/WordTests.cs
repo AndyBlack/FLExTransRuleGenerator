@@ -91,5 +91,22 @@ namespace SIL.FLExTransRuleGenModelTests
             Assert.AreEqual(3, word.Affixes.Count);
             Assert.AreEqual(AffixType.prefix, word.Affixes[2].Type);
         }
+
+        [Test]
+        public void InsertAffixAtTest()
+        {
+            Assert.AreEqual(0, word.Affixes.Count);
+            Affix affix = new Affix();
+            affix.Type = AffixType.prefix;
+            word.InsertAffixAt(affix, 0);
+            Assert.AreEqual(1, word.Affixes.Count);
+            Assert.AreEqual(AffixType.prefix, word.Affixes[0].Type);
+
+            Affix affix2 = new Affix();
+            affix2.Type = AffixType.suffix;
+            word.InsertAffixAt(affix2, 1);
+            Assert.AreEqual(2, word.Affixes.Count);
+            Assert.AreEqual(AffixType.suffix, word.Affixes[1].Type);
+        }
     }
 }

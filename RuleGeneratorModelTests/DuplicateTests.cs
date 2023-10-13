@@ -81,5 +81,25 @@ namespace SIL.FLExTransRuleGenModelTests
             Assert.AreEqual(0, sourceWord.Features.Count);
             Assert.AreEqual(0, newWord.Features.Count);
         }
+
+        [Test]
+        public void AffixDuplicateTest()
+        {
+            const string kLabel = "gender";
+            const string kMatch = "alpha";
+            Affix affix = new Affix();
+            affix.Type = AffixType.prefix;
+            Feature feature = new Feature();
+            feature.Label = kLabel;
+            feature.Match = kMatch;
+            affix.Features.Add(feature);
+
+            Affix newAffix = affix.Duplicate();
+            Assert.AreEqual(AffixType.prefix, newAffix.Type);
+            Assert.AreEqual(1, newAffix.Features.Count);
+            Feature newFeature = affix.Features[0];
+            Assert.AreEqual(kLabel, newFeature.Label);
+            Assert.AreEqual(kMatch, newFeature.Match);
+        }
     }
 }
