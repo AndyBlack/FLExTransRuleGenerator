@@ -18,7 +18,7 @@ namespace SIL.FLExTransRuleGenerator
         [STAThread]
         public static int Main(string[] args)
         {
-            if (args.Length < 3)
+            if (args.Length < 2)
             {
                 WriteHelp();
                 return 0;
@@ -32,15 +32,10 @@ namespace SIL.FLExTransRuleGenerator
 
             if (!File.Exists(args[1]))
             {
-                Console.WriteLine(Properties.GeneratorStrings.SourceFLExProjectNotFound);
+                Console.WriteLine(Properties.GeneratorStrings.FLExDataSourceTargetFileNotFound);
                 return 1;
             }
 
-            if (!File.Exists(args[2]))
-            {
-                Console.WriteLine(Properties.GeneratorStrings.TargetFLExProjectNotFound);
-                return 1;
-            }
             XmlBackEndProvider provider = new XmlBackEndProvider();
             provider.LoadDataFromFile(args[0]);
             var controller = new RuleGeneratorControl();
@@ -57,8 +52,7 @@ namespace SIL.FLExTransRuleGenerator
             Console.WriteLine(Properties.GeneratorStrings.CommandLineTemplate);
             Console.WriteLine();
             Console.WriteLine(Properties.GeneratorStrings.RuleFile);
-            Console.WriteLine(Properties.GeneratorStrings.SourceProject);
-            Console.WriteLine(Properties.GeneratorStrings.TargetProject);
+            Console.WriteLine(Properties.GeneratorStrings.FLExDataSourceTargetFile);
         }
     }
 }

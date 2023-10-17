@@ -61,11 +61,29 @@ namespace SIL.FLExTransRuleGenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FLExTransRuleGenerator &lt;rule-file&gt; &lt;source-FLEx-project&gt; &lt;target-FLEx-project&gt;.
+        ///   Looks up a localized string similar to FLExTransRuleGenerator &lt;rule-file&gt; &lt;source/target-FLEx-category/features&gt;.
         /// </summary>
         internal static string CommandLineTemplate {
             get {
                 return ResourceManager.GetString("CommandLineTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;source/target-FLEx-category/features&gt; Specifies the XML file with both source and target categories and features..
+        /// </summary>
+        internal static string FLExDataSourceTargetFile {
+            get {
+                return ResourceManager.GetString("FLExDataSourceTargetFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The XML file with both source and target categories and features could not be found..
+        /// </summary>
+        internal static string FLExDataSourceTargetFileNotFound {
+            get {
+                return ResourceManager.GetString("FLExDataSourceTargetFileNotFound", resourceCulture);
             }
         }
         

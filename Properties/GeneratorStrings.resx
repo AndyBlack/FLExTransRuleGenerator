@@ -118,7 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CommandLineTemplate" xml:space="preserve">
-    <value>FLExTransRuleGenerator &lt;rule-file&gt; &lt;source-FLEx-project&gt; &lt;target-FLEx-project&gt;</value>
+    <value>FLExTransRuleGenerator &lt;rule-file&gt; &lt;source/target-FLEx-category/features&gt;</value>
+  </data>
+  <data name="FLExDataSourceTargetFile" xml:space="preserve">
+    <value>&lt;source/target-FLEx-category/features&gt; Specifies the XML file with both source and target categories and features.</value>
+  </data>
+  <data name="FLExDataSourceTargetFileNotFound" xml:space="preserve">
+    <value>The XML file with both source and target categories and features could not be found.</value>
   </data>
   <data name="HelpTitle" xml:space="preserve">
     <value>A tool to help write FLExTrans transfer rules.</value>

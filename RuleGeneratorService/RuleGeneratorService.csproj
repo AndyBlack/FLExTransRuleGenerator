@@ -64,8 +64,13 @@
     <Compile Include="WebPageProducer.cs" />
     <Compile Include="XmlBackEndProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XmlBackEndProviderFLExData.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RuleGeneratorFLExModel\RuleGeneratorFLExModel.csproj">
+      <Project>{376C9B4E-C265-4C92-9978-3925F34B0CAB}</Project>
+      <Name>RuleGeneratorFLExModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RuleGeneratorModel\RuleGeneratorModel.csproj">
       <Project>{f02436a4-fb00-4903-ad32-5990a3650542}</Project>
       <Name>RuleGeneratorModel</Name>
