@@ -23,6 +23,11 @@ namespace SIL.FLExTransRuleGenerator.Control
         public CategoryChooser()
         {
             InitializeComponent();
+            this.Text = SIL.FLExTransRuleGen
+                .Controller
+                .Properties
+                .RuleGenStrings
+                .CategoryChooserTitle;
             FillCategoriesListBox();
         }
 

@@ -61,6 +61,15 @@ namespace SIL.FLExTransRuleGen.Controller.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category Chooser.
+        /// </summary>
+        internal static string CategoryChooserTitle {
+            get {
+                return ResourceManager.GetString("CategoryChooserTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string cmDelete {
@@ -228,6 +237,24 @@ namespace SIL.FLExTransRuleGen.Controller.Properties {
         internal static string cmRemoveHeadMarking {
             get {
                 return ResourceManager.GetString("cmRemoveHeadMarking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feature Chooser.
+        /// </summary>
+        internal static string FeatureChooserTitle {
+            get {
+                return ResourceManager.GetString("FeatureChooserTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feature Value Chooser.
+        /// </summary>
+        internal static string FeatureValueChooserTitle {
+            get {
+                return ResourceManager.GetString("FeatureValueChooserTitle", resourceCulture);
             }
         }
         

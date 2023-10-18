@@ -81,6 +81,15 @@ namespace SIL.FLExTransRuleGen.Model
             Features.Remove(feature);
         }
 
+        public Feature InsertNewFeature(string label, string match)
+        {
+            Feature feature = new Feature();
+            feature.Label = label;
+            feature.Match = match;
+            Features.Add(feature);
+            return feature;
+        }
+
         public void SwapPositionOfAffixes(int index, int otherIndex)
         {
             if (index < 0 | index >= Affixes.Count)

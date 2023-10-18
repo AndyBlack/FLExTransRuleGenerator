@@ -17,5 +17,10 @@ namespace SIL.FLExTransRuleGen.FLExModel
         public string Abbreviation { get; set; } = "";
 
         public FLExFeatureValue() { }
+
+        public override string ToString()
+        {
+            return Abbreviation;
+        }
     }
 }

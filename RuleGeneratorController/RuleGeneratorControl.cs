@@ -19,6 +19,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Feature = SIL.FLExTransRuleGen.Model.Feature;
 
 namespace SIL.FLExTransRuleGenerator.Control
 {
@@ -820,20 +821,8 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmInsertFeature)
             {
-                DoAffixContextMenuInsertFeature( /*lBoxAffixs.SelectedIndex +*/
-                    1
-                );
-                MessageBox.Show("affix insert feature found");
+                ProcessInsertFeature();
             }
-        }
-
-        protected void DoAffixContextMenuInsertFeature(int index)
-        {
-            //FLExTransAffix ftAffix = new FLExTransAffix();
-            //FLExTransAffixGen.FLExTransAffixs.Insert(index, ftAffix);
-            //lBoxAffixs.Items.Insert(index, ftAffix);
-            //lBoxAffixs.SetSelected(index, true);
-            MarkAsChanged(true);
         }
 
         protected void AffixDeleteContextMenu_Click(object sender, EventArgs e)
@@ -922,16 +911,98 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmEdit)
             {
-                MessageBox.Show("feature edit found");
-
-                //int index = lBoxFeatures.SelectedIndex + 1;
-                //{
-                //	FLExTransFeature ftFeature = SelectedFeature.Duplicate();
-                //	FLExTransFeatureGen.FLExTransFeatures.Insert(index, ftFeature);
-                //	lBoxFeatures.Items.Insert(index, ftFeature);
-                //}
+                ProcessInsertFeature();
+                ReportChangeMade();
             }
-            MarkAsChanged(true);
+        }
+
+        private void ProcessInsertFeature()
+        {
+            phrase = GetPhraseFromFeature(feature);
+            if (phrase == null && word != null)
+            {
+                phrase = word.Parent as Phrase;
+            }
+            if (phrase != null)
+            {
+                FLExTransRule rule = phrase.Parent as FLExTransRule;
+                if (rule != null)
+                {
+                    if (phrase == rule.Source.Phrase)
+                    {
+                        LaunchFeatureChooser(FLExData.SourceData.Features);
+                    }
+                    else
+                    {
+                        LaunchFeatureChooser(FLExData.TargetData.Features);
+                    }
+                }
+            }
+        }
+
+        protected Phrase GetPhraseFromFeature(Feature feat)
+        {
+            Phrase phrase = null;
+            if (feature != null)
+            {
+                word = feature.Parent as Word;
+                affix = feat.Parent as Affix;
+                ;
+                if (affix != null)
+                {
+                    word = affix.Parent as Word;
+                }
+                if (word != null)
+                {
+                    phrase = word.Parent as Phrase;
+                }
+            }
+            return phrase;
+        }
+
+        protected void LaunchFeatureChooser(List<FLExFeature> features)
+        {
+            FeatureChooser chooser = new FeatureChooser();
+            foreach (FLExFeature feat in features)
+            {
+                chooser.Features.Add(feat);
+            }
+            chooser.FillFeaturesListBox();
+            chooser.SelectFeature(0);
+            if (feature != null && feature.Label != null)
+            {
+                var featFound = chooser.Features.FirstOrDefault(cat => cat.Name == feature.Label);
+                int index = chooser.Features.IndexOf(featFound);
+                if (index > -1)
+                {
+                    chooser.SelectFeature(index);
+                    chooser.Match = feature.Match;
+                }
+                else
+                    chooser.SelectFeature(chooser.Features.Count);
+            }
+            chooser.ShowDialog();
+            if (chooser.DialogResult == DialogResult.OK)
+            {
+                FLExFeature feat = chooser.SelectedFeature;
+                if (feature == null)
+                {
+                    if (affix != null)
+                    {
+                        feature = affix.InsertNewFeature(feat.Name, chooser.Match);
+                    }
+                    else
+                    {
+                        feature = word.InsertNewFeature(feat.Name, chooser.Match);
+                    }
+                }
+                else
+                {
+                    feature.Label = feat.Name;
+                    feature.Match = chooser.Match;
+                }
+                ReportChangeMade();
+            }
         }
 
         protected void WordInsertBeforeContextMenu_Click(object sender, EventArgs e)
@@ -1107,11 +1178,11 @@ namespace SIL.FLExTransRuleGenerator.Control
             Phrase phrase = null;
             if (category != null)
             {
-                word = (Word)category.Parent;
+                word = category.Parent as Word;
             }
             if (word != null)
             {
-                phrase = (Phrase)word.Parent;
+                phrase = word.Parent as Phrase;
             }
             return phrase;
         }
@@ -1150,8 +1221,10 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmInsertFeature)
             {
-                MessageBox.Show("show features available dialog");
-                //word.CategoryConstituent
+                feature = null;
+                affix = null;
+                ProcessInsertFeature();
+                ReportChangeMade();
             }
         }
 
@@ -1216,7 +1289,6 @@ namespace SIL.FLExTransRuleGenerator.Control
                 tbName.Text = SelectedRule.Name;
                 int index = lBoxRules.SelectedIndex + 1;
                 ShowWebPage();
-                //lbCountOps.Text = index.ToString() + " / " + AlloGens.SelectedRules.Count.ToString();
             }
         }
 

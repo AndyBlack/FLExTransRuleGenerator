@@ -25,6 +25,15 @@ namespace SIL.FLExTransRuleGen.Model
             Features.Remove(feature);
         }
 
+        public Feature InsertNewFeature(string label, string match)
+        {
+            Feature feature = new Feature();
+            feature.Label = label;
+            feature.Match = match;
+            Features.Add(feature);
+            return feature;
+        }
+
         public RuleConstituent FindConstituent(int identifier)
         {
             RuleConstituent constituent = null;

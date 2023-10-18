@@ -143,7 +143,7 @@
   </data>
   <data name="FormTitle" xml:space="preserve">
     <value>FLExTrans Rule Generator</value>
-    <comment>Title of the dialog form</comment>
+    <comment>Title of the main dialog form</comment>
   </data>
   <data name="RuleName" xml:space="preserve">
     <value>Rule Name:</value>
@@ -200,5 +200,17 @@
   <data name="cmRemoveHeadMarking" xml:space="preserve">
     <value>Remove head marking</value>
     <comment>Remove head marking of the selected word</comment>
+  </data>
+  <data name="CategoryChooserTitle" xml:space="preserve">
+    <value>Category Chooser</value>
+    <comment>Tilte of the category chooser dialog</comment>
+  </data>
+  <data name="FeatureChooserTitle" xml:space="preserve">
+    <value>Feature Chooser</value>
+    <comment>Tilte of the feature chooser dialog</comment>
+  </data>
+  <data name="FeatureValueChooserTitle" xml:space="preserve">
+    <value>Feature Value Chooser</value>
+    <comment>Tilte of the feature value chooser dialog</comment>
   </data>
 </root>

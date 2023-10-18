@@ -19,5 +19,10 @@ namespace SIL.FLExTransRuleGen.FLExModel
         public List<FLExFeatureValue> Values { get; set; } = new List<FLExFeatureValue>();
 
         public FLExFeature() { }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
