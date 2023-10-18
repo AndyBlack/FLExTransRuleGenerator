@@ -4,6 +4,7 @@
 
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Win32;
+using SIL.FLExTransRuleGen.FLExModel;
 using SIL.FLExTransRuleGen.Model;
 using SIL.FLExTransRuleGen.Service;
 using SIL.LCModel;
@@ -27,6 +28,7 @@ namespace SIL.FLExTransRuleGenerator.Control
         string flexTransDir = "";
         protected bool ChangesMade { get; set; } = false;
         public FLExTransRuleGen.Model.FLExTransRuleGenerator FLExTransRuleGen { get; set; }
+        public FLExData FLExData { get; set; }
         protected FLExTransRule SelectedRule { get; set; }
         public int LastSelectedRule { get; set; }
         public LcmCache SourceCache { get; set; }
@@ -888,16 +890,8 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmEdit)
             {
-                MessageBox.Show("category edit found");
-
-                //int index = lBoxCategorys.SelectedIndex + 1;
-                //{
-                //	FLExTransCategory ftCategory = SelectedCategory.Duplicate();
-                //	FLExTransCategoryGen.FLExTransCategorys.Insert(index, ftCategory);
-                //	lBoxCategorys.Items.Insert(index, ftCategory);
-                //}
+                ProcessInsertCatgegory();
             }
-            MarkAsChanged(true);
         }
 
         protected void FeatureDeleteContextMenu_Click(object sender, EventArgs e)
@@ -1083,69 +1077,71 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmInsertCategory)
             {
-                phrase = word.Parent as Phrase;
-                if (phrase != null)
+                category = null;
+                ProcessInsertCatgegory();
+            }
+        }
+
+        private void ProcessInsertCatgegory()
+        {
+            phrase = GetPhraseFromCategory(category);
+            if (phrase != null)
+            {
+                FLExTransRule rule = phrase.Parent as FLExTransRule;
+                if (rule != null)
                 {
-                    FLExTransRule rule = phrase.Parent as FLExTransRule;
-                    if (rule != null)
+                    if (phrase == rule.Source.Phrase)
                     {
-                        if (phrase == rule.Source.Phrase)
-                        {
-                            LaunchCategoryChooser(SourceCache);
-                        }
-                        else
-                        {
-                            LaunchCategoryChooser(TargetCache);
-                        }
+                        LaunchCategoryChooser(FLExData.SourceData.Categories);
+                    }
+                    else
+                    {
+                        LaunchCategoryChooser(FLExData.TargetData.Categories);
                     }
                 }
             }
         }
 
-        protected void LaunchCategoryChooser(LcmCache cache)
+        protected Phrase GetPhraseFromCategory(Category cat)
         {
-            if (cache != null)
+            Phrase phrase = null;
+            if (category != null)
             {
-                var allPoses =
-                    cache.LanguageProject.PartsOfSpeechOA.ReallyReallyAllPossibilities.OrderBy(
-                        pos => pos.Name.BestAnalysisAlternative.Text
-                    );
+                word = (Word)category.Parent;
+            }
+            if (word != null)
+            {
+                phrase = (Phrase)word.Parent;
+            }
+            return phrase;
+        }
 
-                CategoryChooser chooser = new CategoryChooser();
-                foreach (ICmPossibility pos in allPoses)
-                {
-                    Category cat = new Category("");
-                    cat.Name = pos.Name.BestAnalysisAlternative.Text;
-                    chooser.Categories.Add(cat);
-                }
-                chooser.FillCategoriesListBox();
-                //Category = category;
-                if (category.Name != null)
-                {
-                    var catFound = chooser.Categories.FirstOrDefault(
-                        cat => cat.Name == category.Name
-                    );
-                    int index = chooser.Categories.IndexOf(catFound);
-                    if (index > -1)
-                        chooser.SelectCategory(index);
-                    else
-                        chooser.SelectCategory(chooser.Categories.Count);
-                }
-                chooser.ShowDialog();
-                if (chooser.DialogResult == DialogResult.OK)
-                {
-                    Category cat = chooser.SelectedCategory;
-                    if (cat == chooser.NoneChosen)
-                    {
-                        category.Name = "";
-                    }
-                    else
-                    {
-                        category.Name = cat.Name;
-                    }
-                    word.InsertCategory(category.Name);
-                    ReportChangeMade();
-                }
+        protected void LaunchCategoryChooser(List<FLExCategory> categories)
+        {
+            CategoryChooser chooser = new CategoryChooser();
+            foreach (FLExCategory cat in categories)
+            {
+                chooser.Categories.Add(cat);
+            }
+            chooser.FillCategoriesListBox();
+            chooser.SelectCategory(0);
+            if (category != null && category.Name != null)
+            {
+                var catFound = chooser.Categories.FirstOrDefault(
+                    cat => cat.Abbreviation == category.Name
+                );
+                int index = chooser.Categories.IndexOf(catFound);
+                if (index > -1)
+                    chooser.SelectCategory(index);
+                else
+                    chooser.SelectCategory(chooser.Categories.Count);
+            }
+            chooser.ShowDialog();
+            if (chooser.DialogResult == DialogResult.OK)
+            {
+                FLExCategory cat = chooser.SelectedCategory;
+                word.InsertCategory(cat.Abbreviation);
+                ReportChangeMade();
             }
         }
 

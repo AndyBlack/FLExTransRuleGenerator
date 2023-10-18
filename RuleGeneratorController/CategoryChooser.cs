@@ -2,7 +2,7 @@
 // This software is licensed under the LGPL, version 2.1 or later
 // (http://www.gnu.org/licenses/lgpl-2.1.html)
 
-using SIL.FLExTransRuleGen.Model;
+using SIL.FLExTransRuleGen.FLExModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,14 +17,11 @@ namespace SIL.FLExTransRuleGenerator.Control
 {
     public partial class CategoryChooser : Form
     {
-        public List<Category> Categories { get; set; }
-        public Category SelectedCategory { get; set; } = new Category("");
-        public Category NoneChosen { get; set; } = new Category("");
+        public List<FLExCategory> Categories { get; set; } = new List<FLExCategory>();
+        public FLExCategory SelectedCategory { get; set; } = new FLExCategory();
 
         public CategoryChooser()
         {
-            Categories = new List<Category>();
-            NoneChosen.Name = "<None>";
             InitializeComponent();
             FillCategoriesListBox();
         }
@@ -33,17 +30,16 @@ namespace SIL.FLExTransRuleGenerator.Control
         {
             lBoxCategories.BeginUpdate();
             lBoxCategories.Items.Clear();
-            foreach (Category category in Categories)
+            foreach (FLExCategory category in Categories)
             {
                 lBoxCategories.Items.Add(category);
             }
-            lBoxCategories.Items.Add(NoneChosen);
             lBoxCategories.EndUpdate();
         }
 
         public void SelectCategory(int index)
         {
-            if (index > -1 && index <= Categories.Count)
+            if (index > -1 && index < Categories.Count)
             {
                 lBoxCategories.SelectedIndex = index;
             }
@@ -51,7 +47,7 @@ namespace SIL.FLExTransRuleGenerator.Control
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            SelectedCategory = (Category)lBoxCategories.SelectedItem;
+            SelectedCategory = (FLExCategory)lBoxCategories.SelectedItem;
         }
     }
 }

@@ -119,6 +119,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RuleGeneratorFLExModel\RuleGeneratorFLExModel.csproj">
+      <Project>{376c9b4e-c265-4c92-9978-3925f34b0cab}</Project>
+      <Name>RuleGeneratorFLExModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RuleGeneratorModel\RuleGeneratorModel.csproj">
       <Project>{f02436a4-fb00-4903-ad32-5990a3650542}</Project>
       <Name>RuleGeneratorModel</Name>

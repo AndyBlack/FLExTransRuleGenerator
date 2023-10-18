@@ -38,9 +38,12 @@ namespace SIL.FLExTransRuleGenerator
 
             XmlBackEndProvider provider = new XmlBackEndProvider();
             provider.LoadDataFromFile(args[0]);
+            XmlBackEndProviderFLExData providerFLExData = new XmlBackEndProviderFLExData();
+            providerFLExData.LoadDataFromFile(args[1]);
             var controller = new RuleGeneratorControl();
             controller.FLExTransRuleGen = provider.RuleGenerator;
             controller.FillRulesListBox();
+            controller.FLExData = providerFLExData.FLExData;
             controller.ShowDialog();
             return 0;
         }
