@@ -22,6 +22,8 @@ namespace SIL.FLExTransRuleGenerator.Control
             new List<FLExFeatureValue>();
         public FLExFeatureValue SelectedFeatureValue { get; set; } = new FLExFeatureValue();
         public string Match { get; set; } = "";
+        public int MaxVariables { get; set; } = 4;
+        string[] variables = { "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι", "κ", "μ", "ν" };
 
         public FeatureValueChooser()
         {
@@ -36,19 +38,10 @@ namespace SIL.FLExTransRuleGenerator.Control
 
         public void CreateVariableValues(FLExFeature feat)
         {
-            CreateVariableValue(feat, "α");
-            CreateVariableValue(feat, "β");
-            CreateVariableValue(feat, "γ");
-            CreateVariableValue(feat, "δ");
-            CreateVariableValue(feat, "ε");
-            CreateVariableValue(feat, "ζ");
-            CreateVariableValue(feat, "η");
-            CreateVariableValue(feat, "θ");
-            CreateVariableValue(feat, "ι");
-            CreateVariableValue(feat, "κ");
-            CreateVariableValue(feat, "λ");
-            CreateVariableValue(feat, "μ");
-            CreateVariableValue(feat, "ν");
+            for (int i = 0; i < MaxVariables && i < variables.Length; i++)
+            {
+                CreateVariableValue(feat, variables[i]);
+            }
         }
 
         private void CreateVariableValue(FLExFeature feat, string abbr)

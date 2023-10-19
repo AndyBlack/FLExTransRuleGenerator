@@ -61,7 +61,7 @@ namespace SIL.FLExTransRuleGenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FLExTransRuleGenerator &lt;rule-file&gt; &lt;source/target-FLEx-category/features&gt;.
+        ///   Looks up a localized string similar to FLExTransRuleGenerator &lt;rule-file&gt; &lt;source/target-FLEx-category/features&gt; (&lt;max vars&gt;).
         /// </summary>
         internal static string CommandLineTemplate {
             get {
@@ -93,6 +93,15 @@ namespace SIL.FLExTransRuleGenerator.Properties {
         internal static string HelpTitle {
             get {
                 return ResourceManager.GetString("HelpTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (max vars&gt; Specifies the optional max number of variables to show in values (default is 4).
+        /// </summary>
+        internal static string OptionalMaxVariables {
+            get {
+                return ResourceManager.GetString("OptionalMaxVariables", resourceCulture);
             }
         }
         

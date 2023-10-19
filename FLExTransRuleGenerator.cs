@@ -18,7 +18,7 @@ namespace SIL.FLExTransRuleGenerator
         [STAThread]
         public static int Main(string[] args)
         {
-            if (args.Length < 2)
+            if (args.Length < 2 || args.Length > 3)
             {
                 WriteHelp();
                 return 0;
@@ -41,6 +41,17 @@ namespace SIL.FLExTransRuleGenerator
             XmlBackEndProviderFLExData providerFLExData = new XmlBackEndProviderFLExData();
             providerFLExData.LoadDataFromFile(args[1]);
             var controller = new RuleGeneratorControl();
+            if (args.Length >= 3)
+            {
+                try
+                {
+                    controller.MaxVariables = Int32.Parse(args[2]);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
             controller.FLExTransRuleGen = provider.RuleGenerator;
             controller.FillRulesListBox();
             controller.FLExData = providerFLExData.FLExData;
@@ -56,6 +67,7 @@ namespace SIL.FLExTransRuleGenerator
             Console.WriteLine();
             Console.WriteLine(Properties.GeneratorStrings.RuleFile);
             Console.WriteLine(Properties.GeneratorStrings.FLExDataSourceTargetFile);
+            Console.WriteLine(Properties.GeneratorStrings.OptionalMaxVariables);
         }
     }
 }

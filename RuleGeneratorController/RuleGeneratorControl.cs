@@ -32,8 +32,7 @@ namespace SIL.FLExTransRuleGenerator.Control
         public FLExData FLExData { get; set; }
         protected FLExTransRule SelectedRule { get; set; }
         public int LastSelectedRule { get; set; }
-        public LcmCache SourceCache { get; set; }
-        public LcmCache TargetCache { get; set; }
+        public int MaxVariables { get; set; } = 4;
         protected WebPageProducer producer;
         protected ConstituentFinder finder;
         protected Affix affix;
@@ -964,6 +963,7 @@ namespace SIL.FLExTransRuleGenerator.Control
         protected void LaunchFeatureChooser(List<FLExFeature> features)
         {
             FeatureValueChooser chooser = new FeatureValueChooser();
+            chooser.MaxVariables = MaxVariables;
             foreach (FLExFeature feat in features)
             {
                 chooser.FeatureValues.AddRange(feat.Values);

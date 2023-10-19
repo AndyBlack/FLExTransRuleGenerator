@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CommandLineTemplate" xml:space="preserve">
-    <value>FLExTransRuleGenerator &lt;rule-file&gt; &lt;source/target-FLEx-category/features&gt;</value>
+    <value>FLExTransRuleGenerator &lt;rule-file&gt; &lt;source/target-FLEx-category/features&gt; (&lt;max vars&gt;)</value>
   </data>
   <data name="FLExDataSourceTargetFile" xml:space="preserve">
     <value>&lt;source/target-FLEx-category/features&gt; Specifies the XML file with both source and target categories and features.</value>
@@ -128,6 +128,9 @@
   </data>
   <data name="HelpTitle" xml:space="preserve">
     <value>A tool to help write FLExTrans transfer rules.</value>
+  </data>
+  <data name="OptionalMaxVariables" xml:space="preserve">
+    <value>(max vars&gt; Specifies the optional max number of variables to show in values (default is 4)</value>
   </data>
   <data name="RuleFile" xml:space="preserve">
     <value>&lt;rule-file&gt;  Specifies the FLExTrans transfer rule file.</value>
