@@ -90,12 +90,6 @@
     <Compile Include="CategoryChooser.designer.cs">
       <DependentUpon>CategoryChooser.cs</DependentUpon>
     </Compile>
-    <Compile Include="FeatureChooser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FeatureChooser.Designer.cs">
-      <DependentUpon>FeatureChooser.cs</DependentUpon>
-    </Compile>
     <Compile Include="FeatureValueChooser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,9 +112,6 @@
   <ItemGroup>
     <EmbeddedResource Include="CategoryChooser.resx">
       <DependentUpon>CategoryChooser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FeatureChooser.resx">
-      <DependentUpon>FeatureChooser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FeatureValueChooser.resx">
       <DependentUpon>FeatureValueChooser.cs</DependentUpon>

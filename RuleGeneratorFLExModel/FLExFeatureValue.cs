@@ -16,11 +16,21 @@ namespace SIL.FLExTransRuleGen.FLExModel
         [XmlAttribute("abbr")]
         public string Abbreviation { get; set; } = "";
 
+        [XmlIgnore]
+        public FLExFeature Feature { get; set; }
+
         public FLExFeatureValue() { }
 
         public override string ToString()
         {
-            return Abbreviation;
+            StringBuilder sb = new StringBuilder();
+            if (Feature != null)
+            {
+                sb.Append(Feature.Name);
+                sb.Append(" : ");
+            }
+            sb.Append(Abbreviation);
+            return sb.ToString();
         }
     }
 }

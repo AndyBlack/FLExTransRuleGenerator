@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CategoryChooser));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FeatureValueChooser));
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.btnOK = new System.Windows.Forms.Button();
 			this.lBoxFeatureValues = new System.Windows.Forms.ListBox();
@@ -36,6 +36,7 @@
 			// 
 			// btnCancel
 			// 
+			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnCancel.Location = new System.Drawing.Point(702, 397);
 			this.btnCancel.Name = "btnCancel";
@@ -46,6 +47,7 @@
 			// 
 			// btnOK
 			// 
+			this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.btnOK.Location = new System.Drawing.Point(590, 397);
 			this.btnOK.Name = "btnOK";
@@ -55,16 +57,20 @@
 			this.btnOK.UseVisualStyleBackColor = true;
 			this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
 			// 
-			// lBoxCategories
+			// lBoxFeatureValues
 			// 
+			this.lBoxFeatureValues.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.lBoxFeatureValues.FormattingEnabled = true;
 			this.lBoxFeatureValues.ItemHeight = 20;
 			this.lBoxFeatureValues.Location = new System.Drawing.Point(13, 13);
-			this.lBoxFeatureValues.Name = "lBoxCategories";
+			this.lBoxFeatureValues.Name = "lBoxFeatureValues";
 			this.lBoxFeatureValues.Size = new System.Drawing.Size(764, 364);
+			this.lBoxFeatureValues.Sorted = true;
 			this.lBoxFeatureValues.TabIndex = 0;
 			// 
-			// CategoryChooser
+			// FeatureValueChooser
 			// 
 			this.AcceptButton = this.btnOK;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -75,7 +81,7 @@
 			this.Controls.Add(this.btnOK);
 			this.Controls.Add(this.btnCancel);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "CategoryChooser";
+			this.Name = "FeatureValueChooser";
 			this.Text = "Category Chooser";
 			this.ResumeLayout(false);
 

@@ -29,6 +29,7 @@ namespace SIL.FLExTransRuleGen.Service
             object obj = deserializer.Deserialize(reader);
             FLExData = (FLExData)obj;
             reader.Close();
+            FLExData.SetFeatureInFeatureValues();
         }
     }
 }

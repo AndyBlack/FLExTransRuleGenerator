@@ -18,5 +18,11 @@ namespace SIL.FLExTransRuleGen.FLExModel
         public TargetFLExData TargetData { get; set; } = new TargetFLExData();
 
         public FLExData() { }
+
+        public void SetFeatureInFeatureValues()
+        {
+            SourceData.SetFeatureInFeatureValues();
+            TargetData.SetFeatureInFeatureValues();
+        }
     }
 }

@@ -31,27 +31,31 @@ namespace SIL.FLExTransRuleGenerator.Control
                 .Properties
                 .RuleGenStrings
                 .FeatureValueChooserTitle;
-            CreateVariableValues();
             FillFeatureValuesListBox();
         }
 
-        private void CreateVariableValues()
+        public void CreateVariableValues(FLExFeature feat)
         {
-            CreateVariableValue("α");
-            CreateVariableValue("β");
-            CreateVariableValue("ɣ");
-            CreateVariableValue("ẟ");
-            CreateVariableValue("ε");
-            CreateVariableValue("ζ");
-            CreateVariableValue("η");
-            CreateVariableValue("θ");
-            CreateVariableValue("ι");
+            CreateVariableValue(feat, "α");
+            CreateVariableValue(feat, "β");
+            CreateVariableValue(feat, "γ");
+            CreateVariableValue(feat, "δ");
+            CreateVariableValue(feat, "ε");
+            CreateVariableValue(feat, "ζ");
+            CreateVariableValue(feat, "η");
+            CreateVariableValue(feat, "θ");
+            CreateVariableValue(feat, "ι");
+            CreateVariableValue(feat, "κ");
+            CreateVariableValue(feat, "λ");
+            CreateVariableValue(feat, "μ");
+            CreateVariableValue(feat, "ν");
         }
 
-        private void CreateVariableValue(string abbr)
+        private void CreateVariableValue(FLExFeature feat, string abbr)
         {
             var variable = new FLExFeatureValue();
             variable.Abbreviation = abbr;
+            variable.Feature = feat;
             VariableFeatureValues.Add(variable);
         }
 
@@ -63,16 +67,32 @@ namespace SIL.FLExTransRuleGenerator.Control
             {
                 lBoxFeatureValues.Items.Add(value);
             }
-            foreach (FLExFeatureValue value in VariableFeatureValues)
+            foreach (FLExFeatureValue varValue in VariableFeatureValues)
             {
-                lBoxFeatureValues.Items.Add(value);
+                lBoxFeatureValues.Items.Add(varValue);
             }
             lBoxFeatureValues.EndUpdate();
         }
 
+        public void FindAndSelectFeatureValuePair(string label, string match)
+        {
+            SelectFeatureValue(0);
+            for (int i = 0; i < lBoxFeatureValues.Items.Count; i++)
+            {
+                FLExFeatureValue val = lBoxFeatureValues.Items[i] as FLExFeatureValue;
+                if (val == null)
+                    continue;
+                if (val.Feature.Name == label && val.Abbreviation == match)
+                {
+                    SelectFeatureValue(i);
+                    break;
+                }
+            }
+        }
+
         public void SelectFeatureValue(int index)
         {
-            if (index > -1 && index < FeatureValues.Count)
+            if (index > -1 && index < lBoxFeatureValues.Items.Count)
             {
                 lBoxFeatureValues.SelectedIndex = index;
             }
@@ -81,6 +101,7 @@ namespace SIL.FLExTransRuleGenerator.Control
         private void btnOK_Click(object sender, EventArgs e)
         {
             SelectedFeatureValue = (FLExFeatureValue)lBoxFeatureValues.SelectedItem;
+            Match = SelectedFeatureValue.Abbreviation;
         }
     }
 }

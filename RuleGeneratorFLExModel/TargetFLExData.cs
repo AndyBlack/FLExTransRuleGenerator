@@ -12,9 +12,6 @@ namespace SIL.FLExTransRuleGen.FLExModel
 {
     public class TargetFLExData : FLExDataBase
     {
-        public List<FLExCategory> Categories { get; set; } = new List<FLExCategory>();
-        public List<FLExFeature> Features { get; set; } = new List<FLExFeature>();
-
         public TargetFLExData() { }
     }
 }

@@ -963,43 +963,35 @@ namespace SIL.FLExTransRuleGenerator.Control
 
         protected void LaunchFeatureChooser(List<FLExFeature> features)
         {
-            FeatureChooser chooser = new FeatureChooser();
+            FeatureValueChooser chooser = new FeatureValueChooser();
             foreach (FLExFeature feat in features)
             {
-                chooser.Features.Add(feat);
+                chooser.FeatureValues.AddRange(feat.Values);
+                chooser.CreateVariableValues(feat);
             }
-            chooser.FillFeaturesListBox();
-            chooser.SelectFeature(0);
-            if (feature != null && feature.Label != null)
+            chooser.FillFeatureValuesListBox();
+            if (feature != null)
             {
-                var featFound = chooser.Features.FirstOrDefault(cat => cat.Name == feature.Label);
-                int index = chooser.Features.IndexOf(featFound);
-                if (index > -1)
-                {
-                    chooser.SelectFeature(index);
-                    chooser.Match = feature.Match;
-                }
-                else
-                    chooser.SelectFeature(chooser.Features.Count);
+                chooser.FindAndSelectFeatureValuePair(feature.Label, feature.Match);
             }
             chooser.ShowDialog();
             if (chooser.DialogResult == DialogResult.OK)
             {
-                FLExFeature feat = chooser.SelectedFeature;
+                FLExFeatureValue feat = chooser.SelectedFeatureValue;
                 if (feature == null)
                 {
                     if (affix != null)
                     {
-                        feature = affix.InsertNewFeature(feat.Name, chooser.Match);
+                        feature = affix.InsertNewFeature(feat.Feature.Name, chooser.Match);
                     }
                     else
                     {
-                        feature = word.InsertNewFeature(feat.Name, chooser.Match);
+                        feature = word.InsertNewFeature(feat.Feature.Name, chooser.Match);
                     }
                 }
                 else
                 {
-                    feature.Label = feat.Name;
+                    feature.Label = feat.Feature.Name;
                     feature.Match = chooser.Match;
                 }
                 ReportChangeMade();

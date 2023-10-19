@@ -83,31 +83,42 @@ namespace SIL.FLExTransRuleGenServiceTests
         {
             Assert.AreEqual(5, features.Count);
             var values = CheckFeatureName(features, "absolute tense", 0, 4);
-            CheckFeatureValue(values, "fut", 0);
-            CheckFeatureValue(values, "pret", 1);
-            CheckFeatureValue(values, "prs", 2);
-            CheckFeatureValue(values, "pst", 3);
+            FLExFeature feat = features[0];
+            CheckFeatureValue(values, "fut", 0, feat);
+            CheckFeatureValue(values, "pret", 1, feat);
+            CheckFeatureValue(values, "prs", 2, feat);
+            CheckFeatureValue(values, "pst", 3, feat);
             values = CheckFeatureName(features, "case", 1, 3);
-            CheckFeatureValue(values, "acc", 0);
-            CheckFeatureValue(values, "dat", 1);
-            CheckFeatureValue(values, "nom", 2);
+            feat = features[1];
+            CheckFeatureValue(values, "acc", 0, feat);
+            CheckFeatureValue(values, "dat", 1, feat);
+            CheckFeatureValue(values, "nom", 2, feat);
             values = CheckFeatureName(features, "gender", 2, 3);
-            CheckFeatureValue(values, "f", 0);
-            CheckFeatureValue(values, "m", 1);
-            CheckFeatureValue(values, "?", 2);
+            feat = features[2];
+            CheckFeatureValue(values, "f", 0, feat);
+            CheckFeatureValue(values, "m", 1, feat);
+            CheckFeatureValue(values, "?", 2, feat);
             values = CheckFeatureName(features, "number", 3, 2);
-            CheckFeatureValue(values, "pl", 0);
-            CheckFeatureValue(values, "sg", 1);
+            feat = features[3];
+            CheckFeatureValue(values, "pl", 0, feat);
+            CheckFeatureValue(values, "sg", 1, feat);
             values = CheckFeatureName(features, "person", 4, 3);
-            CheckFeatureValue(values, "1", 0);
-            CheckFeatureValue(values, "2", 1);
-            CheckFeatureValue(values, "3", 2);
+            feat = features[4];
+            CheckFeatureValue(values, "1", 0, feat);
+            CheckFeatureValue(values, "2", 1, feat);
+            CheckFeatureValue(values, "3", 2, feat);
         }
 
-        private void CheckFeatureValue(List<FLExFeatureValue> values, string sAbbr, int index)
+        private void CheckFeatureValue(
+            List<FLExFeatureValue> values,
+            string sAbbr,
+            int index,
+            FLExFeature feat
+        )
         {
             FLExFeatureValue value = values[index];
             Assert.AreEqual(sAbbr, value.Abbreviation);
+            Assert.AreEqual(feat, value.Feature);
         }
 
         private List<FLExFeatureValue> CheckFeatureName(
