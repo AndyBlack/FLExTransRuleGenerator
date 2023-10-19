@@ -11,10 +11,8 @@ using System.Xml.Serialization;
 
 namespace SIL.FLExTransRuleGen.Model
 {
-    public class Word : RuleConstituent
+    public class Word : ConstituentWithFeatures
     {
-        public List<Feature> Features { get; set; } = new List<Feature>();
-
         public List<Affix> Affixes { get; set; } = new List<Affix>();
 
         [XmlAttribute("id")]
@@ -76,20 +74,6 @@ namespace SIL.FLExTransRuleGen.Model
             Affixes.Insert(index, newAffix);
         }
 
-        public void DeleteFeature(Feature feature)
-        {
-            Features.Remove(feature);
-        }
-
-        public Feature InsertNewFeature(string label, string match)
-        {
-            Feature feature = new Feature();
-            feature.Label = label;
-            feature.Match = match;
-            Features.Add(feature);
-            return feature;
-        }
-
         public void SwapPositionOfAffixes(int index, int otherIndex)
         {
             if (index < 0 | index >= Affixes.Count)
@@ -114,13 +98,10 @@ namespace SIL.FLExTransRuleGen.Model
             {
                 return constituent;
             }
-            foreach (Feature feature in Features)
+            constituent = FindConstituentInFeatures(identifier);
+            if (constituent != null)
             {
-                constituent = feature.FindConstituent(identifier);
-                if (constituent != null)
-                {
-                    return constituent;
-                }
+                return constituent;
             }
             foreach (Affix affix in Affixes)
             {
@@ -160,10 +141,7 @@ namespace SIL.FLExTransRuleGen.Model
                 {
                     sb.Append(CategoryConstituent.ProduceHtml());
                 }
-                foreach (Feature feature in Features)
-                {
-                    sb.Append(feature.ProduceHtml());
-                }
+                ProduceHtmlForFeatures(sb);
                 foreach (Affix affix in Affixes)
                 {
                     sb.Append(affix.ProduceHtml());
@@ -185,10 +163,7 @@ namespace SIL.FLExTransRuleGen.Model
             {
                 newWord.Affixes.Add(affix.Duplicate());
             }
-            foreach (Feature feature in Features)
-            {
-                newWord.Features.Add(feature.Duplicate());
-            }
+            newWord.Features = DuplicateFeatures();
             return newWord;
         }
     }

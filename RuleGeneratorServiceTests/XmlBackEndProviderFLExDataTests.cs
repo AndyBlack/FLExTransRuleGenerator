@@ -14,7 +14,7 @@ using System.Text;
 
 namespace SIL.FLExTransRuleGenServiceTests
 {
-    public class Check : ServiceTestBase
+    public class XmlBackEndProviderFLExDataTests : ServiceTestBase
     {
         XmlBackEndProviderFLExData providerFLExData;
 

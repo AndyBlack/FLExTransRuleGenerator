@@ -11,28 +11,12 @@ using System.Xml.Serialization;
 
 namespace SIL.FLExTransRuleGen.Model
 {
-    public class Affix : RuleConstituent
+    public class Affix : ConstituentWithFeatures
     {
-        public List<Feature> Features { get; set; } = new List<Feature>();
-
         [XmlAttribute("type")]
         public AffixType Type { get; set; } = AffixType.suffix;
 
         public Affix() { }
-
-        public void DeleteFeature(Feature feature)
-        {
-            Features.Remove(feature);
-        }
-
-        public Feature InsertNewFeature(string label, string match)
-        {
-            Feature feature = new Feature();
-            feature.Label = label;
-            feature.Match = match;
-            Features.Add(feature);
-            return feature;
-        }
 
         public RuleConstituent FindConstituent(int identifier)
         {
@@ -41,14 +25,7 @@ namespace SIL.FLExTransRuleGen.Model
             {
                 return this;
             }
-            foreach (Feature feature in Features)
-            {
-                constituent = feature.FindConstituent(identifier);
-                if (constituent != null)
-                {
-                    return constituent;
-                }
-            }
+            constituent = FindConstituentInFeatures(identifier);
             return constituent;
         }
 
@@ -66,10 +43,7 @@ namespace SIL.FLExTransRuleGen.Model
             if (Features.Count > 0)
             {
                 sb.Append("<ul>");
-                foreach (Feature feature in Features)
-                {
-                    sb.Append(feature.ProduceHtml());
-                }
+                ProduceHtmlForFeatures(sb);
                 sb.Append("</ul>");
             }
             sb.Append("</li>\n");
@@ -80,10 +54,7 @@ namespace SIL.FLExTransRuleGen.Model
         {
             Affix newAffix = new Affix();
             newAffix.Type = Type;
-            foreach (Feature feature in Features)
-            {
-                newAffix.Features.Add(feature.Duplicate());
-            }
+            newAffix.Features = DuplicateFeatures();
             return newAffix;
         }
     }
