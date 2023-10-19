@@ -241,6 +241,15 @@ namespace SIL.FLExTransRuleGen.Controller.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toggle affix type.
+        /// </summary>
+        internal static string cmToggleAffixType {
+            get {
+                return ResourceManager.GetString("cmToggleAffixType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Feature Chooser.
         /// </summary>
         internal static string FeatureChooserTitle {

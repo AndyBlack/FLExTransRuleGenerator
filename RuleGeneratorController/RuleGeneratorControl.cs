@@ -66,6 +66,7 @@ namespace SIL.FLExTransRuleGenerator.Control
         protected string cmMoveRight = "Move right";
         protected string cmMoveUp = "Move up";
         protected string cmRemoveHeadMarking = "Remove head marking";
+        protected string cmToggleAffixType = "Toggle affix type";
 
         protected RegistryKey regkey;
         const string RegKey = "Software\\SIL\\FLExTransRuleGenerator";
@@ -254,6 +255,11 @@ namespace SIL.FLExTransRuleGenerator.Control
                 .Properties
                 .RuleGenStrings
                 .cmInsertSuffixBefore;
+            cmToggleAffixType = SIL.FLExTransRuleGen
+                .Controller
+                .Properties
+                .RuleGenStrings
+                .cmToggleAffixType;
             cmMoveDown = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveDown;
             cmMoveLeft = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveLeft;
             cmMoveRight = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveRight;
@@ -416,6 +422,9 @@ namespace SIL.FLExTransRuleGenerator.Control
         {
             affixEditContextMenu = new ContextMenuStrip();
             affixEditContextMenu.Name = "Affix";
+            ToolStripMenuItem affixToggleAffixType = new ToolStripMenuItem(cmToggleAffixType);
+            affixToggleAffixType.Click += new EventHandler(AffixToggleAffixTypeContextMenu_Click);
+            affixToggleAffixType.Name = cmToggleAffixType;
             ToolStripMenuItem affixInsertPrefixAfter = new ToolStripMenuItem(cmInsertPrefixAfter);
             affixInsertPrefixAfter.Click += new EventHandler(
                 AffixInsertPrefixAfterContextMenu_Click
@@ -452,6 +461,8 @@ namespace SIL.FLExTransRuleGenerator.Control
             affixMoveRight.Click += new EventHandler(AffixMoveRightContextMenu_Click);
             affixMoveRight.Name = cmMoveRight;
             affixEditContextMenu.Items.Add(affixDuplicateItem);
+            affixEditContextMenu.Items.Add(affixToggleAffixType);
+            affixEditContextMenu.Items.Add("-");
             affixEditContextMenu.Items.Add(affixInsertPrefixBefore);
             affixEditContextMenu.Items.Add(affixInsertPrefixAfter);
             affixEditContextMenu.Items.Add(affixInsertSuffixBefore);
@@ -818,6 +829,19 @@ namespace SIL.FLExTransRuleGenerator.Control
                     word.SwapPositionOfAffixes(index, index + 1);
                     ReportChangeMade();
                 }
+            }
+        }
+
+        protected void AffixToggleAffixTypeContextMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == cmToggleAffixType)
+            {
+                if (affix.Type == AffixType.prefix)
+                    affix.Type = AffixType.suffix;
+                else
+                    affix.Type = AffixType.prefix;
+                ReportChangeMade();
             }
         }
 
