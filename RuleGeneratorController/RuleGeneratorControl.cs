@@ -260,6 +260,12 @@ namespace SIL.FLExTransRuleGenerator.Control
             cmMoveUp = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.cmMoveUp;
             lblName.Text = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.RuleName;
             this.Text = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.FormTitle;
+            this.lblRules.Text = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.Rules;
+            this.lblRightClickToEdit.Text = SIL.FLExTransRuleGen
+                .Controller
+                .Properties
+                .RuleGenStrings
+                .RightCLickToEdit;
             BuildContextMenus();
         }
 

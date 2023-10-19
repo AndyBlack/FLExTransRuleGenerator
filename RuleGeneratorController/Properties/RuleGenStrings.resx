@@ -213,4 +213,12 @@
     <value>Feature Value Chooser</value>
     <comment>Tilte of the feature value chooser dialog</comment>
   </data>
+  <data name="RightCLickToEdit" xml:space="preserve">
+    <value>(Right-click to edit)</value>
+    <comment>Message that one can use right-clicking to edit rules</comment>
+  </data>
+  <data name="Rules" xml:space="preserve">
+    <value>Rules</value>
+    <comment>Label for the list of rules</comment>
+  </data>
 </root>

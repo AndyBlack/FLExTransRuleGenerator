@@ -30,10 +30,11 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RuleGeneratorControl));
 			this.lBoxRules = new System.Windows.Forms.ListBox();
-			this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
 			this.wv2RuleEditor = new Microsoft.Web.WebView2.WinForms.WebView2();
 			this.lblName = new System.Windows.Forms.Label();
 			this.tbName = new System.Windows.Forms.TextBox();
+			this.lblRules = new System.Windows.Forms.Label();
+			this.lblRightClickToEdit = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.wv2RuleEditor)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -50,16 +51,6 @@
 			this.lBoxRules.TabIndex = 0;
 			this.lBoxRules.SelectedIndexChanged += new System.EventHandler(this.lBoxRules_SelectedIndexChanged);
 			this.lBoxRules.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lBoxRules_MouseUp);
-
-			// 
-			// checkedListBox1
-			// 
-			this.checkedListBox1.FormattingEnabled = true;
-			this.checkedListBox1.Location = new System.Drawing.Point(129, 74);
-			this.checkedListBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.checkedListBox1.Name = "checkedListBox1";
-			this.checkedListBox1.Size = new System.Drawing.Size(10, 4);
-			this.checkedListBox1.TabIndex = 1;
 			// 
 			// wv2RuleEditor
 			// 
@@ -91,15 +82,35 @@
 			this.tbName.Size = new System.Drawing.Size(597, 26);
 			this.tbName.TabIndex = 4;
 			// 
+			// lblRules
+			// 
+			this.lblRules.AutoSize = true;
+			this.lblRules.Location = new System.Drawing.Point(8, 60);
+			this.lblRules.Name = "lblRules";
+			this.lblRules.Size = new System.Drawing.Size(50, 20);
+			this.lblRules.TabIndex = 5;
+			this.lblRules.Text = "Rules";
+			// 
+			// lblRightClickToEdit
+			// 
+			this.lblRightClickToEdit.AutoSize = true;
+			this.lblRightClickToEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblRightClickToEdit.Location = new System.Drawing.Point(80, 60);
+			this.lblRightClickToEdit.Name = "lblRightClickToEdit";
+			this.lblRightClickToEdit.Size = new System.Drawing.Size(140, 20);
+			this.lblRightClickToEdit.TabIndex = 6;
+			this.lblRightClickToEdit.Text = "(Right-click to edit)";
+			// 
 			// RuleGeneratorControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1584, 820);
+			this.Controls.Add(this.lblRightClickToEdit);
+			this.Controls.Add(this.lblRules);
 			this.Controls.Add(this.tbName);
 			this.Controls.Add(this.lblName);
 			this.Controls.Add(this.wv2RuleEditor);
-			this.Controls.Add(this.checkedListBox1);
 			this.Controls.Add(this.lBoxRules);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "RuleGeneratorControl";
@@ -113,9 +124,10 @@
 		#endregion
 
 		private System.Windows.Forms.ListBox lBoxRules;
-		private System.Windows.Forms.CheckedListBox checkedListBox1;
 		private Microsoft.Web.WebView2.WinForms.WebView2 wv2RuleEditor;
 		private System.Windows.Forms.Label lblName;
 		private System.Windows.Forms.TextBox tbName;
+		private System.Windows.Forms.Label lblRules;
+		private System.Windows.Forms.Label lblRightClickToEdit;
 	}
 }

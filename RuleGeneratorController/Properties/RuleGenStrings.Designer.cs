@@ -268,11 +268,29 @@ namespace SIL.FLExTransRuleGen.Controller.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (Right-click to edit).
+        /// </summary>
+        internal static string RightCLickToEdit {
+            get {
+                return ResourceManager.GetString("RightCLickToEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rule Name:.
         /// </summary>
         internal static string RuleName {
             get {
                 return ResourceManager.GetString("RuleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rules.
+        /// </summary>
+        internal static string Rules {
+            get {
+                return ResourceManager.GetString("Rules", resourceCulture);
             }
         }
     }
