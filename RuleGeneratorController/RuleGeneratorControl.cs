@@ -821,6 +821,7 @@ namespace SIL.FLExTransRuleGenerator.Control
             ToolStripItem menuItem = (ToolStripItem)sender;
             if (menuItem.Name == cmInsertFeature)
             {
+                feature = null;
                 ProcessInsertFeature();
             }
         }
