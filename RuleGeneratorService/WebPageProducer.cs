@@ -63,6 +63,7 @@ namespace SIL.FLExTransRuleGen.Service
             StringBuilder sb = new StringBuilder();
             sb.Append("function toApp(msg) {\n");
             sb.Append("window.chrome.webview.postMessage(msg);\n");
+            sb.Append("return false;\n");
             sb.Append("}\n");
             return sb.ToString();
         }

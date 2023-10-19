@@ -30,11 +30,22 @@ namespace SIL.FLExTransRuleGen.Model
             sb.Append(sType);
             sb.Append(".");
             sb.Append(Identifier);
-            sb.Append("\" onclick=\"toApp('");
+            sb.Append("\" onclick=");
+            sb.Append(ProduceToApp(sType));
+            sb.Append(" oncontextmenu=");
+            sb.Append(ProduceToApp(sType));
+            sb.Append("\">");
+            return sb.ToString();
+        }
+
+        protected string ProduceToApp(string sType)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("\"toApp('");
             sb.Append(sType);
             sb.Append(".");
             sb.Append(Identifier);
-            sb.Append("')\">");
+            sb.Append("')\"");
             return sb.ToString();
         }
     }
