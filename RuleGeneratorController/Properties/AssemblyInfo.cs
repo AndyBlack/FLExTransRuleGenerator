@@ -1,15 +1,19 @@
-﻿using System.Reflection;
+﻿// Copyright (c) 2023 SIL International
+// This software is licensed under the LGPL, version 2.1 or later
+// (http://www.gnu.org/licenses/lgpl-2.1.html)
+
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RuleGeneratorController")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("FLExTrans Rule Generator")]
+[assembly: AssemblyDescription("This program enables one to create FLExTrans transfer rules more easily.\r\n\r\nThis software is licensed under the LGPL, version 2.1 or later\r\n(http://www.gnu.org/licenses/lgpl-2.1.html)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("RuleGeneratorController")]
+[assembly: AssemblyCompany("SIL International")]
+[assembly: AssemblyProduct("FLExTrans Rule Generator")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

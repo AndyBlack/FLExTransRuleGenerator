@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -46,6 +47,9 @@ namespace SIL.FLExTransRuleGenerator.Control
         protected ContextMenuStrip categoryEditContextMenu;
         protected ContextMenuStrip featureEditContextMenu;
         protected ContextMenuStrip wordEditContextMenu;
+        protected ContextMenuStrip helpContextMenu;
+        protected string UserDocumentation = "User Documentation";
+        protected string About = "About";
 
         protected string cmDelete = "Delete";
         protected string cmDuplicate = "Duplicate";
@@ -103,6 +107,7 @@ namespace SIL.FLExTransRuleGenerator.Control
             BuildAffixContextMenu();
             BuildCategoryContextMenu();
             BuildFeatureContextMenu();
+            BuildHelpContextMenu();
             BuildWordContextMenu();
         }
 
@@ -272,6 +277,14 @@ namespace SIL.FLExTransRuleGenerator.Control
                 .Properties
                 .RuleGenStrings
                 .RightCLickToEdit;
+            UserDocumentation = SIL.FLExTransRuleGen
+                .Controller
+                .Properties
+                .RuleGenStrings
+                .UserDocumentation;
+            About = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.About;
+            btnHelp.Text = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.Help;
+
             BuildContextMenus();
         }
 
@@ -384,6 +397,20 @@ namespace SIL.FLExTransRuleGenerator.Control
                 lBoxRules.SetSelected(LastSelectedRule, true);
                 SelectedRule = FLExTransRuleGen.FLExTransRules[LastSelectedRule];
             }
+        }
+
+        protected void BuildHelpContextMenu()
+        {
+            helpContextMenu = new ContextMenuStrip();
+            ToolStripMenuItem userDoc = new ToolStripMenuItem(UserDocumentation);
+            userDoc.Click += new EventHandler(UserDoc_Click);
+            userDoc.Name = UserDocumentation;
+            ToolStripMenuItem about = new ToolStripMenuItem(About);
+            about.Click += new EventHandler(About_Click);
+            about.Name = About;
+            helpContextMenu.Items.Add(userDoc);
+            helpContextMenu.Items.Add("-");
+            helpContextMenu.Items.Add(about);
         }
 
         protected void BuildRuleContextMenu()
@@ -1328,11 +1355,79 @@ namespace SIL.FLExTransRuleGenerator.Control
                 this.Text += "*";
         }
 
-        // **************
         protected void OnFormClosing(object sender, EventArgs e)
         {
             //SaveAnyChanges();
             SaveRegistryInfo(RegKey);
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            Button btnSender = (Button)sender;
+            Point ptLowerLeft = new Point(0, btnSender.Height);
+            ptLowerLeft = btnSender.PointToScreen(ptLowerLeft);
+            helpContextMenu.Show(ptLowerLeft);
+        }
+
+        protected void About_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == About)
+            {
+                var dialog = BuildAboutBox();
+                // for some reason the following is needed to keep the dialog within the form
+                Point pt = dialog.PointToClient(System.Windows.Forms.Cursor.Position);
+                dialog.Location = new Point(this.Location.X + 20, this.Location.Y + 20);
+                dialog.Show();
+            }
+        }
+
+        protected virtual Form BuildAboutBox()
+        {
+            return new AboutBox();
+        }
+
+        protected void UserDoc_Click(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = (ToolStripItem)sender;
+            if (menuItem.Name == UserDocumentation)
+            {
+                String basedir = GetAppBaseDir();
+                string pathToUse = Path.Combine(
+                    basedir,
+                    "doc",
+                    "FLExTransRuleGenUserDocumentation.pdf"
+                );
+                Process.Start(pathToUse);
+            }
+        }
+
+        protected Uri GetBaseUri()
+        {
+            return new Uri(Assembly.GetExecutingAssembly().CodeBase);
+        }
+
+        protected string GetAppBaseDir()
+        {
+            string basedir;
+            string rootdir;
+            int indexOfBinInPath;
+            DetermineIndexOfBinInExecutablesPath(out rootdir, out indexOfBinInPath);
+            if (indexOfBinInPath >= 0)
+                basedir = rootdir.Substring(0, indexOfBinInPath);
+            else
+                basedir = rootdir;
+            return basedir;
+        }
+
+        protected void DetermineIndexOfBinInExecutablesPath(
+            out string rootdir,
+            out int indexOfBinInPath
+        )
+        {
+            Uri uriBase = GetBaseUri();
+            rootdir = Path.GetDirectoryName(Uri.UnescapeDataString(uriBase.AbsolutePath));
+            indexOfBinInPath = rootdir.LastIndexOf("bin");
         }
     }
 }

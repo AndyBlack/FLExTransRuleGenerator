@@ -61,6 +61,15 @@ namespace SIL.FLExTransRuleGen.Controller.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About FLExTrans Rule Generator.
+        /// </summary>
+        internal static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category Chooser.
         /// </summary>
         internal static string CategoryChooserTitle {
@@ -277,6 +286,15 @@ namespace SIL.FLExTransRuleGen.Controller.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        internal static string Help {
+            get {
+                return ResourceManager.GetString("Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (Right-click to edit).
         /// </summary>
         internal static string RightCLickToEdit {
@@ -300,6 +318,15 @@ namespace SIL.FLExTransRuleGen.Controller.Properties {
         internal static string Rules {
             get {
                 return ResourceManager.GetString("Rules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Documentation.
+        /// </summary>
+        internal static string UserDocumentation {
+            get {
+                return ResourceManager.GetString("UserDocumentation", resourceCulture);
             }
         }
     }

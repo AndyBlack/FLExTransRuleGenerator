@@ -35,6 +35,7 @@
 			this.tbName = new System.Windows.Forms.TextBox();
 			this.lblRules = new System.Windows.Forms.Label();
 			this.lblRightClickToEdit = new System.Windows.Forms.Label();
+			this.btnHelp = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.wv2RuleEditor)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -101,11 +102,23 @@
 			this.lblRightClickToEdit.TabIndex = 6;
 			this.lblRightClickToEdit.Text = "(Right-click to edit)";
 			// 
+			// btnHelp
+			// 
+			this.btnHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnHelp.Location = new System.Drawing.Point(1475, 84);
+			this.btnHelp.Name = "btnHelp";
+			this.btnHelp.Size = new System.Drawing.Size(75, 39);
+			this.btnHelp.TabIndex = 7;
+			this.btnHelp.Text = "Help";
+			this.btnHelp.UseVisualStyleBackColor = true;
+			this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
+			// 
 			// RuleGeneratorControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1584, 820);
+			this.Controls.Add(this.btnHelp);
 			this.Controls.Add(this.lblRightClickToEdit);
 			this.Controls.Add(this.lblRules);
 			this.Controls.Add(this.tbName);
@@ -129,5 +142,6 @@
 		private System.Windows.Forms.TextBox tbName;
 		private System.Windows.Forms.Label lblRules;
 		private System.Windows.Forms.Label lblRightClickToEdit;
+		private System.Windows.Forms.Button btnHelp;
 	}
 }

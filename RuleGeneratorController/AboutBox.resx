@@ -117,124 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="cmDelete" xml:space="preserve">
-    <value>Delete</value>
-    <comment>Context menu: Delete selected item</comment>
-  </data>
-  <data name="cmDuplicate" xml:space="preserve">
-    <value>Duplicate</value>
-    <comment>Context menu: Duplicate selected item</comment>
-  </data>
-  <data name="cmInsertAfter" xml:space="preserve">
-    <value>Insert new after</value>
-    <comment>Context menu: Insert new item after the selected item</comment>
-  </data>
-  <data name="cmInsertBefore" xml:space="preserve">
-    <value>Insert new before</value>
-    <comment>Context menu: Insert new item before the selected item</comment>
-  </data>
-  <data name="cmMoveDown" xml:space="preserve">
-    <value>Move down</value>
-    <comment>List box context menu: Move selected rule down</comment>
-  </data>
-  <data name="cmMoveUp" xml:space="preserve">
-    <value>Move up</value>
-    <comment>List box context menu: Move selected rule up</comment>
-  </data>
-  <data name="FormTitle" xml:space="preserve">
-    <value>FLExTrans Rule Generator</value>
-    <comment>Title of the main dialog form</comment>
-  </data>
-  <data name="RuleName" xml:space="preserve">
-    <value>Rule Name:</value>
-    <comment>Name of the chosen rule</comment>
-  </data>
-  <data name="cmEdit" xml:space="preserve">
-    <value>Edit</value>
-    <comment>Context menu: Edit selected item</comment>
-  </data>
-  <data name="cmInsertCategory" xml:space="preserve">
-    <value>Insert category</value>
-    <comment>Context menu: Insert a category for a word</comment>
-  </data>
-  <data name="cmInsertFeature" xml:space="preserve">
-    <value>Insert feature</value>
-    <comment>Context menu: Insert a new feature</comment>
-  </data>
-  <data name="cmInsertPrefix" xml:space="preserve">
-    <value>Insert prefix</value>
-    <comment>Context menu: insert a new prefix</comment>
-  </data>
-  <data name="cmInsertPrefixAfter" xml:space="preserve">
-    <value>Insert new prefix after</value>
-    <comment>Context menu: insert a new prefix after</comment>
-  </data>
-  <data name="cmInsertPrefixBefore" xml:space="preserve">
-    <value>Insert new prefix before</value>
-    <comment>Context menu: insert a new prefix before</comment>
-  </data>
-  <data name="cmInsertSuffix" xml:space="preserve">
-    <value>insert suffix</value>
-    <comment>Context menu: insert a new suffix</comment>
-  </data>
-  <data name="cmInsertSuffixAfter" xml:space="preserve">
-    <value>Insert new suffix after</value>
-    <comment>Context menu: insert a new suffix after</comment>
-  </data>
-  <data name="cmInsertSuffixBefore" xml:space="preserve">
-    <value>Insert new suffix before</value>
-    <comment>Context menu: insert a new suffix before</comment>
-  </data>
-  <data name="cmMarkAsHead" xml:space="preserve">
-    <value>Mark as head</value>
-    <comment>Mark selected word as the head of the phrase</comment>
-  </data>
-  <data name="cmMoveLeft" xml:space="preserve">
-    <value>Move left</value>
-    <comment>Move item to the left</comment>
-  </data>
-  <data name="cmMoveRight" xml:space="preserve">
-    <value>Move right</value>
-    <comment>Move item to the right</comment>
-  </data>
-  <data name="cmRemoveHeadMarking" xml:space="preserve">
-    <value>Remove head marking</value>
-    <comment>Remove head marking of the selected word</comment>
-  </data>
-  <data name="CategoryChooserTitle" xml:space="preserve">
-    <value>Category Chooser</value>
-    <comment>Tilte of the category chooser dialog</comment>
-  </data>
-  <data name="FeatureChooserTitle" xml:space="preserve">
-    <value>Feature Chooser</value>
-    <comment>Tilte of the feature chooser dialog</comment>
-  </data>
-  <data name="FeatureValueChooserTitle" xml:space="preserve">
-    <value>Feature Value Chooser</value>
-    <comment>Tilte of the feature value chooser dialog</comment>
-  </data>
-  <data name="cmToggleAffixType" xml:space="preserve">
-    <value>Toggle affix type</value>
-    <comment>Switch prefix to suffix and vice versa</comment>
-  </data>
-  <data name="RightCLickToEdit" xml:space="preserve">
-    <value>(Right-click to edit)</value>
-    <comment>Message that one can use right-clicking to edit rules</comment>
-  </data>
-  <data name="Rules" xml:space="preserve">
-    <value>Rules</value>
-    <comment>Label for the list of rules</comment>
-  </data>
-  <data name="About" xml:space="preserve">
-    <value>About FLExTrans Rule Generator</value>
-    <comment>Help context menu: about</comment>
-  </data>
-  <data name="Help" xml:space="preserve">
-    <value>Help</value>
-    <comment>Help button title</comment>
-  </data>
-  <data name="UserDocumentation" xml:space="preserve">
-    <value>User Documentation</value>
-    <comment>Help context menu: user documentation</comment>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="logoPictureBox.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAHAAAAB8CAIAAAA+QKNnAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAABKRJREFUeF7tnFtvVFUYhv0JVKlEwgWHGCXRRGOiN42JVyZCvOPKRCOhtEIDVSBE
+        iUZIEwwEDxdaSaolEaQV2lootKQcyqlCKGBLKYU20A40HRGGtk6dMqXU1axmZvN1n+cdDq73zZPJpLO+
+        Nd96ejF7r71nnhpnoJkQmpO/c9oSgoFCwVAoGAoFQ6FgKBQMhYKhUDAUCoZCwVAoGAoFQ6FgKBQMhYKh
+        UDAUCoZCwVAoGAoFQ6FgKBQMhYKhUDAUCoZCwVAoGAoFQ6FgKBQMhYKhUDAUCoZCwVAoGAoFQ6FgKBQM
+        hYKhUDAUCoZCwVAoGAoFk0WhOfkVG6pb/+yN3f5nRL2LTiJ5L3Ir3nzl5uodLbmFlaLkf0BWhBb+9Ecs
+        flcb9MzFGwOrtp8RMwgaWvuaOqK2lB3pEoOtvLvlsPrnObHn7HUxPnPAQl//fN/d0TFtKlDeKjkgprIy
+        PDI6OW5KzvfExGArH249OTnOLjdiw2J85iCFbqy9oBsNkbnF1WI2KyYKLTvcpbsMF/cejBNatO20bjF0
+        xIQCs4Q+t2yX7i90uqODYk6BWUKPdUZ1f6HzfukJMafALKG6uUwyo/A3MafAIKGb69p1c565OZj4ZPuZ
+        Nzc05K1vKCo/da4nNvnC+PjT+RViWoFBQq/0D+rmXFLbct1J2Suf7um9FRd/nIpBQu/r1pxTdx5wNmKQ
+        UN2ZS3KmlISAQtMR48NBoemI8eGg0HTE+HCY9KHk9amUX9YsSkJgkNDW3vThpFOezXgj2SCh731/XDfn
+        nmeWehy6u2OQUIVuzjNf778oCv1jltDl5X737gaGk/NcN5KdMEuoovfvuG7RTw6194tyT4wTGnRLdHTs
+        /sJNh8QkLhgnVDF/da3u0n9KGy+LSZwwUajihVU1ulH/Odb5l5jEFkOFKqYXVMSdF2+b45e9nZorVHOg
+        rU937DPFv3jc6GC6UMXzH9ckkvd0334ye0WVmMEKhU6y63SPbt0zyr6otUKhaV79bK/u3jMvr60VtSko
+        9AFmLvd1lPp7S0QUpqBQyayi3XoN7hFVKSjUhs17vS845xbYb/RRqA3qXfQyXPLGF/tFlYZC7VGn8Hol
+        Tnln00FRoqFQexJeR6YUGowxrytQeevrRYmGQm140cfWycxl9neNUahkzsoqvQb3iKoUFJrmtXV1sXj6
+        azUuiTjfNfaECX1M8vZXjaK5FFkSmo08RkKFCysUGjgLXC8xUWiwdEeHhAgBhQZIfGQ05xHdEp6NPGKh
+        /Xf+FQpsoVBf+bX5qli/ExTqka7o0IyPAtySR6E2UefxA8PJkuo2sWY/PGFC5xZXzV6BR6wtE76t7/ih
+        sdOWdZXnxGAreV/Wf1Pf8TCZEPrQdptMgELBUCgYCgVDoWAoFAyFgqFQMBQKhkLBUCgYCgVDoWAoFAyF
+        gqFQMBQKhkLBUCgYCgVDoWAoNBhnr91ui8QUH5SeeGnNxFf/fm564GfKKTQwPx6c+N2E8qPdTR1R9aSk
+        pnXOyvQ1cwoNjBbaHrlTtO3Uou+O5hZUWn8znkIDo4UOJZLq8VLfgHpcvPWkfklBoWAoFAyFgqFQKEt2
+        /gewieDIlw70wwAAAABJRU5ErkJggg==
+</value>
   </data>
 </root>
