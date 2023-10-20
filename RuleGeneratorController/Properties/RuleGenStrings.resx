@@ -233,6 +233,10 @@
     <value>Help</value>
     <comment>Help button title</comment>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+    <comment>Save button title</comment>
+  </data>
   <data name="UserDocumentation" xml:space="preserve">
     <value>User Documentation</value>
     <comment>Help context menu: user documentation</comment>

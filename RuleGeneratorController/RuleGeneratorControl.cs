@@ -81,6 +81,8 @@ namespace SIL.FLExTransRuleGenerator.Control
         protected const string m_strSizeWidth = "SizeWidth";
         protected const string m_strWindowState = "WindowState";
         public Rectangle RectNormal { get; set; }
+        public XmlBackEndProvider Provider { get; set; }
+        public string RuleGenFile { get; set; }
 
         public RuleGeneratorControl()
         {
@@ -284,7 +286,7 @@ namespace SIL.FLExTransRuleGenerator.Control
                 .UserDocumentation;
             About = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.About;
             btnHelp.Text = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.Help;
-
+            btnSave.Text = SIL.FLExTransRuleGen.Controller.Properties.RuleGenStrings.Save;
             BuildContextMenus();
         }
 
@@ -1428,6 +1430,15 @@ namespace SIL.FLExTransRuleGenerator.Control
             Uri uriBase = GetBaseUri();
             rootdir = Path.GetDirectoryName(Uri.UnescapeDataString(uriBase.AbsolutePath));
             indexOfBinInPath = rootdir.LastIndexOf("bin");
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.WaitCursor;
+            Provider.RuleGenerator = FLExTransRuleGen;
+            Provider.SaveDataToFile(RuleGenFile);
+            MarkAsChanged(false);
+            this.Cursor = Cursors.Arrow;
         }
     }
 }

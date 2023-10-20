@@ -52,6 +52,8 @@ namespace SIL.FLExTransRuleGenerator
                     Console.WriteLine(e.Message);
                 }
             }
+            controller.Provider = provider;
+            controller.RuleGenFile = args[0];
             controller.FLExTransRuleGen = provider.RuleGenerator;
             controller.FillRulesListBox();
             controller.FLExData = providerFLExData.FLExData;

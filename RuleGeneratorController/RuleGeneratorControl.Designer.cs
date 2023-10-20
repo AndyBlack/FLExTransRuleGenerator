@@ -36,6 +36,7 @@
 			this.lblRules = new System.Windows.Forms.Label();
 			this.lblRightClickToEdit = new System.Windows.Forms.Label();
 			this.btnHelp = new System.Windows.Forms.Button();
+			this.btnSave = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.wv2RuleEditor)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -113,11 +114,23 @@
 			this.btnHelp.UseVisualStyleBackColor = true;
 			this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
 			// 
+			// btnSave
+			// 
+			this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnSave.Location = new System.Drawing.Point(1347, 84);
+			this.btnSave.Name = "btnSave";
+			this.btnSave.Size = new System.Drawing.Size(98, 39);
+			this.btnSave.TabIndex = 8;
+			this.btnSave.Text = "Save";
+			this.btnSave.UseVisualStyleBackColor = true;
+			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+			// 
 			// RuleGeneratorControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1584, 820);
+			this.Controls.Add(this.btnSave);
 			this.Controls.Add(this.btnHelp);
 			this.Controls.Add(this.lblRightClickToEdit);
 			this.Controls.Add(this.lblRules);
@@ -143,5 +156,6 @@
 		private System.Windows.Forms.Label lblRules;
 		private System.Windows.Forms.Label lblRightClickToEdit;
 		private System.Windows.Forms.Button btnHelp;
+		private System.Windows.Forms.Button btnSave;
 	}
 }
