@@ -290,7 +290,7 @@ namespace SIL.FLExTransRuleGenerator.Control
             BuildContextMenus();
         }
 
-        private async void webview2_CoreWebView2InitializationCompleted(
+        private void webview2_CoreWebView2InitializationCompleted(
             object sender,
             CoreWebView2InitializationCompletedEventArgs e
         )
